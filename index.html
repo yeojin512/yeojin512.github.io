@@ -1,0 +1,891 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <link rel="dns-prefetch" href="//ajax.googleapis.com">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,requiresActiveX=true">
+    <title>정여진의 포트폴리오</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="msapplication-tap-highlight" content="no" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.1/normalize.min.css">
+	<link rel="stylesheet" href="//maxcdn.bootstraPCdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/common.css" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+</head>
+<body>
+<!--[if lte ie 8]>
+<p class="browserupgrade"><strong>지원이 중단된</strong> 브라우저를 사용하고 있습니다. <a href="http://browsehappy.com/" target="_blank" title="새창">브라우저 업데이트</a>를 통해 최적화된 화면을 볼 수 있습니다.</p>
+<![endif]-->
+
+<!--
+<div class="skip"><a href="#container">본문 바로가기</a></div>
+-->
+
+<div class="l-wrap">
+    <header class="l-head">
+        <h1 class="logo">JEONG YEO JIN</h1>
+		
+        <nav class="l-gnb">
+            <ul>
+                <li class="l-gnb__item"><a href="#portfolio" class="l-gnb__anchor">Portfolio</a></li>
+	            <li class="l-gnb__item"><a href="#profile" class="l-gnb__anchor">Profile</a></li>
+                <li class="l-gnb__item"><a href="#self" class="l-gnb__anchor">Self-introduction</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="container" class="l-container">
+        <article id="portfolio" class="mod portfolio">
+            <h1 class="mod__head">Portfolio</h1>
+			
+	        <div class="c-tab">
+		        <a href="#" id="tab01" class="c-tab__anchor"><i aria-hidden="true" class="fa fa-th-large"></i>앨범형</a>
+		        <a href="#" id="tab02" class="c-tab__anchor"><i aria-hidden="true" class="fa fa-th-list"></i>목록형</a>
+	        </div>
+
+	        <p class="portfolio__info"><span aria-hidden="true" class="fa fa-question-circle"></span>사이트 바로가기 버튼이 없는 경우, 프로젝트 성격상 폐쇠형이거나 사이트 변경 및 삭제된 경우 입니다.</p>
+
+            <div class="mod__body">
+                <h2 class="sr-only">포트폴리오 앨범형으로 보기</h2>
+				
+	            <div class="portfolio__view">
+		            <ul class="grid is-loading" id="grid">
+						<li class="grid__item">
+							<div class="grid__cont">
+								<strong class="grid__name">삼성 판매접점 관리시스템</strong>
+								<p class="grid__text"><span class="grid__sort">수행기간</span> 2017.10 ~ 2018.02</p>
+								<p class="grid__text"><span class="grid__sort">디바이스</span> Mobile, PC</p>
+								<p class="grid__text"><span class="grid__sort">참여율</span> 40%</p>
+							</div>
+						</li>
+						<li class="grid__item">
+							<div class="grid__cont">
+								<strong class="grid__name">포스코 POSPIA 3.0 Lite 조업파트 UI 개선</strong>
+								<p class="grid__text"><span class="grid__sort">수행기간</span> 2017.05 ~ 2017.07</p>
+								<p class="grid__text"><span class="grid__sort">주요업무</span> JSP 개발 코드 직접 수정</p>
+								<p class="grid__text"><span class="grid__sort">디바이스</span> PC</p>
+								<p class="grid__text"><span class="grid__sort">참여율</span> 100%</p>
+							</div>
+						</li>
+						<li class="grid__item">
+							<div class="grid__thumb">
+								<a href="#lyView" class="grid__anchor ly-open" title="레이어 팝업" data-imgs="['../images/img_hanssemmall_1.jpg','../images/img_hanssemmall_2.jpg','../images/img_hanssemmall_3.jpg']">
+									<img class="grid__img" src="../images/img_hanssemmall_1.jpg" alt="한샘몰 쇼핑몰">
+									<span class="grid__more"><i aria-hidden="true" class="fa fa-plus-circle"></i>이미지 더보기</span>
+								</a>
+							</div>
+							<div class="grid__cont">
+								<strong class="grid__name">한샘몰 쇼핑몰</strong>
+								<p class="grid__text"><span class="grid__sort">수행기간</span> 2017.01 ~ 2017.04</p>
+								<p class="grid__text"><span class="grid__sort">디바이스</span> Mobile</p>
+								<p class="grid__text"><span class="grid__sort">참여율</span> 50%</p>
+								<a href="http://mall.hanssem.com/m/main.html" class="portfolio__link" target="_blank" title="한샘몰 쇼핑몰 새창"> <span aria-hidden="true" class="fa fa-arrow-circle-right"></span>GO</a>
+							</div>
+						</li>
+						<li class="grid__item">
+							<div class="grid__thumb">
+								<a href="#lyView" class="grid__anchor ly-open" title="레이어 팝업" data-imgs="['../images/img_kbcapital_1.jpg','../images/img_kbcapital_2.jpg']">
+									<img class="grid__img" src="../images/img_kbcapital_1.jpg" alt="KB캐피탈 자산관리 시스템">
+									<span class="grid__more"><i aria-hidden="true" class="fa fa-plus-circle"></i>이미지 더보기</span>
+								</a>
+							</div>
+							<div class="grid__cont">
+								<strong class="grid__name">KB캐피탈 자산관리 시스템</strong>
+								<p class="grid__text"><span class="grid__sort">수행기간</span> 2016.08 ~ 2017.01</p>
+								<p class="grid__text"><span class="grid__sort">디바이스</span> Responsive Web</p>
+								<p class="grid__text"><span class="grid__sort">참여율</span> 100%</p>
+							</div>
+						</li>
+						<li class="grid__item">
+							<div class="grid__thumb">
+								<a href="#lyView" class="grid__anchor ly-open" title="레이어 팝업" data-imgs="['../images/img_zin_1.jpg','../images/img_zin_2.jpg','../images/img_zin_3.jpg','../images/img_zin_4.jpg','../images/img_zin_5.jpg']">
+									<img class="grid__img" src="../images/img_zin_1.jpg" alt="LG 하우시스 Z:IN">
+									<span class="grid__more"><i aria-hidden="true" class="fa fa-plus-circle"></i>이미지 더보기</span>
+								</a>
+							</div>
+							<div class="grid__cont">
+								<strong class="grid__name">LG 하우시스 Z:IN PC 리뉴얼 및 모바일 구축</strong>
+								<p class="grid__text"><span class="grid__sort">수행기간</span> 2016.03 ~ 2016.06</p>
+								<p class="grid__text"><span class="grid__sort">주요업무</span> 1. 레이아웃, Mobile 메인 마크업 <br> 2. Mobile 가이드라인 제작</p>
+								<p class="grid__text"><span class="grid__sort">디바이스</span> Mobile, PC</p>
+								<p class="grid__text"><span class="grid__sort">참여율</span> PC 30%, Mobile 50%</p>
+								<a href="http://www.z-in.co.kr/mobile/mIndex.jsp" class="portfolio__link" target="_blank" title="Z:IN 새창"> <span aria-hidden="true" class="fa fa-arrow-circle-right"></span>GO</a>
+							</div>
+						</li>
+						<li class="grid__item">
+				            <div class="grid__cont">
+					            <strong class="grid__name">포스코 탄소강 표준모델 MES UI 개선</strong>
+					            <p class="grid__text"><span class="grid__sort">수행기간</span> 2016.01 ~ 2016.02</p>
+								<p class="grid__text"><span class="grid__sort">주요업무</span> JSP 개발 코드 직접 수정</p>
+								<p class="grid__text"><span class="grid__sort">디바이스</span> PC</p>
+								<p class="grid__text"><span class="grid__sort">참여율</span> 30%</p>
+				            </div>
+			            </li>
+						<li class="grid__item">
+							<div class="grid__thumb">
+								<a href="#lyView" class="grid__anchor ly-open" title="레이어 팝업" data-imgs="['../images/img_homechart_1.jpg','../images/img_homechart_2.jpg','../images/img_homechart_3.jpg','../images/img_homechart_4.jpg','../images/img_homechart_5.jpg','../images/img_homechart_6.jpg']">
+									<img class="grid__img" src="../images/img_homechart_1.jpg" alt="한미 IT 홈차트">
+									<span class="grid__more"><i aria-hidden="true" class="fa fa-plus-circle"></i>이미지 더보기</span>
+								</a>
+							</div>
+				            <div class="grid__cont">
+					            <strong class="grid__name">한미 IT 홈차트</strong>
+					            <p class="grid__text"><span class="grid__sort">수행기간</span> 2015.10 ~ 2015.12</p>
+					            <p class="grid__text"><span class="grid__sort">디바이스</span> Responsive Web</p>
+					            <p class="grid__text"><span class="grid__sort">참여율</span> 100%</p>
+				            </div>
+			            </li>
+						<li class="grid__item">
+				            <div class="grid__thumb">
+					            <a href="#lyView" class="grid__anchor ly-open" title="레이어 팝업" data-imgs="['../images/img_amorepacific_1.jpg','../images/img_amorepacific_2.jpg','../images/img_amorepacific_3.jpg','../images/img_amorepacific_4.jpg','../images/img_amorepacific_5.jpg','../images/img_amorepacific_6.jpg','../images/img_amorepacific_7.jpg','../images/img_amorepacific_8.jpg','../images/img_amorepacific_9.jpg']">
+						            <img class="grid__img" src="../images/img_amorepacific_1.jpg" alt="브랜드 아모레퍼시픽">
+						            <span class="grid__more"><i aria-hidden="true" class="fa fa-plus-circle"></i>이미지 더보기</span>
+					            </a>
+				            </div>
+				            <div class="grid__cont">
+					            <strong class="grid__name">브랜드 아모레퍼시픽</strong>
+					            <p class="grid__text"><span class="grid__sort">수행기간</span> 2015.07 ~ 2015.09</p>
+					            <p class="grid__text"><span class="grid__sort">주요업무</span> 1. 퍼블리싱 PL <br>2. 레이아웃, 메인 마크업 <br> 3. 가이드라인 제작</p>
+								<p class="grid__text"><span class="grid__sort">주요성과</span> 1. 웹접근성 마크 획득<br> 2. Adobe CQ5솔루션 기반 프로젝트 경험<br>3. 웹어워드 2015 모바일웹 마케팅부문 통합대상 수상</p>
+					            <p class="grid__text"><span class="grid__sort">디바이스</span> Responsive Web</p>
+					            <p class="grid__text"><span class="grid__sort">참여율</span> 70%</p>
+								<a href="http://www.brandamorepacific.com" class="portfolio__link" target="_blank" title="브랜드 아모레퍼시픽 새창"> <span aria-hidden="true" class="fa fa-arrow-circle-right"></span>GO</a>
+				            </div>
+			            </li>
+						<li class="grid__item">
+				            <div class="grid__thumb">
+					            <a href="#lyView" class="grid__anchor ly-open" title="레이어 팝업" data-imgs="['../images/img_kiauk_1.jpg','../images/img_kiauk_2.jpg','../images/img_kiauk_3.jpg','../images/img_kiauk_4.jpg','../images/img_kiauk_5.jpg','../images/img_kiauk_6.jpg','../images/img_kiauk_7.jpg','../images/img_kiauk_8.jpg']">
+						            <img class="grid__img" src="../images/img_kiauk_1.jpg" alt="기아 UK Market">
+						            <span class="grid__more"><i aria-hidden="true" class="fa fa-plus-circle"></i>이미지 더보기</span>
+					            </a>
+				            </div>
+				            <div class="grid__cont">
+					            <strong class="grid__name">기아 UK Market</strong>
+					            <p class="grid__text"><span class="grid__sort">수행기간</span> 2015.06 ~ 2015.06</p>
+					            <p class="grid__text"><span class="grid__sort">주요업무</span> 글로벌 사이트 확산</p>
+					            <p class="grid__text"><span class="grid__sort">디바이스</span> Responsive Web</p>
+					            <p class="grid__text"><span class="grid__sort">참여율</span> 20%</p>
+				            </div>
+			            </li>
+			            <li class="grid__item">
+				            <div class="grid__thumb">
+					            <a href="#lyView" class="grid__anchor ly-open" title="레이어 팝업" data-imgs="['../images/img_cjmexico_1.jpg','../images/img_cjmexico_2.jpg','../images/img_cjmexico_3.jpg','../images/img_cjmexico_4.jpg','../images/img_cjmexico_5.jpg','../images/img_cjmexico_6.jpg']">
+						            <img class="grid__img" src="../images/img_cjmexico_1.jpg" alt="CJ오쇼핑 멕시코 e커머스">
+						            <span class="grid__more"><i aria-hidden="true" class="fa fa-plus-circle"></i>이미지 더보기</span>
+					            </a>
+				            </div>
+				            <div class="grid__cont">
+					            <strong class="grid__name">CJ오쇼핑 멕시코 e커머스</strong>
+					            <p class="grid__text"><span class="grid__sort">수행기간</span> 2015.04 ~ 2015.06</p>
+					            <p class="grid__text"><span class="grid__sort">디바이스</span> Mobile, PC</p>
+					            <p class="grid__text"><span class="grid__sort">참여율</span> 50%</p>
+								<a href="http://www.cjgrandshopping.com/mall/frm/index" class="portfolio__link" target="_blank" title="CJ오쇼핑 멕시코 e커머스 새창"> <span aria-hidden="true" class="fa fa-arrow-circle-right"></span>GO</a>
+				            </div>
+			            </li>
+			            <li class="grid__item">
+				            <div class="grid__thumb">
+					            <a href="#lyView" class="grid__anchor ly-open" title="레이어 팝업" data-imgs="['../images/img_ebay_1.jpg','../images/img_ebay_2.jpg']">
+						            <img class="grid__img" src="../images/img_ebay_1.jpg" alt="ebay 셀러 공식 지원 사이트">
+						            <span class="grid__more"><i aria-hidden="true" class="fa fa-plus-circle"></i>이미지 더보기</span>
+					            </a>
+				            </div>
+				            <div class="grid__cont">
+					            <strong class="grid__name">ebay 셀러 공식 지원 사이트</strong>
+					            <p class="grid__text"><span class="grid__sort">수행기간</span> 2015.03 ~ 2015.03</p>
+					            <p class="grid__text"><span class="grid__sort">주요업무</span> 1. 레이아웃, 메인 마크업 <br> 2. 가이드라인 제작</p>
+					            <p class="grid__text"><span class="grid__sort">디바이스</span> PC</p>
+					            <p class="grid__text"><span class="grid__sort">참여율</span> 20%</p>
+				            </div>
+			            </li>
+			            <li class="grid__item">
+				            <div class="grid__thumb">
+					            <a href="#lyView" class="grid__anchor ly-open" title="레이어 팝업" data-imgs="['../images/img_b2b_1.jpg','../images/img_b2b_2.jpg']">
+						            <img class="grid__img" src="../images/img_b2b_1.jpg" alt="LG B2B 파트너포탈 설문시스템">
+						            <span class="grid__more"><i aria-hidden="true" class="fa fa-plus-circle"></i>이미지 더보기</span>
+					            </a>
+				            </div>
+				            <div class="grid__cont">
+					            <strong class="grid__name">LG B2B 파트너포탈 설문시스템</strong>
+					            <p class="grid__text"><span class="grid__sort">수행기간</span> 2015.03 ~ 2015.03</p>
+					            <p class="grid__text"><span class="grid__sort">디바이스</span> PC</p>
+					            <p class="grid__text"><span class="grid__sort">참여율</span> 100%</p>
+				            </div>
+			            </li>
+			            <li class="grid__item">
+				            <div class="grid__cont">
+					            <strong class="grid__name">GS리테일 나만의냉장고 관리자</strong>
+					            <p class="grid__text"><span class="grid__sort">수행기간</span> 2015.02 ~ 2015.02</p>
+					            <p class="grid__text"><span class="grid__sort">주요성과</span> LG CNS RUI프레임워크 사용경험</p>
+					            <p class="grid__text"><span class="grid__sort">디바이스</span> PC</p>
+					            <p class="grid__text"><span class="grid__sort">참여율</span> 100%</p>
+				            </div>
+			            </li>
+			            <li class="grid__item">
+				            <div class="grid__thumb">
+					            <a href="#lyView" class="grid__anchor ly-open" title="레이어 팝업" data-imgs="['../images/img_beautypoint_1.jpg','../images/img_beautypoint_2.jpg','../images/img_beautypoint_3.jpg','../images/img_beautypoint_4.jpg','../images/img_beautypoint_5.jpg']">
+						            <img class="grid__img" src="../images/img_beautypoint_1.jpg" alt="아모레퍼시픽 뷰티포인트">
+						            <span class="grid__more"><i aria-hidden="true" class="fa fa-plus-circle"></i>이미지 더보기</span>
+					            </a>
+				            </div>
+				            <div class="grid__cont">
+					            <strong class="grid__name">아모레퍼시픽 뷰티포인트</strong>
+					            <p class="grid__text"><span class="grid__sort">수행기간</span> 2014.07 ~ 2014.10</p>
+					            <p class="grid__text"><span class="grid__sort">주요성과</span> 1. 웹접근성 마크 획득<br> 2. Adobe CQ5솔루션 기반 프로젝트 경험</p>
+					            <p class="grid__text"><span class="grid__sort">디바이스</span> Responsive Web</p>
+					            <p class="grid__text"><span class="grid__sort">참여율</span> 20%</p>
+				            </div>
+			            </li>
+			            <li class="grid__item">
+				            <div class="grid__thumb">
+					            <a href="#lyView" class="grid__anchor ly-open" title="레이어 팝업" data-imgs="['../images/img_lf_1.jpg','../images/img_lf_2.jpg']">
+						            <img class="grid__img" src="../images/img_lf_1.jpg" alt="LG LF패션 쇼핑몰 (정상몰, 이월몰)">
+						            <span class="grid__more"><i aria-hidden="true" class="fa fa-plus-circle"></i>이미지 더보기</span>
+					            </a>
+				            </div>
+				            <div class="grid__cont">
+					            <strong class="grid__name">LG LF패션 쇼핑몰 (정상몰, 이월몰)</strong>
+					            <p class="grid__text"><span class="grid__sort">수행기간</span> 2014.03 ~ 2014.06</p>
+					            <p class="grid__text"><span class="grid__sort">디바이스</span> Mobile</p>
+					            <p class="grid__text"><span class="grid__sort">참여율</span> 50%</p>
+					            <a href="http://m.lfmall.co.kr" class="portfolio__link" target="_blank" title="LG LF패션 쇼핑몰 새창"> <span aria-hidden="true" class="fa fa-arrow-circle-right"></span>GO</a>
+				            </div>
+			            </li>
+			            <li class="grid__item">
+				            <div class="grid__thumb">
+					            <a href="#lyView" class="grid__anchor ly-open" title="레이어 팝업" data-imgs="['../images/img_meritz_1.jpg','../images/img_meritz_2.jpg']">
+						            <img class="grid__img" src="../images/img_meritz_1.jpg" alt="메리츠화재">
+						            <span class="grid__more"><i aria-hidden="true" class="fa fa-plus-circle"></i>이미지 더보기</span>
+					            </a>
+				            </div>
+				            <div class="grid__cont">
+					            <strong class="grid__name">메리츠화재</strong>
+					            <p class="grid__text"><span class="grid__sort">수행기간</span> 2013.12 ~ 2014.01</p>
+					            <p class="grid__text"><span class="grid__sort">디바이스</span> Hybrid App</p>
+					            <p class="grid__text"><span class="grid__sort">참여율</span> 100%</p>
+				            </div>
+			            </li>
+			            <li class="grid__item">
+				            <div class="grid__thumb">
+					            <a href="#lyView" class="grid__anchor ly-open" title="레이어 팝업" data-imgs="['../images/img_minds_1.jpg','../images/img_minds_2.jpg','../images/img_minds_3.jpg','../images/img_minds_4.jpg']">
+						            <img class="grid__img" src="../images/img_minds_1.jpg" alt="인터웍스 MINDs Insight">
+						            <span class="grid__more"><i aria-hidden="true" class="fa fa-plus-circle"></i>이미지 더보기</span>
+					            </a>
+				            </div>
+				            <div class="grid__cont">
+					            <strong class="grid__name">인터웍스 MINDs Insight</strong>
+					            <p class="grid__text"><span class="grid__sort">수행기간</span> 2013.11 ~ 2013.12</p>
+					            <p class="grid__text"><span class="grid__sort">디바이스</span> PC</p>
+					            <p class="grid__text"><span class="grid__sort">참여율</span> 100%</p>
+							</div>
+			            </li>
+			            <li class="grid__item">
+				            <div class="grid__cont">
+					            <strong class="grid__name">국회 지식관리 시스템</strong>
+					            <p class="grid__text"><span class="grid__sort">수행기간</span> 2013.11 ~ 2013.11</p>
+					            <p class="grid__text"><span class="grid__sort">디바이스</span> PC</p>
+					            <p class="grid__text"><span class="grid__sort">참여율</span> 30%</p>
+				            </div>
+			            </li>
+			            <li class="grid__item">
+				            <div class="grid__thumb">
+					            <a href="#lyView" class="grid__anchor ly-open" title="레이어 팝업" data-imgs="['../images/img_olympus_1.jpg','../images/img_olympus_2.jpg','../images/img_olympus_3.jpg','../images/img_olympus_4.jpg','../images/img_olympus_5.jpg','../images/img_olympus_6.jpg']">
+						            <img class="grid__img" src="../images/img_olympus_1.jpg" alt="올림푸스（기업, 생명/산업, 홀)">
+						            <span class="grid__more"><i aria-hidden="true" class="fa fa-plus-circle"></i>이미지 더보기</span>
+					            </a>
+				            </div>
+				            <div class="grid__cont">
+					            <strong class="grid__name">올림푸스（기업, 생명/산업, 홀)</strong>
+					            <p class="grid__text"><span class="grid__sort">수행기간</span> 2013.10 ~ 2013.11</p>
+					            <p class="grid__text"><span class="grid__sort">주요성과</span> 개발코드에 직접 작업하여 프로젝트 공기 단축</p>
+					            <p class="grid__text"><span class="grid__sort">디바이스</span> PC</p>
+					            <p class="grid__text"><span class="grid__sort">참여율</span> 30%</p>
+					            <a href="http://www.olympus.co.kr/company" class="portfolio__link" target="_blank" title="올림푸스 기업 새창"><span aria-hidden="true" class="fa fa-arrow-circle-right"></span>GO</a>
+				            </div>
+			            </li>
+			            <li class="grid__item">
+				            <div class="grid__thumb">
+					            <a href="#lyView" class="grid__anchor ly-open" title="레이어 팝업" data-imgs="['../images/img_nuskin_1.jpg','../images/img_nuskin_2.jpg']">
+						            <img class="grid__img" src="../images/img_nuskin_1.jpg" alt="웅진 CAIRS">
+						            <span class="grid__more"><i aria-hidden="true" class="fa fa-plus-circle"></i>이미지 더보기</span>
+					            </a>
+				            </div>
+				            <div class="grid__cont">
+					            <strong class="grid__name">뉴스킨</strong>
+					            <p class="grid__text"><span class="grid__sort">수행기간</span> 2013.10 ~ 2013.10</p>
+					            <p class="grid__text"><span class="grid__sort">디바이스</span> Mobile, Tablet</p>
+					            <p class="grid__text"><span class="grid__sort">참여율</span> 30%</p>
+				            </div>
+			            </li>
+			            <li class="grid__item">
+				            <div class="grid__thumb">
+					            <a href="#lyView" class="grid__anchor ly-open" title="레이어 팝업" data-imgs="['../images/img_unionsteel_1.jpg','../images/img_unionsteel_2.jpg','../images/img_unionsteel_3.jpg','../images/img_unionsteel_4.jpg','../images/img_unionsteel_5.jpg','../images/img_unionsteel_6.jpg','../images/img_unionsteel_7.jpg']">
+						            <img class="grid__img" src="../images/img_unionsteel_1.jpg" alt="유니온스틸">
+						            <span class="grid__more"><i aria-hidden="true" class="fa fa-plus-circle"></i>이미지 더보기</span>
+					            </a>
+				            </div>
+				            <div class="grid__cont">
+					            <strong class="grid__name">유니온스틸</strong>
+					            <p class="grid__text"><span class="grid__sort">수행기간</span> 2013.08 ~ 2013.10</p>
+					            <p class="grid__text"><span class="grid__sort">주요업무</span> 1. 퍼블리싱 PL <br>2. 다국어 사이트 (국문, 영문, 중문)</p>
+					            <p class="grid__text"><span class="grid__sort">주요성과</span> 웹어워드 2013 기업일반 부문 우수상 수상</p>
+					            <p class="grid__text"><span class="grid__sort">디바이스</span> Responsive Web</p>
+					            <p class="grid__text"><span class="grid__sort">참여율</span> 80%</p>
+				            </div>
+			            </li>
+			            <li class="grid__item">
+				            <div class="grid__thumb">
+					            <a href="#lyView" class="grid__anchor ly-open" title="레이어 팝업" data-imgs="['../images/img_galleria_1.jpg','../images/img_galleria_2.jpg','../images/img_galleria_3.jpg','../images/img_galleria_4.jpg']">
+						            <img class="grid__img" src="../images/img_galleria_1.jpg" alt="한화 갤러리아몰">
+						            <span class="grid__more"><i aria-hidden="true" class="fa fa-plus-circle"></i>이미지 더보기</span>
+					            </a>
+				            </div>
+				            <div class="grid__cont">
+					            <strong class="grid__name">한화 갤러리아몰</strong>
+					            <p class="grid__text"><span class="grid__sort">수행기간</span> 2013.04 ~ 2013.07</p>
+					            <p class="grid__text"><span class="grid__sort">주요업무</span> 기존사이트 접근성 개선 프로젝트</p>
+					            <p class="grid__text"><span class="grid__sort">주요성과</span> 1. 웹접근성 마크 획득 <br>2. 웹어워드 2013 쇼핑몰 부문 대상 수상</p>
+					            <p class="grid__text"><span class="grid__sort">디바이스</span> PC</p>
+					            <p class="grid__text"><span class="grid__sort">참여율</span> 25%</p>
+					            <a href="http://www.galleria.co.kr" class="portfolio__link" target="_blank" title="한화 갤러리아몰 새창"><span aria-hidden="true" class="fa fa-arrow-circle-right"></span>GO</a>
+				            </div>
+			            </li>
+			            <li class="grid__item">
+				            <div class="grid__thumb">
+					            <a href="#lyView" class="grid__anchor ly-open" title="레이어 팝업" data-imgs="['../images/img_wyz070_1.jpg','../images/img_wyz070_2.jpg','../images/img_wyz070_3.jpg','../images/img_wyz070_4.jpg']">
+						            <img class="grid__img" src="../images/img_wyz070_1.jpg" alt="삼성 인터넷전화 Wyz070">
+						            <span class="grid__more"><i aria-hidden="true" class="fa fa-plus-circle"></i>이미지 더보기</span>
+					            </a>
+				            </div>
+				            <div class="grid__cont">
+					            <strong class="grid__name">삼성 인터넷전화 Wyz070</strong>
+					            <p class="grid__text"><span class="grid__sort">수행기간</span> 2013.03 ~ 2013.04</p>
+					            <p class="grid__text"><span class="grid__sort">주요업무</span> 퍼블리싱 PL</p>
+					            <p class="grid__text"><span class="grid__sort">주요성과</span> 1. 기존 이미지텍스트를 웹폰트방식으로 제안함으로써, 차후 유지보수 공수를 절약하는 효과 <br>2. SEO 및 웹접근성의 향상</p>
+					            <p class="grid__text"><span class="grid__sort">디바이스</span> PC</p>
+					            <p class="grid__text"><span class="grid__sort">참여율</span> 60%</p>
+					            <a href="http://www.samsung070.com" class="portfolio__link" target="_blank" title="삼성 인터넷전화 Wyz070 새창"><span aria-hidden="true" class="fa fa-arrow-circle-right"></span>GO</a>
+				            </div>
+			            </li>
+			            <li class="grid__item">
+				            <div class="grid__thumb">
+					            <a href="#lyView" class="grid__anchor ly-open" title="레이어 팝업" data-imgs="['../images/img_samsung_1.jpg','../images/img_samsung_2.jpg','../images/img_samsung_3.jpg']">
+						            <img class="grid__img" src="../images/img_samsung_1.jpg" alt="삼성 콘텐츠 &amp; 서비스">
+						            <span class="grid__more"><i aria-hidden="true" class="fa fa-plus-circle"></i>이미지 더보기</span>
+					            </a>
+				            </div>
+				            <div class="grid__cont">
+					            <strong class="grid__name">삼성 콘텐츠 &amp; 서비스</strong>
+					            <p class="grid__text"><span class="grid__sort">수행기간</span> 2012.12 ~ 2013.02</p>
+					            <p class="grid__text"><span class="grid__sort">주요업무</span> 다국어 사이트 (전세계 국가 35개 언어)</p>
+					            <p class="grid__text"><span class="grid__sort">디바이스</span> Mobile, Tablet, PC</p>
+					            <p class="grid__text"><span class="grid__sort">참여율</span> 20%</p>
+				            </div>
+			            </li>
+			            <li class="grid__item">
+				            <div class="grid__thumb">
+					            <a href="#lyView" class="grid__anchor ly-open" title="레이어 팝업" data-imgs="['../images/img_bcl_1.jpg','../images/img_bcl_2.jpg','../images/img_bcl_3.jpg','../images/img_bcl_4.jpg']">
+						            <img class="grid__img" src="../images/img_bcl_1.jpg" alt="부천시립도서관">
+						            <span class="grid__more"><i aria-hidden="true" class="fa fa-plus-circle"></i>이미지 더보기</span>
+					            </a>
+				            </div>
+				            <div class="grid__cont">
+					            <strong class="grid__name">부천시립도서관</strong>
+					            <p class="grid__text"><span class="grid__sort">수행기간</span> 2013.08 ~ 2013.10</p>
+					            <p class="grid__text"><span class="grid__sort">주요업무</span> 퍼블리싱 PL</p>
+					            <p class="grid__text"><span class="grid__sort">주요성과</span> 웹어워드 2013 미디어/정보서비스 부문 최우수상 수상</p>
+					            <p class="grid__text"><span class="grid__sort">디바이스</span> PC</p>
+					            <p class="grid__text"><span class="grid__sort">참여율</span> 30%</p>
+							</div>
+			            </li>
+			            <li class="grid__item">
+				            <div class="grid__cont">
+					            <strong class="grid__name">경찰청 내부사이트</strong>
+					            <p class="grid__text"><span class="grid__sort">수행기간</span> 2012.10 ~ 2012.11</p>
+					            <p class="grid__text"><span class="grid__sort">주요업무</span> 퍼블리싱 PL</p>
+					            <p class="grid__text"><span class="grid__sort">디바이스</span> PC</p>
+					            <p class="grid__text"><span class="grid__sort">참여율</span> 60%</p>
+				            </div>
+			            </li>
+			            <li class="grid__item">
+				            <div class="grid__thumb">
+					            <a href="#lyView" class="grid__anchor ly-open" title="레이어 팝업" data-imgs="['../images/img_gangbukcmc_1.jpg','../images/img_gangbukcmc_2.jpg','../images/img_gangbukcmc_3.jpg']">
+						            <img class="grid__img" src="../images/img_gangbukcmc_1.jpg" alt="강북구도시관리공단">
+						            <span class="grid__more"><i aria-hidden="true" class="fa fa-plus-circle"></i>이미지 더보기</span>
+					            </a>
+				            </div>
+				            <div class="grid__cont">
+					            <strong class="grid__name">강북구도시관리공단</strong>
+					            <p class="grid__text"><span class="grid__sort">수행기간</span> 2012.10 ~ 2012.10</p>
+					            <p class="grid__text"><span class="grid__sort">주요업무</span> 1. 기존사이트 접근성 개선 프로젝트 <br>2. 마크업 접근성 개선 및 고대비 디자인 수정 작업</p>
+					            <p class="grid__text"><span class="grid__sort">주요성과</span> 웹접근성 마크 획득</p>
+					            <p class="grid__text"><span class="grid__sort">디바이스</span> PC</p>
+					            <p class="grid__text"><span class="grid__sort">참여율</span> 20%</p>
+					            <a href="http://www.gangbukcmc.seoul.kr/index.php" class="portfolio__link" target="_blank" title="강북구도시관리공단 새창"><span aria-hidden="true" class="fa fa-arrow-circle-right"></span>GO</a>
+				            </div>
+			            </li>
+			            <li class="grid__item">
+				            <div class="grid__thumb">
+					            <a href="#lyView" class="grid__anchor ly-open" title="레이어 팝업" data-imgs="['../images/img_npathway_1.jpg','../images/img_npathway_2.jpg','../images/img_npathway_3.jpg','../images/img_npathway_4.jpg','../images/img_npathway_5.jpg','../images/img_npathway_6.jpg']">
+						            <img class="grid__img" src="../images/img_npathway_1.jpg" alt="NPATHWAY">
+						            <span class="grid__more"><i aria-hidden="true" class="fa fa-plus-circle"></i>이미지 더보기</span>
+					            </a>
+				            </div>
+				            <div class="grid__cont">
+					            <strong class="grid__name">NPATHWAY</strong>
+					            <p class="grid__text"><span class="grid__sort">수행기간</span> 2012.09 ~ 2012.11</p>
+					            <p class="grid__text"><span class="grid__sort">주요업무</span> 다국어 사이트 (영문, 중문)</p>
+					            <p class="grid__text"><span class="grid__sort">디바이스</span> PC</p>
+					            <p class="grid__text"><span class="grid__sort">참여율</span> 30%</p>
+				            </div>
+			            </li>
+			            <li class="grid__item">
+				            <div class="grid__thumb">
+					            <a href="#lyView" class="grid__anchor ly-open" title="레이어 팝업" data-imgs="['../images/img_health_1.jpg','../images/img_health_2.jpg','../images/img_health_3.jpg','../images/img_health_4.jpg']">
+						            <img class="grid__img" src="../images/img_health_1.jpg" alt="국가건강정보포털">
+						            <span class="grid__more"><i aria-hidden="true" class="fa fa-plus-circle"></i>이미지 더보기</span>
+					            </a>
+				            </div>
+				            <div class="grid__cont">
+					            <strong class="grid__name">국가건강정보포털</strong>
+					            <p class="grid__text"><span class="grid__sort">수행기간</span> 2012.09 ~ 2012.09</p>
+					            <p class="grid__text"><span class="grid__sort">주요성과</span> 접근성 마크 획득</p>
+					            <p class="grid__text"><span class="grid__sort">디바이스</span> PC</p>
+					            <p class="grid__text"><span class="grid__sort">참여율</span> 95%</p>
+					            <a href="http://health.mw.go.kr/Main.do" class="portfolio__link" target="_blank" title="국가건강정보포털 새창"><span aria-hidden="true" class="fa fa-arrow-circle-right"></span>GO</a>
+				            </div>
+			            </li>
+			            <li class="grid__item">
+				            <div class="grid__thumb">
+					            <a href="#lyView" class="grid__anchor ly-open" title="레이어 팝업" data-imgs="['../images/img_lottedfs_1.jpg','../images/img_lottedfs_2.jpg','../images/img_lottedfs_3.jpg']">
+						            <img class="grid__img" src="../images/img_lottedfs_1.jpg" alt="롯데인터넷면세점">
+						            <span class="grid__more"><i aria-hidden="true" class="fa fa-plus-circle"></i>이미지 더보기</span>
+					            </a>
+				            </div>
+				            <div class="grid__cont">
+					            <strong class="grid__name">롯데인터넷면세점</strong>
+					            <p class="grid__text"><span class="grid__sort">수행기간</span> 2012.06 ~ 2012.07</p>
+					            <p class="grid__text"><span class="grid__sort">주요업무</span> 사이트 운영 및 부분 신규 구축 프로젝트</p>
+					            <p class="grid__text"><span class="grid__sort">디바이스</span> Mobile, PC</p>
+					            <a href="http://www.lottedfs.com" class="portfolio__link" target="_blank" title="롯데인터넷면세점 새창"><span aria-hidden="true" class="fa fa-arrow-circle-right"></span>GO</a>
+				            </div>
+			            </li>
+			            <li class="grid__item">
+				            <div class="grid__thumb">
+					            <a href="#lyView" class="grid__anchor ly-open" title="레이어 팝업" data-imgs="['../images/img_cairs_1.jpg','../images/img_cairs_2.jpg']">
+						            <img class="grid__img" src="../images/img_cairs_1.jpg" alt="웅진 CAIRS">
+						            <span class="grid__more"><i aria-hidden="true" class="fa fa-plus-circle"></i>이미지 더보기</span>
+					            </a>
+				            </div>
+				            <div class="grid__cont">
+					            <strong class="grid__name">웅진 CAIRS</strong>
+					            <p class="grid__text"><span class="grid__sort">수행기간</span> 2012.06 ~ 2012.06</p>
+					            <p class="grid__text"><span class="grid__sort">디바이스</span> Mobile, Tablet</p>
+					            <p class="grid__text"><span class="grid__sort">참여율</span> 100%</p>
+				            </div>
+			            </li>
+			            <li class="grid__item">
+				            <div class="grid__thumb">
+					            <a href="#lyView" class="grid__anchor ly-open" title="레이어 팝업" data-imgs="['../images/img_sinsago2_1.jpg','../images/img_sinsago2_2.jpg','../images/img_sinsago2_3.jpg','../images/img_sinsago2_4.jpg']">
+						            <img class="grid__img" src="../images/img_sinsago2_1.jpg" alt="좋은책 신사고 교과서">
+						            <span class="grid__more"><i aria-hidden="true" class="fa fa-plus-circle"></i>이미지 더보기</span>
+					            </a>
+				            </div>
+				            <div class="grid__cont">
+					            <strong class="grid__name">좋은책 신사고 교과서</strong>
+					            <p class="grid__text"><span class="grid__sort">수행기간</span> 2012.06 ~ 2012.06</p>
+					            <p class="grid__text"><span class="grid__sort">디바이스</span> PC</p>
+					            <p class="grid__text"><span class="grid__sort">참여율</span> 100%</p>
+				            </div>
+			            </li>
+			            <li class="grid__item">
+				            <div class="grid__thumb">
+					            <img class="grid__img" src="../images/img_sinsago_1.jpg" alt="좋은책 신사고">
+				            </div>
+				            <div class="grid__cont">
+					            <strong class="grid__name">좋은책 신사고</strong>
+					            <p class="grid__text"><span class="grid__sort">수행기간</span> 2012.05 ~ 2012.05</p>
+					            <p class="grid__text"><span class="grid__sort">주요업무</span> 레이아웃, 메인 마크업</p>
+					            <p class="grid__text"><span class="grid__sort">디바이스</span> PC</p>
+					            <p class="grid__text"><span class="grid__sort">참여율</span> 100%</p>
+				            </div>
+			            </li>
+			            <li class="grid__item">
+				            <div class="grid__thumb">
+					            <a href="#lyView" class="grid__anchor ly-open" title="레이어 팝업" data-imgs="['../images/img_mbook_1.jpg','../images/img_mbook_2.jpg','../images/img_mbook_3.jpg','../images/img_mbook_4.jpg','../images/img_mbook_5.jpg','../images/img_mbook_6.jpg']">
+						            <img class="grid__img" src="../images/img_mbook_1.jpg" alt="현대모비스 MBOOKS">
+						            <span class="grid__more"><i aria-hidden="true" class="fa fa-plus-circle"></i>이미지 더보기</span>
+					            </a>
+				            </div>
+				            <div class="grid__cont">
+					            <strong class="grid__name">현대모비스 MBOOKS</strong>
+					            <p class="grid__text"><span class="grid__sort">수행기간</span> 2012.04 ~ 2012.05</p>
+					            <p class="grid__text"><span class="grid__sort">디바이스</span> Mobile, Tablet, PC</p>
+					            <p class="grid__text"><span class="grid__sort">참여율</span> 100%</p>
+				            </div>
+			            </li>
+			            <li class="grid__item">
+				            <div class="grid__cont">
+					            <strong class="grid__name">김안과, MD lash, 종로편입학원 등 다수</strong>
+					            <p class="grid__text"><span class="grid__sort">수행기간</span> 2010.11 ~ 2012.02</p>
+					            <p class="grid__text"><span class="grid__sort">디바이스</span> Mobile</p>
+					            <p class="grid__text"><span class="grid__sort">참여율</span> 100%</p>
+				            </div>
+			            </li>
+		            </ul>
+	            </div>
+            </div>
+
+	        <div class="mod__body">
+		        <h2 class="sr-only">포트폴리오 목록으로 보기</h2>
+
+		        <div class="c-table portfolio__list">
+			        <table>
+				        <caption>포트폴리오 목록</caption>
+				        <colgroup>
+					        <col style="width:25%">
+					        <col style="width:40%">
+					        <col style="width:20%">
+					        <col style="width:15%">
+				        </colgroup>
+				        <thead>
+				        <tr>
+					        <th scope="col">수행기간</th>
+					        <th scope="col">프로젝트명</th>
+					        <th scope="col">프로젝트내용</th>
+					        <th scope="col">참여율</th>
+				        </tr>
+				        </thead>
+				        <tbody>
+						<tr>
+							<td>2017.05 ~ 2017.07</td> <!-- 17.10.30 ~ 18.02.?? -->
+							<td>삼성 판매접점 관리시스템</td>
+							<td>Mobile, PC</td>
+							<td>40%</td>
+						</tr>
+						<tr>
+							<td>2017.05 ~ 2017.07</td> <!-- 17.05.10 ~ 17.07.09 -->
+							<td>포스코 POSPIA 3.0 Lite 조업파트 UI 개선</td>
+							<td>PC</td>
+							<td>100%</td>
+						</tr>
+						<tr>
+							<td>2017.01 ~ 2017.04</td> <!-- 17.01.16 ~ 17.04.03 -->
+							<td>한샘몰 쇼핑몰 <a href="http://mall.hanssem.com/m/main.html" class="portfolio__link" target="_blank" title="한샘몰 쇼핑몰"> <span aria-hidden="true" class="fa fa-arrow-circle-right"></span>GO</a></td>
+							<td>Mobile</td>
+							<td>50%</td>
+						</tr>
+						<tr>
+							<td>2016.08 ~ 2017.01</td> <!-- 16.08.16 ~ 17.01.15 -->
+							<td>KB캐피탈 자산관리 시스템</td>
+							<td>Responsive Web</td>
+							<td>100%</td>
+						</tr>
+						<tr>
+							<td>2016.03 ~ 2016.06</td> <!-- 16.03.07 ~ 06.17 -->
+							<td>LG 하우시스 Z:IN PC 리뉴얼 및 모바일 구축 <a href="http://www.z-in.co.kr/mobile/mIndex.jsp" class="portfolio__link" target="_blank" title="Z:IN 새창"> <span aria-hidden="true" class="fa fa-arrow-circle-right"></span>GO</a></td>
+							<td>Mobile, PC</td>
+							<td>40%</td>
+						</tr>
+						<tr>
+							<td>2016.01 ~ 2016.02</td> <!-- 16.01.01 ~ 02.28 -->
+							<td>포스코 탄소강 표준모델 MES UI 개선</td>
+							<td>PC</td>
+							<td>30%</td>
+						</tr>
+						<tr>
+							<td>2015.10 ~ 2015.12</td> <!-- 15.10.01 ~ 12.31 -->
+							<td>한미 IT 홈차트</td>
+							<td>Responsive Web</td>
+							<td>100%</td>
+						</tr>
+						<tr>
+							<td>2015.07 ~ 2015.09</td> <!-- 15.07.01 ~ 09.11 -->
+							<td>브랜드 아모레퍼시픽 <a href="http://www.brandamorepacific.com" class="portfolio__link" target="_blank" title="브랜드 아모레퍼시픽 새창"><span aria-hidden="true" class="fa fa-arrow-circle-right"></span>GO</a></td>
+							<td>Responsive Web</td>
+							<td>70%</td>
+						</tr>
+						<tr>
+							<td>2015.06 ~ 2015.06</td> <!-- 15.06.10 ~ 06.30 -->
+							<td>기아 UK Market</td>
+							<td>Responsive Web</td>
+							<td>20%</td>
+				        </tr>
+				        <tr>
+					        <td>2015.04 ~ 2015.06</td> <!-- 15.04.01 ~ 06.05 -->
+					        <td>CJ오쇼핑 멕시코 e커머스 <a href="http://www.cjgrandshopping.com/mall/frm/index" class="portfolio__link" target="_blank" title="CJ오쇼핑 멕시코 e커머스 새창"><span aria-hidden="true" class="fa fa-arrow-circle-right"></span>GO</a></td>
+					        <td>Mobile, PC</td>
+					        <td>50%</td>
+				        </tr>
+				        <tr>
+					        <td>2015.03 ~ 2015.03</td> <!-- 15.03.23 ~ 03.31 -->
+					        <td>ebay 셀러 공식 지원 사이트</td>
+					        <td>PC</td>
+					        <td>20%</td>
+				        </tr>
+				        <tr>
+					        <td>2015.03 ~ 2015.03</td> <!-- 15.03.16 ~ 03.31 -->
+					        <td>LG B2B 파트너포탈 설문시스템</td>
+					        <td>PC</td>
+					        <td>100%</td>
+				        </tr>
+				        <tr>
+					        <td>2015.02 ~ 2015.02</td> <!-- 15.02.11 ~ 02.27 -->
+					        <td>GS리테일 나만의냉장고 관리자</td>
+					        <td>PC</td>
+					        <td>100%</td>
+				        </tr>
+				        <tr>
+					        <td>2014.07 ~ 2014.10</td>
+					        <td>아모레퍼시픽 뷰티포인트</td>
+					        <td>Responsive Web</td>
+					        <td>20%</td>
+				        </tr>
+				        <tr>
+					        <td>2014.03 ~ 2014.06</td>
+					        <td>LG LF패션 쇼핑몰 (정상몰, 이월몰)<a href="http://m.lfmall.co.kr" class="portfolio__link" target="_blank" title="LG LF몰 모바일 새창"><span aria-hidden="true" class="fa fa-arrow-circle-right"></span>GO</a></td>
+					        <td>Mobile, Tablet</td>
+					        <td>50%</td>
+				        </tr>
+				        <tr>
+					        <td>2013.12 ~ 2014.01</td>
+					        <td>메리츠화재</td>
+					        <td>Hybrid App</td>
+					        <td>100%</td>
+				        </tr>
+				        <tr>
+					        <td>2013.11 ~ 2013.12</td>
+					        <td>인터웍스 MINDs Insight</td>
+					        <td>PC</td>
+					        <td>100%</td>
+				        </tr>
+				        <tr>
+					        <td>2013.11 ~ 2013.11</td>
+					        <td>국회 지식관리 시스템</td>
+					        <td>PC</td>
+					        <td>30%</td>
+				        </tr>
+				        <tr>
+					        <td>2013.10 ~ 2013.11</td>
+					        <td>올림푸스 사이트 (기업, 생명/산업, 홀)<a href="http://www.olympus.co.kr/company" class="portfolio__link" target="_blank" title="올림푸스 기업 새창"><span aria-hidden="true" class="fa fa-arrow-circle-right"></span>GO</a></td>
+					        <td>PC</td>
+					        <td>30%</td>
+				        </tr>
+				        <tr>
+					        <td>2013.10 ~ 2013.10</td>
+					        <td>뉴스킨</td>
+					        <td>Mobile, Tablet</td>
+					        <td>30%</td>
+				        </tr>
+				        <tr>
+					        <td>2013.08 ~ 2013.10</td>
+					        <td>유니온스틸 (다국어)</td>
+					        <td>Responsive Web</td>
+					        <td>80%</td>
+				        </tr>
+				        <tr>
+					        <td>2013.04 ~ 2013.07</td>
+					        <td>한화 갤러리아몰 (접근성 개선)<a href="http://www.galleria.co.kr" class="portfolio__link" target="_blank" title="한화 갤러리아몰 새창"><span aria-hidden="true" class="fa fa-arrow-circle-right"></span>GO</a></td>
+					        <td>PC</td>
+					        <td>25%</td>
+				        </tr>
+				        <tr>
+					        <td>2013.03 ~ 2013.04</td>
+					        <td>삼성 인터넷전화 Wyz070<a href="http://www.samsung070.com" class="portfolio__link" target="_blank" title="삼성 인터넷전화 Wyz070 새창"><span aria-hidden="true" class="fa fa-arrow-circle-right"></span>GO</a></td>
+					        <td>PC</td>
+					        <td>60%</td>
+				        </tr>
+				        <tr>
+					        <td>2012.12 ~ 2013.02</td>
+					        <td>삼성 콘텐츠 &amp; 서비스 (다국어)</td>
+					        <td>Mobile, Tablet, PC</td>
+					        <td>20%</td>
+				        </tr>
+				        <tr>
+					        <td>2012.11 ~ 2012.11</td>
+					        <td>부천시립도서관</td>
+					        <td>PC</td>
+					        <td>30%</td>
+				        </tr>
+				        <tr>
+					        <td>2012.10 ~ 2012.11</td>
+					        <td>경찰청 내부사이트</td>
+					        <td>PC</td>
+					        <td>60%</td>
+				        </tr>
+				        <tr>
+					        <td>2012.10 ~ 2012.10</td>
+					        <td>강북구도시관리공단 (접근성 개선)<a href="http://www.gangbukcmc.seoul.kr/index.php" class="portfolio__link" target="_blank" title="강북구도시관리공단 새창"><span aria-hidden="true" class="fa fa-arrow-circle-right"></span>GO</a></td>
+					        <td>PC</td>
+					        <td>20%</td>
+				        </tr>
+				        <tr>
+					        <td>2012.09 ~ 2012.10</td>
+					        <td>NPATHWAY (다국어)</td>
+					        <td>PC</td>
+					        <td>30%</td>
+				        </tr>
+				        <tr>
+					        <td>2012.09 ~ 2012.09</td>
+					        <td>국가건강정보포털<a href="http://health.mw.go.kr/Main.do" class="portfolio__link" target="_blank" title="국가건강정보포털 새창"><span aria-hidden="true" class="fa fa-arrow-circle-right"></span>GO</a></td>
+					        <td>PC</td>
+					        <td>95%</td>
+				        </tr>
+				        <tr>
+					        <td>2012.06 ~ 2012.08</td>
+					        <td>롯데인터넷면세점 (운영)<a href="http://www.lottedfs.com" class="portfolio__link" target="_blank" title="롯데인터넷면세점 새창"><span aria-hidden="true" class="fa fa-arrow-circle-right"></span>GO</a></td>
+					        <td>Mobile, PC</td>
+					        <td>-</td>
+				        </tr>
+				        <tr>
+					        <td>2012.06 ~ 2012.06</td>
+					        <td>웅진 CAIRS 이벤트</td>
+					        <td>Mobile, Tablet</td>
+					        <td>100%</td>
+				        </tr>
+				        <tr>
+					        <td>2012.06 ~ 2012.06</td>
+					        <td>좋은책 신사고</td>
+					        <td>PC</td>
+					        <td>100%</td>
+				        </tr>
+				        <tr>
+					        <td>2012.05 ~ 2012.05</td>
+					        <td>좋은책 신사고 교과서</td>
+					        <td>PC</td>
+					        <td>100%</td>
+				        </tr>
+				        <tr>
+					        <td>2012.04 ~ 2012.05</td>
+					        <td>현대모비스 MBOOKS</td>
+					        <td>Mobile, Tablet, PC</td>
+					        <td>100%</td>
+				        </tr>
+				        <tr>
+					        <td>2010.11 ~ 2012.02</td>
+					        <td>김안과, MD lash, 종로편입학원 등</td>
+					        <td>Mobile</td>
+					        <td>100%</td>
+				        </tr>
+				        </tbody>
+			        </table>
+		        </div>
+	        </div>
+        </article>
+
+	    <article id="profile" class="mod">
+		    <h1 class="mod__head">Profile</h1>
+
+		    <div class="mod__body">
+			    <div class="c-table">
+				    <table>
+					    <caption>프로필 목록</caption>
+					    <colgroup>
+						    <col style="width:20%">
+						    <col style="width:80%">
+					    </colgroup>
+					    <tbody>
+					    <tr>
+						    <th scope="row">이름</th>
+						    <td>정여진</td>
+					    </tr>
+					    <tr>
+						    <th scope="row">생년월일</th>
+						    <td>1986. 05. 12</td>
+					    </tr>
+					    <tr>
+						    <th scope="row">주소</th>
+						    <td>서울시 관악구 봉천동</td>
+					    </tr>
+					    <tr>
+						    <th scope="row">연락처</th>
+						    <td>010. 5171. 0512</td>
+					    </tr>
+					    <tr>
+						    <th scope="row">이메일</th>
+						    <td><a href="mailto:jeong@yeojin.kr" class="o-button o-button--mail"><span aria-hidden="true" class="fa fa-envelope-o"></span>jeong@yeojin.kr</a></td>
+					    </tr>
+					    <tr>
+						    <th scope="row">학력사항</th>
+						    <td>
+							    <ul>
+								    <li>2005.02 서해고등학교 졸업</li> <!-- 2002.03 ~ 2005.02 -->
+								    <li>2007.02 신안산대학교 디지털미디어과 졸업</li> <!-- 4.19, 2005.03 ~ 2007.02 -->
+									<li>2017.08 고려사이버대학교 소프트웨어공학과 졸업</li> <!-- 4.05, 2016.05 ~ 2017.8.23 졸업 -->
+							    </ul>
+						    </td>
+					    </tr>
+					    <tr>
+						    <th scope="row">경력사항 (8년차)</th>
+						    <td>
+							    <ul>
+								    <li>2010.11 ~ 2012.02 FMG (프론티어마케팅그룹)</li> <!-- 2010.11 ~ 2012.02.11 --> <!-- 1년 4개월 -->
+								    <li>2012.04 ~ 2014.01 HIWEB (하이웹솔루션)</li> <!-- 2012.04.18 ~ 2014.01.31 --> <!-- 1년 10개월 --> <!-- 3년 2개월 -->
+								    <li>2014.02 ~ 2014.06 프리랜서</li> <!-- 5개월 --> <!-- 3년 7개월 -->
+								    <li>2014.06 ~ 2014.12 스프링웍스</li> <!-- 2014.06.30 ~ 2014.12.31 --> <!-- 6개월 --> <!-- 4년 1개월 -->
+								    <li>2015.01 ~ 프리랜서</li> <!-- 5년 7개월 -->
+							    </ul>
+						    </td>
+					    </tr>
+					    <tr>
+						    <th scope="row">프로젝트 기술영역</th>
+						    <td>웹표준, 접근성, 웹, 모바일, 태블릿, 반응형, 하이브리드앱</td>
+					    </tr>
+					    <tr>
+						    <th scope="row">이수 내용</th>
+						    <td>홍시디자인 멀티미디어 웹디자인 과정 3개월(420시간) 수료</td>
+					    </tr>
+					    </tbody>
+				    </table>
+			    </div>
+		    </div>
+	    </article>
+
+        <article id="self" class="mod self">
+            <h1 class="mod__head">Self-introduction</h1>
+            <div class="mod__body">
+                <p class="self__info">
+                    현재 준비중 입니다.
+                </p>
+            </div>
+        </article>
+
+	    <a href="#" class="o-button o-button--top"><span aria-hidden="true" class="fa fa-angle-up"></span>TOP <span class="sr-only">본문 상단 이동</span></a>
+    </main>
+
+    <footer class="l-foot">
+        <small class="copy">2014 yeojin, jeong Portfolio</small>
+    </footer>
+</div>
+
+<div id="lyView" class="ly-view" aria-hidden="true" style="display:none">
+	<div aria-hidden="true" class="dim">&nbsp;</div>
+	<div aria-labelledby="dialog-title" role="dialog" tabindex="0" class="ly__wrap">
+		<strong class="ly__title" id="dialog-title"></strong>
+
+		<div class="ly__content">
+			<button class="ly__button--prev ly__button fa fa-chevron-circle-left"><span class="sr-only">이전</span></button>
+			<button class="ly__button--next ly__button fa fa-chevron-circle-right"><span class="sr-only">다음</span></button>
+			<button class="ly__button--stop ly__button fa fa-pause"><span class="sr-only">정지</span></button>
+			<button class="ly__button--play ly__button fa fa-play"><span class="sr-only">재생</span></button>
+			<div class="swiper swiper-parent">
+				<div class="swiper__wrapper">
+					<div class="swiper__slide"></div>
+				</div>
+			</div>
+			<div class="pagination pagination-parent"></div>
+		</div>
+
+		<button class="ly__close fa fa-times"><span class="sr-only">레이어 팝업 닫기</span></button>
+	</div>
+</div>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/masonry/3.3.2/masonry.pkgd.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.0.0/imagesloaded.pkgd.min.js"></script>
+<script src="js/idangerous.swiper-2.1.min.js"></script>
+<script src="js/ui.js"></script>
+
+</body>
+</html>
