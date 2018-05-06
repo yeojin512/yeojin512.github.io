@@ -2,15 +2,16 @@
 <html lang="ko">
 <head>
     <meta charset="utf-8">
-    <link rel="dns-prefetch" href="//ajax.googleapis.com">
     <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,requiresActiveX=true">
     <title>정여진의 포트폴리오</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="msapplication-tap-highlight" content="no" />
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.1/normalize.min.css">
-	<link rel="stylesheet" href="//maxcdn.bootstraPCdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.0/animate.min.css">
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/Swiper/4.2.6/css/swiper.min.css" />
     <link rel="stylesheet" type="text/css" href="css/common.css" />
     <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
 </head>
@@ -18,11 +19,6 @@
 <!--[if lte ie 8]>
 <p class="browserupgrade"><strong>지원이 중단된</strong> 브라우저를 사용하고 있습니다. <a href="http://browsehappy.com/" target="_blank" title="새창">브라우저 업데이트</a>를 통해 최적화된 화면을 볼 수 있습니다.</p>
 <![endif]-->
-
-<!--
-<div class="skip"><a href="#container">본문 바로가기</a></div>
--->
-
 <div class="l-wrap">
     <header class="l-head">
         <h1 class="logo">JEONG YEO JIN</h1>
@@ -36,9 +32,9 @@
         </nav>
     </header>
 
-    <main id="container" class="l-container">
-        <article id="portfolio" class="mod portfolio">
-            <h1 class="mod__head">Portfolio</h1>
+    <main class="l-container">
+        <section id="portfolio" class="mod portfolio">
+            <h2 class="mod__head">Portfolio</h2>
 			
 	        <div class="c-tab">
 		        <a href="#" id="tab01" class="c-tab__anchor"><i aria-hidden="true" class="fa fa-th-large"></i>앨범형</a>
@@ -48,10 +44,10 @@
 	        <p class="portfolio__info"><span aria-hidden="true" class="fa fa-question-circle"></span>사이트 바로가기 버튼이 없는 경우, 프로젝트 성격상 폐쇠형이거나 사이트 변경 및 삭제된 경우 입니다.</p>
 
             <div class="mod__body">
-                <h2 class="sr-only">포트폴리오 앨범형으로 보기</h2>
+                <h3 class="sr-only">포트폴리오 앨범형으로 보기</h3>
 				
 	            <div class="portfolio__view">
-		            <ul class="grid is-loading" id="grid">
+		            <ul class="grid is-loading" id="grid" data-src="#ly-view">
 						<li class="grid__item">
 							<div class="grid__cont">
 								<strong class="grid__name">삼성 판매접점 관리시스템</strong>
@@ -538,7 +534,7 @@
             </div>
 
 	        <div class="mod__body">
-		        <h2 class="sr-only">포트폴리오 목록으로 보기</h2>
+		        <h3 class="sr-only">포트폴리오 목록으로 보기</h3>
 
 		        <div class="c-table portfolio__list">
 			        <table>
@@ -772,10 +768,10 @@
 			        </table>
 		        </div>
 	        </div>
-        </article>
+        </section>
 
-	    <article id="profile" class="mod">
-		    <h1 class="mod__head">Profile</h1>
+	    <section id="profile" class="mod">
+		    <h2 class="mod__head">Profile</h2>
 
 		    <div class="mod__body">
 			    <div class="c-table">
@@ -840,16 +836,16 @@
 				    </table>
 			    </div>
 		    </div>
-	    </article>
+	    </section>
 
-        <article id="self" class="mod self">
-            <h1 class="mod__head">Self-introduction</h1>
+        <section id="self" class="mod self">
+            <h2 class="mod__head">Self-introduction</h2>
             <div class="mod__body">
                 <p class="self__info">
                     현재 준비중 입니다.
                 </p>
             </div>
-        </article>
+        </section>
 
 	    <a href="#" class="o-button o-button--top"><span aria-hidden="true" class="fa fa-angle-up"></span>TOP <span class="sr-only">본문 상단 이동</span></a>
     </main>
@@ -859,32 +855,26 @@
     </footer>
 </div>
 
-<div id="lyView" class="ly-view" aria-hidden="true" style="display:none">
+<section id="ly-view" class="ly-view" aria-hidden="true" tabindex="-1" role="dialog" aria-labelledby="dialog-title">
 	<div aria-hidden="true" class="dim">&nbsp;</div>
-	<div aria-labelledby="dialog-title" role="dialog" tabindex="0" class="ly__wrap">
+	<div class="ly__wrap" role="document">
 		<strong class="ly__title" id="dialog-title"></strong>
-
-		<div class="ly__content">
-			<button class="ly__button--prev ly__button fa fa-chevron-circle-left"><span class="sr-only">이전</span></button>
-			<button class="ly__button--next ly__button fa fa-chevron-circle-right"><span class="sr-only">다음</span></button>
-			<button class="ly__button--stop ly__button fa fa-pause"><span class="sr-only">정지</span></button>
-			<button class="ly__button--play ly__button fa fa-play"><span class="sr-only">재생</span></button>
-			<div class="swiper swiper-parent">
-				<div class="swiper__wrapper">
-					<div class="swiper__slide"></div>
-				</div>
-			</div>
-			<div class="pagination pagination-parent"></div>
+		<div class="ly__content" tabindex="0" >
+			<div class="swiper-container">
+				<div class="swiper-wrapper"></div>
+				<div class="swiper-button-prev swiper-button-white"></div>
+				<div class="swiper-button-next swiper-button-white"></div>
+			</div>				
+			<div class="swiper-pagination"></div>
 		</div>
-
-		<button class="ly__close fa fa-times"><span class="sr-only">레이어 팝업 닫기</span></button>
 	</div>
-</div>
-
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/masonry/3.3.2/masonry.pkgd.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.0.0/imagesloaded.pkgd.min.js"></script>
-<script src="js/idangerous.swiper-2.1.min.js"></script>
+	<button class="ly__close far fa-times-circle" data-dismiss="cancel"><span class="sr-only">레이어 팝업 닫기</span></button>
+</section>
+<script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.0/underscore-min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/masonry/4.2.1/masonry.pkgd.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/Swiper/4.2.6/js/swiper.min.js"></script>
 <script src="js/ui.js"></script>
 
 </body>
