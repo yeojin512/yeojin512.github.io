@@ -1,0 +1,881 @@
+<!doctype html>
+<html xml:lang="ko" lang="ko">
+<head>
+<meta charset="euc-kr">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>리스트</title>
+<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="js/modernizr.min.js"></script>
+<script type="text/javascript" src="js/jquery_ui.js"></script>
+<link type="text/css" rel="stylesheet" href="css/common.css" />
+</head>
+
+<body>
+
+<!-- view -->
+<style>
+.o-input--select {display:block;position:relative;overflow:hidden;width:100%;height:45px;padding:0 35px 0 14px;border:1px solid #ccc;background:#fff url("../images/common/bg_select.png") no-repeat right 14px top 50%;background-size:8px auto;font-family:inherit;font-size:15px;line-height:43px;text-align:left;text-overflow:ellipsis;white-space:nowrap;box-sizing:border-box;}
+.o-input--select:disabled, .o-input--select.is-disabled {background-color:#f4f4f4;cursor:default;}
+.o-input--select.is-disabled:focus {border-color:#ccc;}
+.o-input--select:focus {border-color:#000;}
+
+/* ---------------------------------------------------------------------------------------------------------------------
+커스텀 셀렉트 레이어타입
+--------------------------------------------------------------------------------------------------------------------- */
+.combobox {display: block;width: 100%;}
+.combobox > select {display: none;}
+.combobox__combo {}
+.combobox-dialog {font-size: 15px;color: #222;}
+.combobox-dialog__list {overflow-y: auto;position: relative;max-height: 500px;max-height: 80vh;text-align: center;}
+.combobox-dialog__item {position: relative;padding: 17px 45px;border-top: 1px solid #e3e3e3;}
+.combobox-dialog__item:before {content: "";overflow: hidden;position: absolute;top: 50%;right: 15px;width: 17px;height: 12px;margin-top: -6px;background: url("../images/common/bg_combobox_selected.png") no-repeat 0 0;background-size: 0;}
+.combobox-dialog__item.is-active {color: #009cff;}
+.combobox-dialog__item.is-active:before {background-size: 100% auto;}
+.combobox-dialog__item.is-hidden {display: none !important;}
+.combobox-dialog__item.is-disabled {color: rgba(85,85,85,.45);}
+.combobox-dialog__item:first-child {border-top: 0;}
+
+</style>
+
+<span data-js="combobox"> <!--  data-js="combobox" 로 이벤트 바인딩 -->
+    <!--
+        data-title 값으로 레이어 타이틀 지정
+        title 값으로 생성되는 Button의 title값 지정
+        class 값으로 생성되는 Button의 class값 추가
+    -->
+    <select name="" data-title="SORT" title="상품 순서 정렬" class="o-input o-input--select">
+        <option value="">인기순</option>
+        <option value="" hidden>상품평순</option> <!-- hidden 속성 추가 시, 노출되지 않습니다.-->
+        <option value="">신상품순</option>
+        <option value="">낮은가격순</option>
+        <option value="">높은가격순</option>
+    </select>
+</span>
+<div id="combobox-dialog" class="c-dialog c-dialog--select combobox-dialog" tabindex="-1"></div>
+
+<script>
+/**
+ *   jQuery combobox
+ *  $(element).combobox();
+ *  <div class="element">
+ *      <select></select>
+ *  </div>
+ **/
+;(function ( $, window, document, undefined ) {
+
+    var pluginName = 'combobox',
+        uuid = 0,
+        existenceModal = false,
+        isAnimating = false;
+
+
+    $.fn[pluginName] = function ( options ) {
+        this.each(function() {
+            if ( !$.data( this, "plugin_" + pluginName ) ) {
+                $.data( this, "plugin_" + pluginName, new Plugin( this, options ) );
+                Design.log( '[bind] '+pluginName );
+            }
+        });
+
+        return this;
+    };
+
+    $.fn[pluginName].defaults = {
+        selectedClassName : 'is-active',
+        disabledClassName : 'is-disabled',
+        hiddenClassName : 'is-hidden',
+        onInitialize : null,
+        onBeforeChange : null,
+        onAfterChange : null
+    };
+
+    function Plugin ( element, options ) {
+        this.$body = $('body');
+        this.element = element;
+        this._name = pluginName;
+        this._dialogName = pluginName+'-dialog';
+        this._defaults = $.fn[pluginName].defaults;
+        this.options = $.extend( {}, this._defaults, options );
+        this._uuid = uuid++;
+        this.modalID = pluginName+'-dialog';
+        this.origin = null;
+        this.isMoving = null;
+        this.usedDim = true;
+        this.init();
+    }
+
+    $.extend( Plugin.prototype, {
+
+        init: function () {
+            var plugin = this;
+
+            plugin.buildCache();
+            plugin.makeButton();
+            plugin.makeModal();
+            plugin.bindEvents();
+        },
+
+        destroy: function() {
+            var plugin = this;
+
+            plugin.unbindEvents();
+            plugin.$button = null;
+            plugin.origin = null;
+            plugin.$wrap.removeClass( plugin._name );
+            plugin.$select.siblings().remove();
+            plugin.$wrap = null;
+            plugin.$select = null;
+            plugin.$modal = null;
+            plugin.$element.removeData("plugin_" + pluginName);
+        },
+
+        update : function( silent ){
+            var plugin = this;
+
+            plugin.buildData();
+            plugin.onChange( plugin.origin.idx, silent);
+        },
+
+        buildCache: function () {
+            var plugin = this;
+
+            plugin.$wrap = $( plugin.element ).addClass( plugin._name );
+            plugin.$select = plugin.$wrap.find('select');
+
+            plugin.origin = {};
+            plugin.origin.title = plugin.$select.attr('title') || '';
+            plugin.origin.layerTitle = plugin.$select.data('title') || '';
+            plugin.origin.klass = plugin.$select.attr('class') || '';
+            plugin.origin.isDisabled = plugin.$select.attr('disabled') || false;
+        },
+
+        makeButton : function(){
+            var plugin = this;
+
+            plugin.$button = $('<button type="button" class="o-button '+ plugin._name+'__combo" title="'+plugin.origin.title+'"></button>');
+            plugin.$button.addClass( plugin.$select.attr('class') ).text( plugin.$select.find('option:selected').text() );
+
+            if( plugin.origin.isDisabled ){
+                plugin.$button.addClass( plugin.options.disabledClassName );
+            } else {
+                plugin.$button.removeClass( plugin.options.disabledClassName );
+            }
+            plugin.$wrap.append( plugin.$button );
+        },
+
+        makeModal : function(){
+            var plugin = this;
+
+            if( !existenceModal ){
+                var html = '';
+                html+=  '<div id="'+plugin._name+'-dialog" class="c-dialog c-dialog--select '+plugin._name+'-dialog" tabindex="-1">';
+
+                // html+=      '<div class="c-dialog__foot">';
+                // html+=           '<button class="c-dialog__close o-button" data-dismiss="cancel" aria-label="레이어팝업 닫기"><i class="o-icon o-icon--close"></i></button>';
+                // html+=      '</div>';
+                html+=  '</div>';
+
+                plugin.$body.append( html );
+            }
+
+            plugin.$modal = $('#'+plugin._name+'-dialog');
+            plugin.$close = plugin.$modal.find('[data-dismiss="cancel"]');
+
+            if( plugin.$modal ){
+                existenceModal = true;
+            }
+        },
+
+        modalTemplate : function(){
+            var plugin = this;
+            var html = '';
+
+            //html+= '<h1 class="c-dialog__title sr-only"><@= data.layerTitle @></h1>';
+            html+= '<div class="c-dialog__body">';
+            html+=      '<ul class="'+plugin._dialogName+'__list" role="listbox" aria-label="<@= data.title @>" aria-expanded="true">';
+            html+= '<@ _.forEach( data.options,function(_item,_idx){ @>';
+            html+=      '<@ if( _item.selected ){ @>';
+            html+=          '<li class="'+plugin._dialogName+'__item is-active" data-id="<@= _idx @>" data-val="<@= _item.value @>" title="<@= _item.title @>" role="option" tabindex="0"><@= _item.text @></li>';
+            html+=      '<@  } else if( _item.hidden ){ @>';
+            html+=          '<li class="'+plugin._dialogName+'__item is-hidden" data-id="<@= _idx @>" data-val="<@= _item.value @>" title="<@= _item.title @>" role="option"><@= _item.text @></li>';
+            html+=      '<@  } else if( _item.disabled ){ @>';
+            html+=          '<li class="'+plugin._dialogName+'__item is-hidden" data-id="<@= _idx @>" data-val="<@= _item.value @>" title="<@= _item.title @>" role="option"><@= _item.text @></li>';
+            html+=      '<@  } else { @>';
+            html+=          '<li class="'+plugin._dialogName+'__item" data-id="<@= _idx @>" data-val="<@= _item.value @>" title="<@= _item.title @>" role="option" tabindex="0"><@= _item.text @></li>';
+            html+=      '<@  } @>';
+            html+= '<@ }); @>';
+            html+=      '</ul>';
+            html+=  '</div>';
+
+            return html;
+        },
+
+        buildData : function(){
+            var plugin = this;
+
+            plugin.origin.idx = plugin.$select.find('option:selected').index() || 0;
+            plugin.origin.isDisabled = plugin.$select.attr('disabled') || false;
+            plugin.origin.options = [];
+
+            plugin.$select.find('option').each(function(){
+                var $this = $(this);
+
+                plugin.origin.options.push({
+                    'text' : $this.text() || null,
+                    'value' : $this.val() || null,
+                    'selected' : $this.prop('selected'),
+                    'hidden' : $this.prop('hidden'),
+                    'disabled' : $this.prop('disabled'),
+                    'title' : $this.attr('title') || null
+                });
+            });
+        },
+
+        buildModalDom : function(){
+            var plugin = this;
+            var _template = _.template( plugin.modalTemplate() );
+
+            plugin.$modal.prepend(
+                _template({
+                    id : plugin._uuid,
+                    data: plugin.origin
+                })
+            );
+
+            var focusEls = $.findFocusableElement( plugin.$modal );
+            plugin.$focusFirst = $( focusEls[0] );
+            plugin.$focusLast = $( focusEls[1] );
+
+        },
+        unBuildModalDom : function(){
+            var plugin = this;
+            plugin.$modal.empty();
+        },
+
+        onChange : function( _newIdx, silent ){
+            var plugin = this;
+
+            if( typeof silent === 'undefined' ){
+                if( plugin.$select.prop('disabled') ){ return false; }
+            }
+
+            plugin.$button.attr( 'data-id',_newIdx ).text( plugin.origin.options[_newIdx].text );
+
+            if( plugin.origin.isDisabled ){
+                plugin.$button.addClass( plugin.options.disabledClassName );
+            } else {
+                plugin.$button.removeClass( plugin.options.disabledClassName );
+            }
+
+            if( silent ){
+                plugin.$select.find('option:eq('+_newIdx+')').prop('selected', true);
+            } else {
+                plugin.$select.find('option:eq('+_newIdx+')').prop('selected', true).end().change();
+            }
+
+            plugin.origin.idx = _newIdx;
+        },
+
+        bindEvents: function() {
+            var plugin = this;
+
+            plugin.$wrap.on('click'+'.'+plugin._name,'.'+plugin._name+'__combo',function(e){
+                e.preventDefault();
+                e.stopPropagation();
+                if( plugin.isMoving ){ return false; }
+                plugin.openModal();
+            });
+
+            plugin.$wrap.on('update'+'.'+plugin._name,function(e,silent){
+                e.stopPropagation();
+                plugin.update(silent);
+            });
+
+            // Override Native Focus Methods
+            plugin.$select[0].focus = function(e){
+                plugin.$button.focus();
+            };
+
+            plugin.$wrap.on('reset'+'.'+plugin._name,function(e,silent){
+                e.stopPropagation();
+                plugin.onChange(0,true);
+            });
+
+        },
+        bindModalEvent : function(){
+            var plugin = this;
+
+            plugin.$close.on('click'+'.'+plugin._name,function(e){
+                e.preventDefault();
+                e.stopPropagation();
+                plugin.closeModal();
+            });
+
+            plugin.$modal.on('keydown'+'.'+plugin._name,function(e){
+                var keyCode = e.keyCode || e.which;
+                if (keyCode == 9){
+
+                    if( e.target == plugin.$focusLast.get(0) ){
+                        if (!e.shiftKey){
+                            e.preventDefault();
+                            plugin.$focusFirst.focus();
+                        }
+                    }
+
+                    if( e.target == plugin.$focusFirst.get(0) ){
+                        if (e.shiftKey){
+                            plugin.$focusLast.focus();
+                            e.preventDefault();
+                        }
+                    }
+
+                }
+            }).on('close'+'.'+plugin._name,function(e){
+                e.preventDefault();
+                e.stopPropagation();
+                plugin.closeModal();
+            });
+
+            plugin.$modal.on('click'+'.'+plugin._name,'.'+plugin._dialogName+'__item[tabindex]',function(e){
+                e.stopPropagation();
+                e.preventDefault();
+                plugin.onChange( $(this).index() );
+                plugin.closeModal();
+            }).on('keydown'+'.'+plugin._name,'.'+plugin._dialogName+'__item[tabindex]',function(e){
+                if( e.keyCode == 13 ){
+                    e.stopPropagation();
+                    e.preventDefault();
+                    plugin.onChange( $(this).index() );
+                    plugin.closeModal();
+                }
+            });
+
+            // plugin.$body.on('touchstart.'+plugin._name+'-'+plugin._uuid,'.o-dimed',function(e){
+            //     e.stopPropagation();
+            //     e.preventDefault();
+            //     plugin.closeModal('force');
+            // });
+
+        },
+
+        unbindEvents: function() {
+            var plugin = this;
+            plugin.$wrap.off('.'+plugin._name);
+        },
+        unbindModalEvent : function(){
+            var plugin = this;
+
+            if( plugin.$modal ){
+                plugin.$modal.off('.'+plugin._name);
+                plugin.$close.off('.'+plugin._name);
+            }
+
+            plugin.$body.off('.'+plugin._name+'-'+plugin._uuid);
+        },
+
+        openModal : function(){
+            var plugin = this;
+
+            if( plugin.$select.prop('disabled') ){ return false; }
+
+            plugin.isMoving = true;
+            Design.layer.push( plugin );
+
+            plugin.unBuildModalDom();
+            plugin.unbindModalEvent();
+
+            plugin.buildData();
+            plugin.buildModalDom();
+            plugin.bindModalEvent();
+
+            plugin.$modal.show(0,function(){
+                plugin.$modal.addClass('is-active').find('.c-dialog__body').scrollTop(  plugin.$modal.find('li.is-active').position().top );
+            }).one( Design.transitionEndName ,function(){
+                //plugin.$focusFirst.focus();
+                plugin.$modal.find('li.is-active').focus();
+                plugin.isMoving = false;
+            });
+
+            Design.dim( true,true ).on('click.'+plugin.modalID,function(e){
+                e.stopPropagation();
+                e.preventDefault();
+                if( Design.layer.current() === plugin ){
+                    plugin.closeModal();
+                }
+            });
+
+        },
+
+        closeModal : function(){
+            var plugin = this;
+
+            plugin.isMoving = true;
+
+            Design.layer.pop( plugin.modalID );
+
+            plugin.$modal.one( Design.transitionEndName ,function(){
+                $(this).hide();
+
+                Design.dim(false,true,function(){
+                    plugin.isMoving = false;
+                }).off('.'+plugin.modalID);
+
+                plugin.unbindModalEvent();
+                plugin.unBuildModalDom();
+            }).removeClass('is-active');
+
+            plugin.$button.focus();
+
+            setTimeout(function(){
+                plugin.isMoving = false;
+            },1000);
+
+        }
+    });
+
+    $('[data-js="combobox"]').combobox();
+
+})( jQuery, window, document );
+
+</script>
+
+<script>
+
+    $('[data-js="combobox"]').smcCombobox({
+        selectedClassName : 'is-active',
+        disabledClassName : 'is-disabled',
+        hiddenClassName : 'is-hidden',
+        onInitialize : function(){
+            console.log(' init ')
+        },
+        onBeforeChange : function(){
+            console.log(' 셀렉트 값 반영전 ')
+        },
+        onAfterChange : function(){
+            console.log(' 셀렉트 값 반영후 ')
+        }
+    });
+</script>
+<!-- //view -->
+
+<!-- markup -->
+<h1>html</h1>
+<textarea style="height:120px">
+<span data-js="combobox">
+    <select class="o-input o-input--select" title="타이틀">
+        <option>select</option>
+        <option>select</option>
+    </select>
+</span>
+</textarea>
+<!-- //markup -->
+
+<!-- css -->
+<h1>css</h1>
+<textarea style="height:140px">
+.combobox {display: block;width: 100%;}
+.combobox > select {display: none;}
+.combobox__combo {}
+.combobox-dialog {font-size: 15px;color: #222;}
+.combobox-dialog__list {overflow-y: auto;position: relative;max-height: 500px;max-height: 80vh;text-align: center;}
+.combobox-dialog__item {position: relative;padding: 17px 45px;border-top: 1px solid #e3e3e3;}
+.combobox-dialog__item:before {content: "";overflow: hidden;position: absolute;top: 50%;right: 15px;width: 17px;height: 12px;margin-top: -6px;background: url("../images/common/bg_combobox_selected.png") no-repeat 0 0;background-size: 0;}
+.combobox-dialog__item.is-active {color: #009cff;}
+.combobox-dialog__item.is-active:before {background-size: 100% auto;}
+.combobox-dialog__item.is-hidden {display: none !important;}
+.combobox-dialog__item.is-disabled {color: rgba(85,85,85,.45);}
+.combobox-dialog__item:first-child {border-top: 0;}
+</textarea>
+<!-- //css -->
+
+<!-- script -->
+<h1>script</h1>
+<textarea style="height:430px">
+/**
+ *   jQuery combobox
+ *  $(element).combobox();
+ *  <div class="element">
+ *      <select></select>
+ *  </div>
+ **/
+;(function ( $, window, document, undefined ) {
+
+    var pluginName = 'combobox',
+        uuid = 0,
+        existenceModal = false,
+        isAnimating = false;
+
+
+    $.fn[pluginName] = function ( options ) {
+        this.each(function() {
+            if ( !$.data( this, "plugin_" + pluginName ) ) {
+                $.data( this, "plugin_" + pluginName, new Plugin( this, options ) );
+                Design.log( '[bind] '+pluginName );
+            }
+        });
+
+        return this;
+    };
+
+    $.fn[pluginName].defaults = {
+        selectedClassName : 'is-active',
+        disabledClassName : 'is-disabled',
+        hiddenClassName : 'is-hidden',
+        onInitialize : null,
+        onBeforeChange : null,
+        onAfterChange : null
+    };
+
+    function Plugin ( element, options ) {
+        this.$body = $('body');
+        this.element = element;
+        this._name = pluginName;
+        this._dialogName = pluginName+'-dialog';
+        this._defaults = $.fn[pluginName].defaults;
+        this.options = $.extend( {}, this._defaults, options );
+        this._uuid = uuid++;
+        this.modalID = pluginName+'-dialog';
+        this.origin = null;
+        this.isMoving = null;
+        this.usedDim = true;
+        this.init();
+    }
+
+    $.extend( Plugin.prototype, {
+
+        init: function () {
+            var plugin = this;
+
+            plugin.buildCache();
+            plugin.makeButton();
+            plugin.makeModal();
+            plugin.bindEvents();
+        },
+
+        destroy: function() {
+            var plugin = this;
+
+            plugin.unbindEvents();
+            plugin.$button = null;
+            plugin.origin = null;
+            plugin.$wrap.removeClass( plugin._name );
+            plugin.$select.siblings().remove();
+            plugin.$wrap = null;
+            plugin.$select = null;
+            plugin.$modal = null;
+            plugin.$element.removeData("plugin_" + pluginName);
+        },
+
+        update : function( silent ){
+            var plugin = this;
+
+            plugin.buildData();
+            plugin.onChange( plugin.origin.idx, silent);
+        },
+
+        buildCache: function () {
+            var plugin = this;
+
+            plugin.$wrap = $( plugin.element ).addClass( plugin._name );
+            plugin.$select = plugin.$wrap.find('select');
+
+            plugin.origin = {};
+            plugin.origin.title = plugin.$select.attr('title') || '';
+            plugin.origin.layerTitle = plugin.$select.data('title') || '';
+            plugin.origin.klass = plugin.$select.attr('class') || '';
+            plugin.origin.isDisabled = plugin.$select.attr('disabled') || false;
+        },
+
+        makeButton : function(){
+            var plugin = this;
+
+            plugin.$button = $('<button type="button" class="o-button '+ plugin._name+'__combo" title="'+plugin.origin.title+'"></button>');
+            plugin.$button.addClass( plugin.$select.attr('class') ).text( plugin.$select.find('option:selected').text() );
+
+            if( plugin.origin.isDisabled ){
+                plugin.$button.addClass( plugin.options.disabledClassName );
+            } else {
+                plugin.$button.removeClass( plugin.options.disabledClassName );
+            }
+            plugin.$wrap.append( plugin.$button );
+        },
+
+        makeModal : function(){
+            var plugin = this;
+
+            if( !existenceModal ){
+                var html = '';
+                html+=  '<div id="'+plugin._name+'-dialog" class="c-dialog c-dialog--select '+plugin._name+'-dialog" tabindex="-1">';
+
+                // html+=      '<div class="c-dialog__foot">';
+                // html+=           '<button class="c-dialog__close o-button" data-dismiss="cancel" aria-label="레이어팝업 닫기"><i class="o-icon o-icon--close"></i></button>';
+                // html+=      '</div>';
+                html+=  '</div>';
+
+                plugin.$body.append( html );
+            }
+
+            plugin.$modal = $('#'+plugin._name+'-dialog');
+            plugin.$close = plugin.$modal.find('[data-dismiss="cancel"]');
+
+            if( plugin.$modal ){
+                existenceModal = true;
+            }
+        },
+
+        modalTemplate : function(){
+            var plugin = this;
+            var html = '';
+
+            //html+= '<h1 class="c-dialog__title sr-only"><@= data.layerTitle @></h1>';
+            html+= '<div class="c-dialog__body">';
+            html+=      '<ul class="'+plugin._dialogName+'__list" role="listbox" aria-label="<@= data.title @>" aria-expanded="true">';
+            html+= '<@ _.forEach( data.options,function(_item,_idx){ @>';
+            html+=      '<@ if( _item.selected ){ @>';
+            html+=          '<li class="'+plugin._dialogName+'__item is-active" data-id="<@= _idx @>" data-val="<@= _item.value @>" title="<@= _item.title @>" role="option" tabindex="0"><@= _item.text @></li>';
+            html+=      '<@  } else if( _item.hidden ){ @>';
+            html+=          '<li class="'+plugin._dialogName+'__item is-hidden" data-id="<@= _idx @>" data-val="<@= _item.value @>" title="<@= _item.title @>" role="option"><@= _item.text @></li>';
+            html+=      '<@  } else if( _item.disabled ){ @>';
+            html+=          '<li class="'+plugin._dialogName+'__item is-hidden" data-id="<@= _idx @>" data-val="<@= _item.value @>" title="<@= _item.title @>" role="option"><@= _item.text @></li>';
+            html+=      '<@  } else { @>';
+            html+=          '<li class="'+plugin._dialogName+'__item" data-id="<@= _idx @>" data-val="<@= _item.value @>" title="<@= _item.title @>" role="option" tabindex="0"><@= _item.text @></li>';
+            html+=      '<@  } @>';
+            html+= '<@ }); @>';
+            html+=      '</ul>';
+            html+=  '</div>';
+
+            return html;
+        },
+
+        buildData : function(){
+            var plugin = this;
+
+            plugin.origin.idx = plugin.$select.find('option:selected').index() || 0;
+            plugin.origin.isDisabled = plugin.$select.attr('disabled') || false;
+            plugin.origin.options = [];
+
+            plugin.$select.find('option').each(function(){
+                var $this = $(this);
+
+                plugin.origin.options.push({
+                    'text' : $this.text() || null,
+                    'value' : $this.val() || null,
+                    'selected' : $this.prop('selected'),
+                    'hidden' : $this.prop('hidden'),
+                    'disabled' : $this.prop('disabled'),
+                    'title' : $this.attr('title') || null
+                });
+            });
+        },
+
+        buildModalDom : function(){
+            var plugin = this;
+            var _template = _.template( plugin.modalTemplate() );
+
+            plugin.$modal.prepend(
+                _template({
+                    id : plugin._uuid,
+                    data: plugin.origin
+                })
+            );
+
+            var focusEls = $.findFocusableElement( plugin.$modal );
+            plugin.$focusFirst = $( focusEls[0] );
+            plugin.$focusLast = $( focusEls[1] );
+
+        },
+        unBuildModalDom : function(){
+            var plugin = this;
+            plugin.$modal.empty();
+        },
+
+        onChange : function( _newIdx, silent ){
+            var plugin = this;
+
+            if( typeof silent === 'undefined' ){
+                if( plugin.$select.prop('disabled') ){ return false; }
+            }
+
+            plugin.$button.attr( 'data-id',_newIdx ).text( plugin.origin.options[_newIdx].text );
+
+            if( plugin.origin.isDisabled ){
+                plugin.$button.addClass( plugin.options.disabledClassName );
+            } else {
+                plugin.$button.removeClass( plugin.options.disabledClassName );
+            }
+
+            if( silent ){
+                plugin.$select.find('option:eq('+_newIdx+')').prop('selected', true);
+            } else {
+                plugin.$select.find('option:eq('+_newIdx+')').prop('selected', true).end().change();
+            }
+
+            plugin.origin.idx = _newIdx;
+        },
+
+        bindEvents: function() {
+            var plugin = this;
+
+            plugin.$wrap.on('click'+'.'+plugin._name,'.'+plugin._name+'__combo',function(e){
+                e.preventDefault();
+                e.stopPropagation();
+                if( plugin.isMoving ){ return false; }
+                plugin.openModal();
+            });
+
+            plugin.$wrap.on('update'+'.'+plugin._name,function(e,silent){
+                e.stopPropagation();
+                plugin.update(silent);
+            });
+
+            // Override Native Focus Methods
+            plugin.$select[0].focus = function(e){
+                plugin.$button.focus();
+            };
+
+            plugin.$wrap.on('reset'+'.'+plugin._name,function(e,silent){
+                e.stopPropagation();
+                plugin.onChange(0,true);
+            });
+
+        },
+        bindModalEvent : function(){
+            var plugin = this;
+
+            plugin.$close.on('click'+'.'+plugin._name,function(e){
+                e.preventDefault();
+                e.stopPropagation();
+                plugin.closeModal();
+            });
+
+            plugin.$modal.on('keydown'+'.'+plugin._name,function(e){
+                var keyCode = e.keyCode || e.which;
+                if (keyCode == 9){
+
+                    if( e.target == plugin.$focusLast.get(0) ){
+                        if (!e.shiftKey){
+                            e.preventDefault();
+                            plugin.$focusFirst.focus();
+                        }
+                    }
+
+                    if( e.target == plugin.$focusFirst.get(0) ){
+                        if (e.shiftKey){
+                            plugin.$focusLast.focus();
+                            e.preventDefault();
+                        }
+                    }
+
+                }
+            }).on('close'+'.'+plugin._name,function(e){
+                e.preventDefault();
+                e.stopPropagation();
+                plugin.closeModal();
+            });
+
+            plugin.$modal.on('click'+'.'+plugin._name,'.'+plugin._dialogName+'__item[tabindex]',function(e){
+                e.stopPropagation();
+                e.preventDefault();
+                plugin.onChange( $(this).index() );
+                plugin.closeModal();
+            }).on('keydown'+'.'+plugin._name,'.'+plugin._dialogName+'__item[tabindex]',function(e){
+                if( e.keyCode == 13 ){
+                    e.stopPropagation();
+                    e.preventDefault();
+                    plugin.onChange( $(this).index() );
+                    plugin.closeModal();
+                }
+            });
+
+            // plugin.$body.on('touchstart.'+plugin._name+'-'+plugin._uuid,'.o-dimed',function(e){
+            //     e.stopPropagation();
+            //     e.preventDefault();
+            //     plugin.closeModal('force');
+            // });
+
+        },
+
+        unbindEvents: function() {
+            var plugin = this;
+            plugin.$wrap.off('.'+plugin._name);
+        },
+        unbindModalEvent : function(){
+            var plugin = this;
+
+            if( plugin.$modal ){
+                plugin.$modal.off('.'+plugin._name);
+                plugin.$close.off('.'+plugin._name);
+            }
+
+            plugin.$body.off('.'+plugin._name+'-'+plugin._uuid);
+        },
+
+        openModal : function(){
+            var plugin = this;
+
+            if( plugin.$select.prop('disabled') ){ return false; }
+
+            plugin.isMoving = true;
+            Design.layer.push( plugin );
+
+            plugin.unBuildModalDom();
+            plugin.unbindModalEvent();
+
+            plugin.buildData();
+            plugin.buildModalDom();
+            plugin.bindModalEvent();
+
+            plugin.$modal.show(0,function(){
+                plugin.$modal.addClass('is-active').find('.c-dialog__body').scrollTop(  plugin.$modal.find('li.is-active').position().top );
+            }).one( Design.transitionEndName ,function(){
+                //plugin.$focusFirst.focus();
+                plugin.$modal.find('li.is-active').focus();
+                plugin.isMoving = false;
+            });
+
+            Design.dim( true,true ).on('click.'+plugin.modalID,function(e){
+                e.stopPropagation();
+                e.preventDefault();
+                if( Design.layer.current() === plugin ){
+                    plugin.closeModal();
+                }
+            });
+
+        },
+
+        closeModal : function(){
+            var plugin = this;
+
+            plugin.isMoving = true;
+
+            Design.layer.pop( plugin.modalID );
+
+            plugin.$modal.one( Design.transitionEndName ,function(){
+                $(this).hide();
+
+                Design.dim(false,true,function(){
+                    plugin.isMoving = false;
+                }).off('.'+plugin.modalID);
+
+                plugin.unbindModalEvent();
+                plugin.unBuildModalDom();
+            }).removeClass('is-active');
+
+            plugin.$button.focus();
+
+            setTimeout(function(){
+                plugin.isMoving = false;
+            },1000);
+
+        }
+    });
+
+    $('[data-js="combobox"]').combobox();
+
+})( jQuery, window, document );
+</textarea>
+<!-- //script -->
+
+</body>

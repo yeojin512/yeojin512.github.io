@@ -1,0 +1,659 @@
+<!doctype html>
+<html xml:lang="ko" lang="ko">
+<head>
+<meta charset="euc-kr">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>리스트</title>
+<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="js/modernizr.min.js"></script>
+<script type="text/javascript" src="js/jquery_ui.js"></script>
+<link type="text/css" rel="stylesheet" href="css/common.css" />
+</head>
+
+<body>
+
+<!-- view -->
+<style>
+.c-attachment {
+    -webkit-box-flex: 0;
+    flex: none;
+    max-width:100px;
+    position: relative;
+    width: 100%;
+    border: 1px solid #ccc;
+    background-color: #fff;
+}
+
+.c-attachment:after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+}
+
+.c-attachment__placeholder {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    margin-top: 13px;
+    font-size: 14px;
+    color: #bbb;
+    text-align: center;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.c-attachment__placeholder:before {
+    display: block;
+    position: absolute;
+    top: -22px;
+    left: 50%;
+    width: 1px;
+    height: 15px;
+    background-color: #ccc;
+    content: "";
+}
+
+.c-attachment__placeholder:after {
+    display: block;
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    width: 15px;
+    height: 1px;
+    margin-left: -7px;
+    background-color: #ccc;
+    content: "";
+}
+
+.c-attachment__handler {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.c-attachment__preview {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+}
+
+.c-attachment__image,
+.c-attachment__canvas {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.c-attachment__delete {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 4;
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    background-color: rgba(0,0,0,.7);
+}
+
+.c-attachment.is-loaded .c-attachment__handler {
+    display: none;
+}
+
+.c-attachment.is-loaded .c-attachment__delete {
+    display: block;
+}
+
+.c-attachment.is-disabled {
+    background: #f4f4f4 url("../images/common/img_attach_logo.png") no-repeat 50% 50%;
+    background-size: auto 17px;
+}
+
+.c-attachment.is-disabled .c-attachment__canvas,
+.c-attachment.is-disabled .c-attachment__placeholder,
+.c-attachment.is-disabled .c-attachment__handler {
+    display: none;
+}
+</style>
+<strong>기본</strong>
+<div class="c-attachment" data-js="attach-image">
+    <span class="c-attachment__placeholder">사진첨부</span>
+    <div class="c-attachment__preview">
+        <canvas class="c-attachment__canvas" data-js="attach-image__canvas"></canvas>
+    </div>
+    <input class="o-input c-attachment__handler" type="file" accept="image/*" capture="camera" title="사진첨부" data-js="attach-image__file">
+    <button type="button" class="o-button c-attachment__delete" title="첨부파일 삭제" data-js="attach-image__delete"><i class="o-icon o-icon--attach-delete" aria-hidden="true"></i></button>
+</div>
+<strong>사진 첨부 불가능</strong>
+<div class="c-attachment is-disabled" data-js="attach-image"> <!-- is-disabled 클래스 추가 -->
+    <span class="c-attachment__placeholder">사진첨부</span>
+    <div class="c-attachment__preview">
+        <canvas class="c-attachment__canvas" data-js="attach-image__canvas"></canvas>
+    </div>
+    <input class="o-input c-attachment__handler" type="file" accept="image/*" capture="camera" title="사진첨부" data-js="attach-image__file">
+    <button type="button" class="o-button c-attachment__delete" title="첨부파일 삭제" data-js="attach-image__delete"><i class="o-icon o-icon--attach-delete" aria-hidden="true"></i></button>
+</div>
+<strong>이미 등록된 사진</strong>
+<div class="c-attachment is-disabled" data-js="attach-image"> <!-- is-disabled 클래스 추가 -->
+    <span class="c-attachment__placeholder">사진첨부</span>
+    <div class="c-attachment__preview">
+        <img class="c-attachment__image" src="https://source.unsplash.com/random" alt=""> <!-- 이미지 추가 -->
+        <canvas class="c-attachment__canvas" data-js="attach-image__canvas"></canvas>
+    </div>
+    <input class="o-input c-attachment__handler" type="file" accept="image/*" capture="camera" title="사진첨부" data-js="attach-image__file">
+    <button type="button" class="o-button c-attachment__delete" title="첨부파일 삭제" data-js="attach-image__delete"><i class="o-icon o-icon--attach-delete" aria-hidden="true"></i></button>
+</div>
+<strong>첨부 기능 없이 사진을 보여주기만 할때</strong>
+<div class="c-attachment is-disabled">
+    <div class="c-attachment__preview">
+        <img class="c-attachment__image" src="https://source.unsplash.com/random" alt=""> <!-- 이미지 추가 -->
+    </div>
+</div>
+
+<script>
+/**
+ *   첨부파일
+ */
+/**
+ *  jQuery attach-image
+ *  $( wrapper ).smcAttachImage();
+ */
+;(function($, window, document, undefined) {
+    var pluginName = 'smcAttachImage';
+
+    $.fn[pluginName] = function ( options ) {
+        this.each(function() {
+            if ( !$.data( this, "plugin_" + pluginName ) ) {
+                $.data( this, "plugin_" + pluginName, new Plugin( this, options ) );
+                Design.log( '[bind] '+pluginName );
+            }
+        });
+
+        return this;
+    };
+
+    $.fn[pluginName].defaults = {
+        fileSelector : '[data-js="attach-image__file"]',
+        deleteSelector : '[data-js="attach-image__delete"]',
+        imageSelector : '[data-js="attach-image__image"]',
+        canvasSelector : '[data-js="attach-image__canvas"]',
+        onlyLandscape : false,
+        onDraw : 'attachDrawCallback',
+        onClear : 'attachClearCallback'
+    };
+
+    function Plugin ( element, options ) {
+        this.element = element;
+        this._name = pluginName;
+        this._defaults = $.fn[pluginName].defaults;
+        this.options = $.extend( {}, this._defaults, options, $(element).data('option') );
+        this.init();
+    }
+
+    $.extend( Plugin.prototype, {
+
+        init : function () {
+            var plugin = this;
+
+            plugin.buildCache();
+            plugin.bindEvents();
+        },
+
+        buildCache : function(){
+            var plugin = this;
+
+            plugin.$wrap = $( plugin.element );
+            plugin.$file = plugin.$wrap.find( plugin.options.fileSelector );
+            plugin.$delete = plugin.$wrap.find( plugin.options.deleteSelector );
+            plugin.$canvas = plugin.$wrap.find( plugin.options.canvasSelector );
+            plugin.$image = plugin.$wrap.find( plugin.options.imageSelector );
+            plugin.canvas = plugin.$canvas.get(0);
+            plugin.ctx = plugin.canvas.getContext('2d');
+            plugin.canvasW = plugin.canvas.width = plugin.$canvas.width();
+            plugin.canvasH = plugin.canvas.height = plugin.$canvas.height();
+        },
+
+        draw : function( file ){
+            var plugin = this;
+            plugin.$file.data('fileName', _.uniqueId( plugin.$file.data('prefix') || 'attachment' ) );
+
+            plugin.getOrientation( file, function( rotateCode ){
+                var img = new Image();
+
+                plugin.ctx.setTransform(1, 0, 0, 1, 0, 0);
+
+                if( plugin.options.onlyLandscape ){
+                    if( rotateCode === 6 || rotateCode === 8 ){
+                        Design.alert('媛?濡?え??? 珥ъ??? 二쇱???.');
+                        plugin.clear();
+                        return false;
+                    }
+                }
+
+                if( rotateCode === 6 ){
+                    plugin.ctx.transform(0, 1, -1, 0, plugin.canvasH, 0);
+                } else if( rotateCode === 8 ){
+                    plugin.ctx.transform(0, -1, 1, 0, 0, plugin.canvasW);
+                } else if ( rotateCode === 3 ){
+                    plugin.ctx.transform(-1, 0, 0, -1, plugin.canvasW, plugin.canvasH);
+                }
+
+                img.onload = function () {
+
+                    plugin.ctx.drawImage(img, 0, 0, plugin.canvasW, plugin.canvasH);
+                    plugin.$wrap.addClass('is-loaded');
+                    plugin.onDrawCallback();
+                };
+
+                img.src = window.URL.createObjectURL( file );
+            });
+
+        },
+
+        getOrientation : function( file, callback ){
+
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+
+                var view = new DataView( e.target.result );
+
+                if ( view.getUint16(0, false) !== 0xFFD8 ) {
+                    return callback(-2);
+                }
+                var length = view.byteLength,
+                    offset = 2;
+
+                while ( offset < length ) {
+                    var marker = view.getUint16( offset, false );
+                    offset += 2;
+                    if ( marker === 0xFFE1 ) {
+                        if ( view.getUint32(offset += 2, false) !== 0x45786966 ) {
+                            return callback(-1)
+                        }
+                        var little = (view.getUint16(offset += 6, false) === 0x4949);
+                        offset += view.getUint32(offset + 4, little);
+                        var tags = view.getUint16(offset, little);
+                        offset += 2;
+
+                        for ( var i = 0; i < tags; i++ ){
+                            if ( view.getUint16(offset + (i * 12), little) === 0x0112 ){
+                                return callback( view.getUint16(offset + (i * 12) + 8, little) );
+                            }
+                        }
+                    }
+                    else if ( (marker & 0xFF00) !== 0xFF00 ) {
+                        break;
+                    }
+                    else {
+                        offset += view.getUint16(offset, false);
+                    }
+                }
+                return callback(-1);
+            };
+            reader.readAsArrayBuffer( file );
+        },
+
+        _dataURItoBlob : function(dataURI) {
+            // convert base64 to raw binary data held in a string
+            // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
+            var byteString = atob(dataURI.split(',')[1]);
+
+            // separate out the mime component
+            var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
+
+            // write the bytes of the string to an ArrayBuffer
+            var ab = new ArrayBuffer(byteString.length);
+            var ia = new Uint8Array(ab);
+            for (var i = 0; i < byteString.length; i++) {
+                ia[i] = byteString.charCodeAt(i);
+            }
+
+            // write the ArrayBuffer to a blob, and you're done
+            var bb = new Blob([ab]);
+            return bb;
+        },
+
+        _fileToDataURI : function( imgPath ){
+            var deferred = $.Deferred();
+            var image = new Image();
+
+            image.onload = function () {
+                var canvas = document.createElement('canvas');
+                canvas.width = this.naturalWidth;
+                canvas.height = this.naturalHeight;
+
+                canvas.getContext('2d').drawImage(this, 0, 0);
+                deferred.resolve( canvas.toDataURL().toString() );
+            };
+
+            image.src = imgPath;
+            return deferred.promise();
+        },
+
+        clear : function (){
+            var plugin = this;
+
+            var fileName = plugin.$file.data('fileName') || '';
+            plugin.$file.val('');
+            plugin.$image.length && plugin.$image.remove();
+            plugin.ctx.clearRect(0, 0, plugin.canvasW, plugin.canvasH);
+            plugin.$wrap.removeClass('is-loaded');
+
+            if( typeof window.UPLOAD !== 'undefined' && typeof window.UPLOAD.remove === 'function'){
+                fileName && window.UPLOAD.remove( fileName+'.jpg' );
+            }
+            plugin.onClearCallback();
+            plugin.$file.removeData('fileName');
+        },
+
+
+        onDrawCallback : function(){
+            var plugin = this,
+                onDraw = plugin.options.onDraw;
+
+            if ( typeof onDraw === 'function' ) {
+                onDraw.apply( plugin, [plugin] );
+            } else if ( typeof onDraw === 'string' ){
+                if( typeof window[onDraw] === 'function'){
+                    window[onDraw]( plugin );
+                }
+            }
+        },
+
+        onClearCallback : function(){
+            var plugin = this,
+                onClear = plugin.options.onClear;
+
+            if ( typeof onClear === 'function' ) {
+                onClear.apply( plugin, [plugin] );
+            } else if ( typeof onClear === 'string' ){
+                if( typeof window[onClear] === 'function'){
+                    window[onClear]( plugin );
+                }
+            }
+        },
+
+        bindEvents : function(){
+            var plugin = this;
+
+            plugin.$file.on('change'+'.'+plugin._name, function(e) {
+                var files = e.target.files;
+
+                if ( files.length ) {
+                    // [ from BASE64 ]
+                    // var reader = new FileReader();
+                    // reader.onload = function(e){
+                    //     plugin.draw(  plugin._dataURItoBlob( e.target.result ) );
+                    // };
+                    // reader.readAsDataURL( files[0] );
+
+                    // [ from File ]
+                    plugin.draw( files[0] );
+                } else {
+                    plugin.clear();
+                }
+            }).on('reset'+'.'+ plugin._name, function(e){
+                e.preventDefault();
+                e.stopPropagation();
+                plugin.clear();
+            }).on('base64'+'.'+plugin._name,function(e,base64){
+                e.preventDefault();
+                e.stopPropagation();
+                plugin.clear();
+                if( base64 ){
+                    plugin.draw( plugin._dataURItoBlob( base64 ) );
+                } else {
+                    Design.alert( 'Parameter is not defined' );
+                }
+            }).on('file'+'.'+plugin._name,function(e,path){
+                e.preventDefault();
+                e.stopPropagation();
+                plugin.clear();
+                if( path ){
+                    plugin._fileToDataURI(path).then(function( base64 ) {
+                        plugin.draw( plugin._dataURItoBlob( base64 ) );
+                    });
+                } else {
+                    Design.alert( 'Parameter is not defined' );
+                }
+            });
+
+            plugin.$delete.on('click'+'.'+plugin._name, function(e){
+                e.preventDefault();
+                e.stopPropagation();
+                plugin.clear();
+            });
+        },
+
+        unbindEvents : function(){
+            var plugin = this;
+
+            plugin.$file.off('.'+plugin._name);
+            plugin.$delete.off('.'+plugin._name);
+        }
+    });
+
+})(jQuery, window, document);
+
+</script>
+<script>
+    $(function(){
+        $('[data-js="attach-image"]').smcAttachImage({
+            onlyLandscape : true    // 가로비율 사진만 등록시 (기본값 false)
+        });
+    })
+</script>
+<!-- //view -->
+
+<!-- markup -->
+<h1>html</h1>
+<textarea style="height:400px">
+<!-- 기본 -->
+<div class="c-attachment" data-js="attach-image">
+    <span class="c-attachment__placeholder">사진첨부</span>
+    <div class="c-attachment__preview">
+        <canvas class="c-attachment__canvas" data-js="attach-image__canvas"></canvas>
+    </div>
+    <input class="o-input c-attachment__handler" type="file" accept="image/*" capture="camera" title="사진첨부" data-js="attach-image__file">
+    <button type="button" class="o-button c-attachment__delete" title="첨부파일 삭제" data-js="attach-image__delete"><i class="o-icon o-icon--attach-delete" aria-hidden="true"></i></button>
+</div>
+
+<!-- 사진 첨부 불가능 -->
+<div class="c-attachment is-disabled" data-js="attach-image"> <!-- is-disabled 클래스 추가 -->
+    <span class="c-attachment__placeholder">사진첨부</span>
+    <div class="c-attachment__preview">
+        <canvas class="c-attachment__canvas" data-js="attach-image__canvas"></canvas>
+    </div>
+    <input class="o-input c-attachment__handler" type="file" accept="image/*" capture="camera" title="사진첨부" data-js="attach-image__file">
+    <button type="button" class="o-button c-attachment__delete" title="첨부파일 삭제" data-js="attach-image__delete"><i class="o-icon o-icon--attach-delete" aria-hidden="true"></i></button>
+</div>
+
+<!-- 이미 등록된 사진 -->
+<div class="c-attachment is-disabled" data-js="attach-image"> <!-- is-disabled 클래스 추가 -->
+    <span class="c-attachment__placeholder">사진첨부</span>
+    <div class="c-attachment__preview">
+        <img class="c-attachment__image" src="../../images/temp/temp_event_view1.jpg" alt=""> <!-- 이미지 추가 -->
+        <canvas class="c-attachment__canvas" data-js="attach-image__canvas"></canvas>
+    </div>
+    <input class="o-input c-attachment__handler" type="file" accept="image/*" capture="camera" title="사진첨부" data-js="attach-image__file">
+    <button type="button" class="o-button c-attachment__delete" title="첨부파일 삭제" data-js="attach-image__delete"><i class="o-icon o-icon--attach-delete" aria-hidden="true"></i></button>
+</div>
+
+<!-- 첨부 기능 없이 사진을 보여주기만 할때 -->
+<div class="c-attachment is-disabled">
+    <div class="c-attachment__preview">
+        <img class="c-attachment__image" src="../../images/temp/temp_event_view1.jpg" alt=""> <!-- 이미지 추가 -->
+    </div>
+</div>
+</textarea>
+<!-- //markup -->
+
+<!-- css -->
+<h1>css</h1>
+<textarea style="height:140px">
+.c-attachment {
+    -webkit-box-flex: 0;
+    flex: none;
+    max-width:100px;
+    position: relative;
+    width: 100%;
+    border: 1px solid #ccc;
+    background-color: #fff;
+}
+
+.c-attachment:after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+}
+
+.c-attachment__placeholder {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    margin-top: 13px;
+    font-size: 14px;
+    color: #bbb;
+    text-align: center;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.c-attachment__placeholder:before {
+    display: block;
+    position: absolute;
+    top: -22px;
+    left: 50%;
+    width: 1px;
+    height: 15px;
+    background-color: #ccc;
+    content: "";
+}
+
+.c-attachment__placeholder:after {
+    display: block;
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    width: 15px;
+    height: 1px;
+    margin-left: -7px;
+    background-color: #ccc;
+    content: "";
+}
+
+.c-attachment__handler {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.c-attachment__preview {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+}
+
+.c-attachment__image,
+.c-attachment__canvas {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.c-attachment__delete {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 4;
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    background-color: rgba(0,0,0,.7);
+}
+
+.c-attachment.is-loaded .c-attachment__handler {
+    display: none;
+}
+
+.c-attachment.is-loaded .c-attachment__delete {
+    display: block;
+}
+
+.c-attachment.is-disabled {
+    background: #f4f4f4 url("../images/common/img_attach_logo.png") no-repeat 50% 50%;
+    background-size: auto 17px;
+}
+
+.c-attachment.is-disabled .c-attachment__canvas,
+.c-attachment.is-disabled .c-attachment__placeholder,
+.c-attachment.is-disabled .c-attachment__handler {
+    display: none;
+}
+</textarea>
+<!-- //css -->
+
+<!-- script -->
+<h1>script</h1>
+<textarea style="height:430px">
+/**
+ *   첨부파일
+ */
+;(function( $, win, doc, undefined ){
+
+    var attachFile = function(){
+        var $wrap = $(this),
+            $handler = $wrap.find('[data-js="attachFile__handler"]'),
+            $render = $wrap.find('[data-js="attachFile__render"]'),
+            defaultText = $.trim( $render.text() ) || '선택된 파일 없음';
+
+        $handler.on('change',function(){
+            var _value = this.value;
+            if( _value ){
+                _value = _value.split('\\');
+                $render.text( _value[_value.length-1] );
+            } else {
+                $render.text( defaultText );
+            }
+        });
+    };
+
+    $('[data-js="attachFile"]').each(attachFile)
+
+})(jQuery, window, document);
+</textarea>
+<!-- //script -->
+
+</body>

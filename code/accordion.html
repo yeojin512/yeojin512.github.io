@@ -1,0 +1,524 @@
+<!doctype html>
+<html xml:lang="ko" lang="ko">
+<head>
+<meta charset="euc-kr">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>리스트</title>
+<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="js/modernizr.min.js"></script>
+<script type="text/javascript" src="js/jquery_ui.js"></script>
+<link type="text/css" rel="stylesheet" href="css/common.css" />
+</head>
+
+<body>
+
+<!-- view -->
+<style>
+    .mod-question {display:inline-block;padding:10px;border:1px solid #333;}
+    .mod-answer {display:none;}
+</style>
+<ul class="c-accordion__list" data-js="accordion" data-option='{"autoFold":true, "mode":"slide"}'>
+    <li class="c-accordion__item" data-js="accordion__item">
+        <a href="javascript:void(0);" class="mod-question mod-question--anchor" data-js="accordion__anchor">
+            <abbr title="Question" class="mod-question__abbr">Q</abbr>
+            버튼
+        </a>
+        <div class="mod-answer" data-js="accordion__panel">
+            <abbr title="Answer" class="mod-answer__abbr">A</abbr>
+            내용
+        </div>
+    </li>
+</ul>
+<script>
+/**
+ *   accordion
+ */
+;(function($, window, document, undefined) {
+    var pluginName = 'accordion';
+
+    $.fn[pluginName] = function ( options ) {
+        this.each(function() {
+            if ( !$.data( this, "plugin_" + pluginName ) ) {
+                $.data( this, "plugin_" + pluginName, new Plugin( this, options ) );
+            } else {
+                $(this).data("plugin_" + pluginName).update();
+                Design.log( '[update] '+pluginName );
+            }
+        });
+
+        return this;
+    };
+
+    $.fn[pluginName].defaults = {
+        mode : 'static',    // static, slide
+        speed : 300,
+        easing : 'linear',
+        itemEl : '[data-js="accordion__item"]',
+        anchorEl : '[data-js="accordion__anchor"]',
+        panelEl : '[data-js="accordion__panel"]',
+        activeClassName : 'is-active',
+        isInitActive : false,
+        initIndex : 0,
+        autoFold : true,
+        changeText : false,
+        toggleText : ['열림','닫힘'],
+        autoToggleText : false,
+        onBeforeChange : null,
+        onAfterChange : null
+    };
+
+    function Plugin ( element, options ) {
+        this.element = element;
+        this._name = pluginName;
+        this._defaults = $.fn[pluginName].defaults;
+        this.options = $.extend( {}, this._defaults, options );
+        this.flag = false;
+        this.currentIndex = null;
+        this.init();
+    }
+
+    $.extend( Plugin.prototype, {
+
+        init : function () {
+            var plugin = this;
+            plugin.buildCache();
+            plugin.bindEvents();
+            plugin.$panel.hide();
+            if( plugin.options.isInitActive ){
+                plugin.$anchor.eq( plugin.options.initIndex ).trigger( 'click' );
+            }
+            plugin.$item.filter('[data-init]').each(function(){
+                plugin.$anchor.eq( $(this).index() ).trigger('click');
+            });
+        },
+
+        destroy : function(){
+            var plugin = this;
+            plugin.unbindEvents();
+            plugin.$item.removeAttr('style');
+            plugin.$anchor.removeClass( plugin.options.activeClassName );
+            plugin.$panel.removeAttr('style').removeClass( plugin.options.activeClassName );
+            plugin.flag = false;
+        },
+
+        update : function(){
+            var plugin = this;
+
+            plugin.unbindEvents();
+            plugin.destroy();
+            plugin.init();
+
+            $.isNumeric( plugin.currentIndex ) && plugin.$anchor.eq( plugin.currentIndex ).trigger( 'click' );
+        },
+
+        buildCache : function(){
+            var plugin = this;
+
+            plugin.$wrap = $( plugin.element );
+            plugin.$item = plugin.$wrap.find( plugin.options.itemEl );
+            plugin.$anchor = plugin.$wrap.find( plugin.options.anchorEl );
+            plugin.$panel = plugin.$wrap.find( plugin.options.panelEl );
+
+            plugin.$anchor.map(function(index){
+                return this.accordion_index = index
+            });
+        },
+
+        bindEvents : function(){
+            var plugin = this;
+
+            plugin.$wrap.on( 'click'+'.'+plugin._name, plugin.options.anchorEl, function(e){
+                e.stopPropagation();
+                e.preventDefault();
+                if( plugin.flag ){ return false; }
+                plugin.toggle( this.accordion_index );
+            });
+
+            plugin.$item.on('open.'+plugin._name,function(e){
+                e.stopPropagation();
+                e.preventDefault();
+                plugin._open( $(this).index() );
+            });
+
+            plugin.$item.on('close.'+plugin._name,function(e){
+                e.stopPropagation();
+                e.preventDefault();
+                plugin._close( $(this).index() );
+            });
+        },
+
+        unbindEvents : function(){
+            var plugin = this;
+            plugin.$wrap.off('.'+plugin._name);
+            plugin.$item.off('.'+plugin._name);
+        },
+
+        beforeChange : function( targetIndex ){
+            var plugin = this,
+                onBeforeChange = plugin.options.onBeforeChange;
+
+            if ( typeof onBeforeChange === 'function' ) {
+                onBeforeChange.apply( plugin.element, [plugin, targetIndex] );
+            }
+        },
+
+        afterChange : function( targetIndex ){
+            var plugin = this,
+                onAfterChange = plugin.options.onAfterChange;
+
+            if ( typeof onAfterChange === 'function' ) {
+                onAfterChange.apply( plugin.element, [plugin, targetIndex] );
+            }
+        },
+
+        toggle : function( targetIndex ){
+            var plugin = this;
+
+            plugin.flag = true;
+            plugin.beforeChange( targetIndex );
+            if( plugin.$anchor.eq( targetIndex ).hasClass( plugin.options.activeClassName ) ){
+                plugin._close( targetIndex );
+            } else {
+                plugin._open( targetIndex );
+            }
+        },
+
+        _open : function( targetIndex ){
+            var plugin = this;
+            var $anchor = plugin.$anchor.eq( targetIndex );
+            var $panel = plugin.$panel.eq( targetIndex );
+
+            if( plugin.options.mode === 'slide' ){
+                $panel.stop().slideDown( plugin.options.speed, plugin.options.easing, function(){
+                    plugin.flag = false;
+                });
+            } else {
+                $panel.stop().show();
+                plugin.flag = false;
+            }
+
+            $anchor.addClass( plugin.options.activeClassName ).data( plugin._name +'_isOpen', true );
+            $panel.addClass( plugin.options.activeClassName );
+            plugin._changeText( $anchor, true );
+
+            if( plugin.options.autoFold ){
+
+                plugin.currentIndex = targetIndex;
+
+                var targetIndex = plugin.$anchor.map(function(index){
+                    return !$(this).is( $anchor ) && index;
+                }).filter(function(index,item){
+                    return $.isNumeric(item);
+                });
+
+                $.each( targetIndex, function (arrayIndex,itemIndex){
+                    plugin._close( itemIndex  );
+                });
+
+            }
+        },
+
+        _close : function( targetIndex ){
+
+            var plugin = this;
+            var $anchor = plugin.$anchor.eq( targetIndex );
+            var $panel = plugin.$panel.eq( targetIndex );
+
+            if( plugin.options.mode === 'slide' ){
+                $panel.stop().slideUp( plugin.options.speed, plugin.options.easing, function(){
+                    plugin.flag = false;
+                });
+            } else {
+                $panel.stop().hide();
+                plugin.flag = false;
+            }
+
+            $anchor.removeClass( plugin.options.activeClassName ).data( plugin._name +'_isOpen', false );
+            $panel.removeClass( plugin.options.activeClassName );
+
+            plugin._changeText( $anchor, false );
+        },
+
+        _changeText : function( $anchor, isOpen ){
+            var plugin = this;
+
+            if( !plugin.options.changeText ) return;
+
+            $.changeAltText( $anchor, {
+                open : plugin.options.toggleText[0],
+                close : plugin.options.toggleText[1]
+            }, isOpen );
+        }
+    });
+
+})(jQuery, window, document);
+</script>
+<!-- //view -->
+
+<!-- markup -->
+<h1>html</h1>
+<textarea style="height:230px">
+<ul class="c-accordion__list" data-js="accordion" data-option='{"autoFold":true, "mode":"slide"}'>
+    <li class="c-accordion__item" data-js="accordion__item">
+        <a href="javascript:void(0);" class="mod-question mod-question--anchor" data-js="accordion__anchor">
+            <abbr title="Question" class="mod-question__abbr">Q</abbr>
+            버튼
+        </a>
+        <div class="mod-answer" data-js="accordion__panel">
+            <abbr title="Answer" class="mod-answer__abbr">A</abbr>
+           내용
+        </div>
+    </li>
+</ul>
+</textarea>
+<textarea style="height:170px">
+{
+    mode : 'static',     // 'slide'
+    isInitActive : false,// initIndex의 값 기준으로 init시 open
+    initIndex : 0,      //
+    autoFold : true,    //하나씩만 열릴 경우 true, 여러개 열릴경우 false
+    changeText : false, // toggleText기반으로 anchor의 텍스트를 자동변경 여부
+    toggleText : ['열림','닫힘']
+}
+</textarea>
+<!-- //markup -->
+
+<!-- css -->
+<h1>css</h1>
+<textarea style="height:80px">
+.mod-question {display:inline-block;padding:10px;border:1px solid #333;}
+.mod-answer {display:none;}
+</textarea>
+<!-- //css -->
+
+<!-- script -->
+<h1>script</h1>
+<textarea style="height:550px">
+/**
+ *   accordion
+ */
+;(function($, window, document, undefined) {
+    var pluginName = 'accordion';
+
+    $.fn[pluginName] = function ( options ) {
+        this.each(function() {
+            if ( !$.data( this, "plugin_" + pluginName ) ) {
+                $.data( this, "plugin_" + pluginName, new Plugin( this, options ) );
+            } else {
+                $(this).data("plugin_" + pluginName).update();
+                Design.log( '[update] '+pluginName );
+            }
+        });
+
+        return this;
+    };
+
+    $.fn[pluginName].defaults = {
+        mode : 'static',    // static, slide
+        speed : 300,
+        easing : 'linear',
+        itemEl : '[data-js="accordion__item"]',
+        anchorEl : '[data-js="accordion__anchor"]',
+        panelEl : '[data-js="accordion__panel"]',
+        activeClassName : 'is-active',
+        isInitActive : false,
+        initIndex : 0,
+        autoFold : true,
+        changeText : false,
+        toggleText : ['열림','닫힘'],
+        autoToggleText : false,
+        onBeforeChange : null,
+        onAfterChange : null
+    };
+
+    function Plugin ( element, options ) {
+        this.element = element;
+        this._name = pluginName;
+        this._defaults = $.fn[pluginName].defaults;
+        this.options = $.extend( {}, this._defaults, options );
+        this.flag = false;
+        this.currentIndex = null;
+        this.init();
+    }
+
+    $.extend( Plugin.prototype, {
+
+        init : function () {
+            var plugin = this;
+            plugin.buildCache();
+            plugin.bindEvents();
+            plugin.$panel.hide();
+            if( plugin.options.isInitActive ){
+                plugin.$anchor.eq( plugin.options.initIndex ).trigger( 'click' );
+            }
+            plugin.$item.filter('[data-init]').each(function(){
+                plugin.$anchor.eq( $(this).index() ).trigger('click');
+            });
+        },
+
+        destroy : function(){
+            var plugin = this;
+            plugin.unbindEvents();
+            plugin.$item.removeAttr('style');
+            plugin.$anchor.removeClass( plugin.options.activeClassName );
+            plugin.$panel.removeAttr('style').removeClass( plugin.options.activeClassName );
+            plugin.flag = false;
+        },
+
+        update : function(){
+            var plugin = this;
+
+            plugin.unbindEvents();
+            plugin.destroy();
+            plugin.init();
+
+            $.isNumeric( plugin.currentIndex ) && plugin.$anchor.eq( plugin.currentIndex ).trigger( 'click' );
+        },
+
+        buildCache : function(){
+            var plugin = this;
+
+            plugin.$wrap = $( plugin.element );
+            plugin.$item = plugin.$wrap.find( plugin.options.itemEl );
+            plugin.$anchor = plugin.$wrap.find( plugin.options.anchorEl );
+            plugin.$panel = plugin.$wrap.find( plugin.options.panelEl );
+
+            plugin.$anchor.map(function(index){
+                return this.accordion_index = index
+            });
+        },
+
+        bindEvents : function(){
+            var plugin = this;
+
+            plugin.$wrap.on( 'click'+'.'+plugin._name, plugin.options.anchorEl, function(e){
+                e.stopPropagation();
+                e.preventDefault();
+                if( plugin.flag ){ return false; }
+                plugin.toggle( this.accordion_index );
+            });
+
+            plugin.$item.on('open.'+plugin._name,function(e){
+                e.stopPropagation();
+                e.preventDefault();
+                plugin._open( $(this).index() );
+            });
+
+            plugin.$item.on('close.'+plugin._name,function(e){
+                e.stopPropagation();
+                e.preventDefault();
+                plugin._close( $(this).index() );
+            });
+        },
+
+        unbindEvents : function(){
+            var plugin = this;
+            plugin.$wrap.off('.'+plugin._name);
+            plugin.$item.off('.'+plugin._name);
+        },
+
+        beforeChange : function( targetIndex ){
+            var plugin = this,
+                onBeforeChange = plugin.options.onBeforeChange;
+
+            if ( typeof onBeforeChange === 'function' ) {
+                onBeforeChange.apply( plugin.element, [plugin, targetIndex] );
+            }
+        },
+
+        afterChange : function( targetIndex ){
+            var plugin = this,
+                onAfterChange = plugin.options.onAfterChange;
+
+            if ( typeof onAfterChange === 'function' ) {
+                onAfterChange.apply( plugin.element, [plugin, targetIndex] );
+            }
+        },
+
+        toggle : function( targetIndex ){
+            var plugin = this;
+
+            plugin.flag = true;
+            plugin.beforeChange( targetIndex );
+            if( plugin.$anchor.eq( targetIndex ).hasClass( plugin.options.activeClassName ) ){
+                plugin._close( targetIndex );
+            } else {
+                plugin._open( targetIndex );
+            }
+        },
+
+        _open : function( targetIndex ){
+            var plugin = this;
+            var $anchor = plugin.$anchor.eq( targetIndex );
+            var $panel = plugin.$panel.eq( targetIndex );
+
+            if( plugin.options.mode === 'slide' ){
+                $panel.stop().slideDown( plugin.options.speed, plugin.options.easing, function(){
+                    plugin.flag = false;
+                });
+            } else {
+                $panel.stop().show();
+                plugin.flag = false;
+            }
+
+            $anchor.addClass( plugin.options.activeClassName ).data( plugin._name +'_isOpen', true );
+            $panel.addClass( plugin.options.activeClassName );
+            plugin._changeText( $anchor, true );
+
+            if( plugin.options.autoFold ){
+
+                plugin.currentIndex = targetIndex;
+
+                var targetIndex = plugin.$anchor.map(function(index){
+                    return !$(this).is( $anchor ) && index;
+                }).filter(function(index,item){
+                    return $.isNumeric(item);
+                });
+
+                $.each( targetIndex, function (arrayIndex,itemIndex){
+                    plugin._close( itemIndex  );
+                });
+
+            }
+        },
+
+        _close : function( targetIndex ){
+
+            var plugin = this;
+            var $anchor = plugin.$anchor.eq( targetIndex );
+            var $panel = plugin.$panel.eq( targetIndex );
+
+            if( plugin.options.mode === 'slide' ){
+                $panel.stop().slideUp( plugin.options.speed, plugin.options.easing, function(){
+                    plugin.flag = false;
+                });
+            } else {
+                $panel.stop().hide();
+                plugin.flag = false;
+            }
+
+            $anchor.removeClass( plugin.options.activeClassName ).data( plugin._name +'_isOpen', false );
+            $panel.removeClass( plugin.options.activeClassName );
+
+            plugin._changeText( $anchor, false );
+        },
+
+        _changeText : function( $anchor, isOpen ){
+            var plugin = this;
+
+            if( !plugin.options.changeText ) return;
+
+            $.changeAltText( $anchor, {
+                open : plugin.options.toggleText[0],
+                close : plugin.options.toggleText[1]
+            }, isOpen );
+        }
+    });
+
+})(jQuery, window, document);
+</textarea>
+<!-- //script -->
+
+</body>

@@ -1,0 +1,728 @@
+<!doctype html>
+<html xml:lang="ko" lang="ko">
+<head>
+<meta charset="euc-kr">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>리스트</title>
+<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="js/modernizr.min.js"></script>
+<script type="text/javascript" src="js/jquery_ui.js"></script>
+<link type="text/css" rel="stylesheet" href="css/common.css" />
+</head>
+
+<body>
+
+<!-- view -->
+<style>
+    .toggle__anchor {display:inline-block;padding:10px;border:1px solid #333;}
+    .toggle__panel {display:none;}
+</style>
+<div class="toggle">
+    <button type="button" data-js="toggle" data-option='{"mode" : "slide", "el_panel": "#toggle__panel", "initOpen":true }'  class="toggle__anchor">버튼 열림</button>
+    <p id="toggle__panel" class="toggle__panel">내용</p>
+</div>
+<script>
+/**
+ * jQuery Toggle
+ */
+;(function($, window, document, undefined) {
+    var pluginName = 'toggle',
+        _uuid = 0;
+
+    $.fn[pluginName] = function ( options ) {
+        this.each(function() {
+            if ( !$.data( this, "plugin_" + pluginName ) ) {
+                $.data( this, "plugin_" + pluginName, new Plugin( this, options ) );
+                Design.log( '[bind] '+pluginName);
+            }
+        });
+
+        return this;
+    };
+
+    $.fn[pluginName].defaults = {
+        mode : 'static',		    // slide, fade, static
+        speed : 300,
+        initOpen : false,
+        easing : 'swing',
+
+        isAutoClose : true,
+        isLockScroll : true,
+
+        el_panel : null,
+        el_close : null,
+        replaceText : ['열림','닫힘'],
+        activeClass : 'is-active',
+
+        onBeforeOpen : null,
+        onAfterOpen : null,
+        onBeforeClose : null,
+        onAfterClose : null
+    };
+
+    function Plugin ( element, options ) {
+        this.element = element;
+        this._name = pluginName;
+        this._defaults = $.fn[pluginName].defaults;
+        this._options = options;
+        this.isOpen = false;
+        this.isInit = true;
+        this._uuid = _uuid++;
+        this.init();
+    }
+
+    $.extend( Plugin.prototype, {
+
+        init : function () {
+            this.buildCache();
+            this.bindEvents();
+
+            if( this.options.initOpen ){
+                this.open();
+            } else {
+                this.close();
+            }
+            this.isInit = false;
+        },
+
+        destroy : function(){
+            var plugin = this;
+
+            plugin.close();
+            plugin.unbindEvents();
+            plugin.$anchor = null;
+            plugin.$panel = null;
+            plugin.$close = null;
+            plugin.$focusFirst = null;
+            plugin.$focusLast = null;
+
+        },
+
+        update : function(){
+            var plugin = this;
+            plugin.unbindEvents();
+            plugin.buildCache();
+            plugin.bindEvents();
+        },
+
+        buildCache : function(){
+            var plugin = this;
+
+            plugin.$anchor = $( plugin.element );
+            plugin.options = $.extend( {}, plugin._defaults, plugin._options, plugin.$anchor.data( plugin._name ) );
+            plugin.$panel = $( plugin.options.el_panel );
+            plugin.$close = null;
+            plugin.$focusFirst = null;
+            plugin.$focusLast = null;
+
+            var focusEls = $.findFocusableElement( plugin.$panel );
+            plugin.$focusFirst = $( focusEls[0] );
+            plugin.$focusLast = $( focusEls[1] );
+
+            if( plugin.options.el_close ){
+                plugin.$close = $( plugin.options.el_close );
+            }
+        },
+
+        open : function(){
+            var plugin = this;
+
+            plugin.onBeforeOpen();
+            plugin.replaceTxt('open');
+            plugin.$anchor.addClass( plugin.options.activeClass );
+
+            plugin.layerAction('open', function(){
+                if( !plugin.isInit ){
+                    if( plugin.options.isLockScroll ){
+                        $.focusWithOutScroll( plugin.$panel );
+                    } else {
+                        plugin.$panel.focus();
+                    }
+                }
+                plugin.isOpen = true;
+                plugin.onAfterOpen();
+            });
+
+            plugin.$panel.attr({
+                'tabindex' : '-1'
+            }).on('focusout'+'.'+plugin._name, function(e){
+                e.stopPropagation();
+                $(this).removeAttr('tabindex').off('.'+plugin._name);
+            });
+
+            if( plugin.options.isAutoClose ){
+                plugin.$panel.on('keydown'+'.'+plugin._name, function(e){
+
+                    if (e.keyCode === 9 && e.shiftKey ) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        plugin.close();
+                    }
+                });
+
+            }
+
+        },
+
+        close : function( isForceClose ){
+            var plugin = this;
+
+            plugin.onBeforeClose();
+            plugin.replaceTxt('close');
+            plugin.$anchor.removeClass( plugin.options.activeClass );
+            plugin.isInit || isForceClose || plugin.$anchor.focus();
+            plugin.layerAction('close', function(){
+                plugin.isOpen = false;
+                plugin.onAfterClose();
+            });
+        },
+
+        replaceTxt : function( _active ){
+            var plugin = this;
+            _active = ( _active === 'open');
+
+            $.changeAltText( plugin.$anchor, {
+                open : plugin.options.replaceText[0],
+                close : plugin.options.replaceText[1]
+            }, _active );
+
+        },
+
+        layerAction : function( setOpen, callback ){
+            var plugin = this,
+                speed = plugin.options.speed,
+                easing = plugin.options.easing;
+
+            setOpen = (setOpen === 'open');
+
+            ({
+                'slide' : function(){
+                    if( setOpen ){
+                        plugin.$panel.slideDown( speed, easing, function(){
+                            callback && callback();
+                        });
+                    } else {
+                        plugin.$panel.slideUp( speed, easing, function(){
+                            callback && callback();
+                        });
+                    }
+                },
+                'fade' : function(){
+                    if( setOpen ){
+                        plugin.$panel.fadeIn( speed, easing, function(){
+                            callback && callback();
+                        });
+                    } else {
+                        plugin.$panel.fadeOut( speed, easing, function(){
+                            callback && callback();
+                        });
+                    }
+                },
+                'static' : function(){
+                    if( setOpen ){
+                        plugin.$panel.show();
+                        callback && callback();
+                    } else {
+                        plugin.$panel.hide();
+                        callback && callback();
+                    }
+                }
+            })[ plugin.options.mode ]();
+        },
+
+
+        onBeforeOpen : function(){
+            var plugin = this,
+                onBeforeOpen = plugin.options.onBeforeOpen;
+
+            if ( typeof onBeforeOpen === 'function' ) {
+                onBeforeOpen.apply( plugin.element, [plugin] );
+            }
+        },
+
+        onAfterOpen : function(){
+            var plugin = this,
+                onAfterOpen = plugin.options.onAfterOpen;
+
+            if ( typeof onAfterOpen === 'function' ) {
+                onAfterOpen.apply( plugin.element, [plugin] );
+            }
+        },
+
+        onBeforeClose : function(){
+            var plugin = this,
+                onBeforeClose = plugin.options.onBeforeClose;
+
+            if ( typeof onBeforeClose === 'function' ) {
+                onBeforeClose.apply( plugin.element, [plugin] );
+            }
+        },
+
+        onAfterClose : function(){
+            var plugin = this,
+                onAfterClose = plugin.options.onAfterClose;
+
+            if ( typeof onAfterClose === 'function' ) {
+                onAfterClose.apply( plugin.element, [plugin] );
+            }
+        },
+
+        afterChange : function( $activeItemEl ){
+            var plugin = this,
+                onAfterChange = plugin.options.onAfterChange;
+
+            if ( typeof onAfterChange === 'function' ) {
+                onAfterChange.apply( plugin.element, [plugin, $activeItemEl] );
+            }
+        },
+
+        bindEvents : function(){
+            var plugin = this;
+
+            plugin.$anchor.on('click'+'.'+plugin._name, function(e){
+                e.preventDefault();
+                e.stopPropagation();
+                plugin.isOpen ? plugin.close() : plugin.open();
+            });
+
+            plugin.$close && plugin.$close.on('click'+'.'+plugin._name, function(e){
+                e.preventDefault();
+                e.stopPropagation();
+                plugin.close();
+            });
+
+            if( plugin.options.isAutoClose ){
+
+                plugin.$focusFirst && plugin.$focusFirst.on('keydown'+'.'+plugin._name, function(e){
+                    if (e.keyCode === 9 && e.shiftKey) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        plugin.close();
+                    }
+                });
+
+                plugin.$focusLast && plugin.$focusLast.on('keydown'+'.'+plugin._name, function(e){
+                    if (e.keyCode === 9 && !e.shiftKey) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        plugin.close();
+                    }
+                });
+
+                $(document).on('mouseup'+'.'+plugin._name+'-'+plugin._uuid, function(e){
+                    if( plugin.isOpen ){
+                        e.stopPropagation();
+                        if( !$(e.target).closest( plugin.$panel).length && !$(e.target).is( plugin.$anchor ) ){
+                            plugin.close('force');
+                        }
+                    }
+                });
+            }
+
+        },
+
+        unbindEvents : function(){
+            var plugin = this;
+            plugin.$anchor.off('.'+plugin._name);
+            plugin.$close && plugin.$close.off('.'+plugin._name);
+            plugin.$focusFirst && plugin.$focusFirst.off('.'+plugin._name);
+            plugin.$focusLast && plugin.$focusLast.off('.'+plugin._name);
+            plugin.$panel.off('.'+plugin._name);
+            $(document).off('.'+plugin._name+'-'+plugin._uuid);
+        }
+    });
+
+    $('[data-js="toggle"]').each(function(){
+        var $this = $(this);
+        $this.toggle( $.extend({}, {
+            mode : 'static',
+            el_panel : null,
+            el_close : null,
+            forceClose : false,
+            initOpen : false,
+            onBeforeOpen : null,
+            onAfterClose : null
+        }, $this.data('option') ) );
+    });
+
+})(jQuery, window, document);
+
+</script>
+<!-- //view -->
+
+<!-- markup -->
+<h1>html</h1>
+<textarea style="height:110px">
+<div class="toggle">
+    <button type="button" data-js="toggle" data-option='{"mode" : "slide", "el_panel": "#toggle__panel", "initOpen":true }'  class="toggle__anchor">버튼 열림</button>
+    <p id="toggle__panel" class="toggle__panel">내용</p>
+</div>
+</textarea>
+
+<textarea style="height:200px">
+data-option='{
+    "mode" : "slide",  //(옵션) static(미지정 시), slide, fade
+    "el_panel" : "# ID " //(필수) 패널 아이디
+    "el_close" : "# ID " //(옵션) 패널안에 닫기버튼이 있을 경우
+    "initOpen" : false   //(옵션) 최초 열려있어야하는 경우 true,
+    "forceClose" : false //(옵션) true일 경우, 레이어 외 영역 클릭시 닫힘
+}'
+
+옵션 기본값 : {
+    mode : 'static',            // slide, fade, static
+    speed : 300,
+    initOpen : false,
+    easing : 'easeInOutQuart',
+    el_panel : null,
+    el_close : null,
+    replaceText : ['열기','닫기'],
+    activeClass : 'is-active',
+    forceClose : true,
+    lockScroll : true,
+    onBeforeOpen : null,
+    onAfterClose : null
+}
+</textarea>
+<!-- //markup -->
+
+<!-- css -->
+<h1>css</h1>
+<textarea style="height:110px">
+.toggle__anchor {display:inline-block;padding:10px;border:1px solid #333;}
+.toggle__panel {display:none;}
+</textarea>
+<!-- //css -->
+
+<!-- script -->
+<h1>script</h1>
+<textarea style="height:550px">
+/**
+ * jQuery Toggle
+ */
+;(function($, window, document, undefined) {
+    var pluginName = 'toggle',
+        _uuid = 0;
+
+    $.fn[pluginName] = function ( options ) {
+        this.each(function() {
+            if ( !$.data( this, "plugin_" + pluginName ) ) {
+                $.data( this, "plugin_" + pluginName, new Plugin( this, options ) );
+                Design.log( '[bind] '+pluginName);
+            }
+        });
+
+        return this;
+    };
+
+    $.fn[pluginName].defaults = {
+        mode : 'static',		    // slide, fade, static
+        speed : 300,
+        initOpen : false,
+        easing : 'swing',
+
+        isAutoClose : true,
+        isLockScroll : true,
+
+        el_panel : null,
+        el_close : null,
+        replaceText : ['열림','닫힘'],
+        activeClass : 'is-active',
+
+        onBeforeOpen : null,
+        onAfterOpen : null,
+        onBeforeClose : null,
+        onAfterClose : null
+    };
+
+    function Plugin ( element, options ) {
+        this.element = element;
+        this._name = pluginName;
+        this._defaults = $.fn[pluginName].defaults;
+        this._options = options;
+        this.isOpen = false;
+        this.isInit = true;
+        this._uuid = _uuid++;
+        this.init();
+    }
+
+    $.extend( Plugin.prototype, {
+
+        init : function () {
+            this.buildCache();
+            this.bindEvents();
+
+            if( this.options.initOpen ){
+                this.open();
+            } else {
+                this.close();
+            }
+            this.isInit = false;
+        },
+
+        destroy : function(){
+            var plugin = this;
+
+            plugin.close();
+            plugin.unbindEvents();
+            plugin.$anchor = null;
+            plugin.$panel = null;
+            plugin.$close = null;
+            plugin.$focusFirst = null;
+            plugin.$focusLast = null;
+
+        },
+
+        update : function(){
+            var plugin = this;
+            plugin.unbindEvents();
+            plugin.buildCache();
+            plugin.bindEvents();
+        },
+
+        buildCache : function(){
+            var plugin = this;
+
+            plugin.$anchor = $( plugin.element );
+            plugin.options = $.extend( {}, plugin._defaults, plugin._options, plugin.$anchor.data( plugin._name ) );
+            plugin.$panel = $( plugin.options.el_panel );
+            plugin.$close = null;
+            plugin.$focusFirst = null;
+            plugin.$focusLast = null;
+
+            var focusEls = $.findFocusableElement( plugin.$panel );
+            plugin.$focusFirst = $( focusEls[0] );
+            plugin.$focusLast = $( focusEls[1] );
+
+            if( plugin.options.el_close ){
+                plugin.$close = $( plugin.options.el_close );
+            }
+        },
+
+        open : function(){
+            var plugin = this;
+
+            plugin.onBeforeOpen();
+            plugin.replaceTxt('open');
+            plugin.$anchor.addClass( plugin.options.activeClass );
+
+            plugin.layerAction('open', function(){
+                if( !plugin.isInit ){
+                    if( plugin.options.isLockScroll ){
+                        $.focusWithOutScroll( plugin.$panel );
+                    } else {
+                        plugin.$panel.focus();
+                    }
+                }
+                plugin.isOpen = true;
+                plugin.onAfterOpen();
+            });
+
+            plugin.$panel.attr({
+                'tabindex' : '-1'
+            }).on('focusout'+'.'+plugin._name, function(e){
+                e.stopPropagation();
+                $(this).removeAttr('tabindex').off('.'+plugin._name);
+            });
+
+            if( plugin.options.isAutoClose ){
+                plugin.$panel.on('keydown'+'.'+plugin._name, function(e){
+
+                    if (e.keyCode === 9 && e.shiftKey ) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        plugin.close();
+                    }
+                });
+
+            }
+
+        },
+
+        close : function( isForceClose ){
+            var plugin = this;
+
+            plugin.onBeforeClose();
+            plugin.replaceTxt('close');
+            plugin.$anchor.removeClass( plugin.options.activeClass );
+            plugin.isInit || isForceClose || plugin.$anchor.focus();
+            plugin.layerAction('close', function(){
+                plugin.isOpen = false;
+                plugin.onAfterClose();
+            });
+        },
+
+        replaceTxt : function( _active ){
+            var plugin = this;
+            _active = ( _active === 'open');
+
+            $.changeAltText( plugin.$anchor, {
+                open : plugin.options.replaceText[0],
+                close : plugin.options.replaceText[1]
+            }, _active );
+
+        },
+
+        layerAction : function( setOpen, callback ){
+            var plugin = this,
+                speed = plugin.options.speed,
+                easing = plugin.options.easing;
+
+            setOpen = (setOpen === 'open');
+
+            ({
+                'slide' : function(){
+                    if( setOpen ){
+                        plugin.$panel.slideDown( speed, easing, function(){
+                            callback && callback();
+                        });
+                    } else {
+                        plugin.$panel.slideUp( speed, easing, function(){
+                            callback && callback();
+                        });
+                    }
+                },
+                'fade' : function(){
+                    if( setOpen ){
+                        plugin.$panel.fadeIn( speed, easing, function(){
+                            callback && callback();
+                        });
+                    } else {
+                        plugin.$panel.fadeOut( speed, easing, function(){
+                            callback && callback();
+                        });
+                    }
+                },
+                'static' : function(){
+                    if( setOpen ){
+                        plugin.$panel.show();
+                        callback && callback();
+                    } else {
+                        plugin.$panel.hide();
+                        callback && callback();
+                    }
+                }
+            })[ plugin.options.mode ]();
+        },
+
+
+        onBeforeOpen : function(){
+            var plugin = this,
+                onBeforeOpen = plugin.options.onBeforeOpen;
+
+            if ( typeof onBeforeOpen === 'function' ) {
+                onBeforeOpen.apply( plugin.element, [plugin] );
+            }
+        },
+
+        onAfterOpen : function(){
+            var plugin = this,
+                onAfterOpen = plugin.options.onAfterOpen;
+
+            if ( typeof onAfterOpen === 'function' ) {
+                onAfterOpen.apply( plugin.element, [plugin] );
+            }
+        },
+
+        onBeforeClose : function(){
+            var plugin = this,
+                onBeforeClose = plugin.options.onBeforeClose;
+
+            if ( typeof onBeforeClose === 'function' ) {
+                onBeforeClose.apply( plugin.element, [plugin] );
+            }
+        },
+
+        onAfterClose : function(){
+            var plugin = this,
+                onAfterClose = plugin.options.onAfterClose;
+
+            if ( typeof onAfterClose === 'function' ) {
+                onAfterClose.apply( plugin.element, [plugin] );
+            }
+        },
+
+        afterChange : function( $activeItemEl ){
+            var plugin = this,
+                onAfterChange = plugin.options.onAfterChange;
+
+            if ( typeof onAfterChange === 'function' ) {
+                onAfterChange.apply( plugin.element, [plugin, $activeItemEl] );
+            }
+        },
+
+        bindEvents : function(){
+            var plugin = this;
+
+            plugin.$anchor.on('click'+'.'+plugin._name, function(e){
+                e.preventDefault();
+                e.stopPropagation();
+                plugin.isOpen ? plugin.close() : plugin.open();
+            });
+
+            plugin.$close && plugin.$close.on('click'+'.'+plugin._name, function(e){
+                e.preventDefault();
+                e.stopPropagation();
+                plugin.close();
+            });
+
+            if( plugin.options.isAutoClose ){
+
+                plugin.$focusFirst && plugin.$focusFirst.on('keydown'+'.'+plugin._name, function(e){
+                    if (e.keyCode === 9 && e.shiftKey) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        plugin.close();
+                    }
+                });
+
+                plugin.$focusLast && plugin.$focusLast.on('keydown'+'.'+plugin._name, function(e){
+                    if (e.keyCode === 9 && !e.shiftKey) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        plugin.close();
+                    }
+                });
+
+                $(document).on('mouseup'+'.'+plugin._name+'-'+plugin._uuid, function(e){
+                    if( plugin.isOpen ){
+                        e.stopPropagation();
+                        if( !$(e.target).closest( plugin.$panel).length && !$(e.target).is( plugin.$anchor ) ){
+                            plugin.close('force');
+                        }
+                    }
+                });
+            }
+
+        },
+
+        unbindEvents : function(){
+            var plugin = this;
+            plugin.$anchor.off('.'+plugin._name);
+            plugin.$close && plugin.$close.off('.'+plugin._name);
+            plugin.$focusFirst && plugin.$focusFirst.off('.'+plugin._name);
+            plugin.$focusLast && plugin.$focusLast.off('.'+plugin._name);
+            plugin.$panel.off('.'+plugin._name);
+            $(document).off('.'+plugin._name+'-'+plugin._uuid);
+        }
+    });
+
+    $('[data-js="toggle"]').each(function(){
+        var $this = $(this);
+        $this.toggle( $.extend({}, {
+            mode : 'static',
+            el_panel : null,
+            el_close : null,
+            forceClose : false,
+            initOpen : false,
+            onBeforeOpen : null,
+            onAfterClose : null
+        }, $this.data('option') ) );
+    });
+
+})(jQuery, window, document);
+</textarea>
+<!-- //script -->
+
+</body>

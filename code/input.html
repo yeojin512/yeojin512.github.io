@@ -1,0 +1,249 @@
+<!doctype html>
+<html xml:lang="ko" lang="ko">
+<head>
+<meta charset="euc-kr">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>리스트</title>
+<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="js/modernizr.min.js"></script>
+<script type="text/javascript" src="js/jquery_ui.js"></script>
+<link type="text/css" rel="stylesheet" href="css/common.css" />
+</head>
+
+<body>
+
+<style>
+    div:after {display:block;clear:both;content:""}
+    .c-radio-box {float:left; width:50%;}
+</style>
+
+<!-- view -->
+<style>
+.o-input {border:0;border-radius:0;background-color:transparent;box-sizing:border-box;vertical-align:middle;color:#222;-webkit-appearance:none;appearance:none;-webkit-transition:border 200ms ease-in-out;transition:border 200ms ease-in-out;}
+.o-input::-webkit-input-placeholder {color:#999;}
+.o-input:-ms-input-placeholder {color:#999;}
+.o-input::-moz-placeholder {color:#999;}
+
+.o-input--radio {display:inline-block;overflow:hidden;position:absolute;width:1px;height:1px;opacity:0;}
+.o-input--radio + label {display:inline-block;position:relative;padding-left:33px;font-size:15px;line-height:23px;cursor:pointer;}
+.o-input--radio + label:before {display:block;position:absolute;top:0;left:0;width:23px;height:23px;background-color:#fff;border:1px solid #bbb;border-radius:50%;content:"";}
+.o-input--radio:checked + label:before {border-color:#009cff;}
+
+.o-input--radio:checked + label:after {display:block;position:absolute;top:50%;left:7px;width:10px;height:10px;margin-top:-5px;border-radius:50%;background-color:#009cff;content:"";}
+.o-input--radio:disabled + label:before {border-color:#bbb;background-color:#f4f4f4;}
+.o-input--radio:disabled + label:after {background-color:#bbb;}
+
+.c-radio-box {display:block;width:50%;}
+.c-radio-box + .c-radio-box {margin-left:-1px;}
+.c-radio-box__input {overflow:hidden;position:absolute;width:1px;height:1px;opacity:0;}
+.c-radio-box__input + label {display:inline-block;width:100%;height:45px;border:1px solid #ccc;font-size:15px;color:#888;line-height:43px;text-align:center;cursor:pointer;}
+.c-radio-box__input:checked + label {position:relative;z-index:1;border:1px solid #009cff;color:#009cff;}
+.c-radio-box__input:checked:disabled + label {border-color:#000;background-color:#f4f4f4;color:#222;}
+
+.o-input--check {display:inline-block;overflow:hidden;position:absolute;width:1px;height:1px;opacity:0;}
+.o-input--check + label {display:inline-block;position:relative;padding-left:33px;font-size:15px;line-height:23px;cursor:pointer;}
+.o-input--check + label:before {display:block;position:absolute;top:0;left:0;width:23px;height:23px;background-color:#fff;border:1px solid #ccc;content:"";}
+.o-input--check + label:after {display:block;position:absolute;top:7px;left:5px;width:14px;height:10px;background:url("../images/common/bg_check.png") no-repeat;background-size:14px auto;opacity:0;content:"";}
+.o-input--check:checked + label:before {border-color:#009cff;}
+.o-input--check:checked + label:after {opacity:1;}
+.o-input--check:disabled + label:before {border-color:#ccc;background-color:#f4f4f4;}
+.o-input--check:checked:disabled + label:after {background-image:url("../images/common/bg_check_disabled.png");}
+.o-input--check.o-input--all + label {font-size:17px;font-family:SECGCWM,sans-serif;}
+
+.o-input--toggle + label {display:inline-block;position:relative;width:50px;height:30px;border-radius:14px;background-color:#ccc;vertical-align:middle;cursor:pointer;}
+.o-input--toggle + label:after {content:"";display:block;position:absolute;top:1px;left:0;width:28px;height:28px;border-radius:50%;background-color:#fff;-webkit-transition:all 300ms;transition:all 300ms;-webkit-transform:translateX(1px);transform:translateX(1px);}
+.o-input--toggle:checked + label {background-color:#009cff;}
+.o-input--toggle:checked + label:after {-webkit-transform:translateX(21px);transform:translateX(21px);}
+
+.o-input--text {display:block;width:100%;height:45px;padding:0 14px;border:1px solid #ccc;font-size:15px;background-color:#fff;line-height:43px;text-align:left;}
+.o-input--text::-webkit-search-cancel-button {display:none;}
+.o-input--text[aria-placeholder] {color:#bbb;}
+.o-input--text[readonly], .o-input--text:disabled {background-color:#f4f4f4;cursor:default;}
+.o-input--text[readonly]:focus {border-color:#ccc;}
+.o-input--text:focus {border-color:#000;}
+.o-input--text.is-error {border-color:#e11b22;}
+
+.o-input--date {display:block;width:100%;height:45px;padding:0 14px;border:1px solid #ccc;font-size:15px;background:#fff url('../images/common/bg_date.png') no-repeat right 14px top 50%;background-size:14px auto;line-height:43px;}
+.o-input--date::-webkit-search-cancel-button {display:none;}
+.o-input--date[aria-placeholder] {color:#bbb;}
+.o-input--date[readonly], .o-input--date:disabled {background-color:#f4f4f4;cursor:default;}
+.o-input--date[readonly]:focus {border-color:#ccc;}
+.o-input--date:focus {border-color:#000;}
+.o-input--date.is-error {border-color:#e11b22;}
+
+.o-input--select {display:block;position:relative;overflow:hidden;width:100%;height:45px;padding:0 35px 0 14px;border:1px solid #ccc;background:#fff url("../images/common/bg_select.png") no-repeat right 14px top 50%;background-size:8px auto;font-family:inherit;font-size:15px;line-height:43px;text-align:left;text-overflow:ellipsis;white-space:nowrap;box-sizing:border-box;}
+.o-input--select:disabled, .o-input--select.is-disabled {background-color:#f4f4f4;cursor:default;}
+.o-input--select.is-disabled:focus {border-color:#ccc;}
+.o-input--select:focus {border-color:#000;}
+
+.o-input--textarea {display:block;width:100%;height:100%;padding:13px 14px;border:1px solid #ccc;font-size:15px;background-color:#fff;resize:none;}
+.o-input--textarea:focus {border-color:#000;}
+</style>
+
+<!-- markup -->
+<h1>radio</h1>
+<div>
+    <strong>기본</strong>
+    <div>
+        <input type="radio" class="o-input o-input--radio" name="radio1" id="radio1_1" checked=""><label for="radio1_1">켜짐</label>
+        <input type="radio" class="o-input o-input--radio" name="radio1" id="radio1_2"><label for="radio1_2">꺼짐</label>
+        <input type="radio" class="o-input o-input--radio" name="radio2" id="radio2_1" checked="" disabled=""><label for="radio2_1">켜짐 선택불가</label>
+        <input type="radio" class="o-input o-input--radio" name="radio2" id="radio2_2" disabled=""><label for="radio2_2">꺼짐 선택불가</label>
+    </div>
+    <br>
+    <strong>선택가능</strong>
+    <div>
+        <div class="c-radio-box"><input type="radio" class="o-input c-radio-box__input" name="join_form_sex" id="join_form_sex_man" checked><label for="join_form_sex_man">남자</label></div>
+        <div class="c-radio-box"><input type="radio" class="o-input c-radio-box__input" name="join_form_sex" id="join_form_sex_woman"><label for="join_form_sex_woman">여자</label></div>
+    </div>
+    <br>
+    <strong>선택불가</strong>
+    <div>
+        <div class="c-radio-box"><input type="radio" class="o-input c-radio-box__input" name="join_form_sex2" id="join_form_sex_man2" checked disabled><label for="join_form_sex_man2">남자</label></div>
+        <div class="c-radio-box"><input type="radio" class="o-input c-radio-box__input" name="join_form_sex2" id="join_form_sex_woman2" disabled><label for="join_form_sex_woman2">여자</label></div>
+    </div>
+</div>
+<textarea style="height:300px">
+<!-- 기본 -->
+<div>
+    <input type="radio" class="o-input o-input--radio" name="radio1" id="radio1_1" checked=""><label for="radio1_1">켜짐</label>
+    <input type="radio" class="o-input o-input--radio" name="radio1" id="radio1_2"><label for="radio1_2">꺼짐</label>
+    <input type="radio" class="o-input o-input--radio" name="radio2" id="radio2_1" checked="" disabled=""><label for="radio2_1">켜짐 선택불가</label>
+    <input type="radio" class="o-input o-input--radio" name="radio2" id="radio2_2" disabled=""><label for="radio2_2">꺼짐 선택불가</label>
+</div>
+<!-- 선택가능 -->
+<div>
+    <div class="c-radio-box"><input type="radio" class="o-input c-radio-box__input" name="join_form_sex" id="join_form_sex_man" checked><label for="join_form_sex_man">남자</label></div>
+    <div class="c-radio-box"><input type="radio" class="o-input c-radio-box__input" name="join_form_sex" id="join_form_sex_woman"><label for="join_form_sex_woman">여자</label></div>
+</div>
+<!-- 선택불가 -->
+<div>
+    <div class="c-radio-box"><input type="radio" class="o-input c-radio-box__input" name="join_form_sex2" id="join_form_sex_man2" checked disabled><label for="join_form_sex_man2">남자</label></div>
+    <div class="c-radio-box"><input type="radio" class="o-input c-radio-box__input" name="join_form_sex2" id="join_form_sex_woman2" disabled><label for="join_form_sex_woman2">여자</label></div>
+</div>
+</textarea>
+
+<h1>checkbox</h1>
+<div>
+    <input type="checkbox" class="o-input o-input--check o-input--all" id="check1_all" checked><label for="check1_all">전체선택</label>
+    <input type="checkbox" class="o-input o-input--check" id="check1_1" checked><label for="check1_1">켜짐</label>
+    <input type="checkbox" class="o-input o-input--check" id="check1_2"><label for="check1_2">꺼짐</label>
+    <input type="checkbox" class="o-input o-input--check" id="check1_3" checked disabled><label for="check1_3">켜짐 선택불가</label>
+    <input type="checkbox" class="o-input o-input--check" id="check1_4" disabled><label for="check1_4">꺼짐 선택불가</label>
+</div>
+<textarea style="height:150px">
+<input type="checkbox" class="o-input o-input--check o-input--all" id="check1_all" checked><label for="check1_all">전체선택</label>
+<input type="checkbox" class="o-input o-input--check" id="check1_1" checked><label for="check1_1">켜짐</label>
+<input type="checkbox" class="o-input o-input--check" id="check1_2"><label for="check1_2">꺼짐</label>
+<input type="checkbox" class="o-input o-input--check" id="check1_3" checked disabled><label for="check1_3">켜짐 선택불가</label>
+<input type="checkbox" class="o-input o-input--check" id="check1_4" disabled><label for="check1_4">꺼짐 선택불가</label>
+</textarea>
+
+<h1>input</h1>
+<input type="text" class="o-input o-input--text" placeholder="한글"> 한글키패드
+<input type="tel" class="o-input o-input--text" placeholder="숫자" maxlength="4" pattern="[0-9]*"> 숫자키패드
+<input type="password" class="o-input o-input--text" maxlength="15"> 패스워드
+<input type="text" class="o-input o-input--text" disabled value="홍길동"> disabled
+<input type="text" class="o-input o-input--text" value="홍길동" readonly> readonly
+<textarea style="height:150px">
+<input type="text" class="o-input o-input--text" placeholder="한글"> 한글키패드
+<input type="tel" class="o-input o-input--text" placeholder="숫자" maxlength="4" pattern="[0-9]*"> 숫자키패드
+<input type="password" class="o-input o-input--text" maxlength="15"> 패스워드
+<input type="text" class="o-input o-input--text" disabled value="홍길동"> disabled
+<input type="text" class="o-input o-input--text" value="홍길동" readonly> readonly
+</textarea>
+
+<h1>data</h1>
+<input type="date" class="o-input o-input--date">
+<textarea style="height:70px">
+<input type="date" class="o-input o-input--date">
+</textarea>
+
+<h1>textarea</h1>
+<textarea class="o-input o-input--textarea" placeholder="댓글을 입력하세요." title="댓글" maxlength="300"></textarea>
+<textarea style="height:70px">
+<textarea class="o-input o-input--textarea" placeholder="댓글을 입력하세요." title="댓글" maxlength="300"></textarea>
+</textarea>
+
+<h1>toggle</h1>
+<input type="checkbox" class="o-input o-input--toggle" id="toggle-check1" checked><label for="toggle-check1"></label>
+<textarea style="height:50px">
+<input type="checkbox" class="o-input o-input--toggle" id="toggle-check1" checked><label for="toggle-check1"></label>
+</textarea>
+
+<!-- //markup -->
+
+<!-- css -->
+<h1>css</h1>
+<textarea style="height:500px">
+/* ---------------------------------------------------------------------------------------------------------------------
+<input type="radio" class="o-input o-input--radio" />
+<input type="checkbox" class="o-input o-input--checkbox" />
+<input type="text" class="o-input o-input--text"/>
+<select class="o-input o-input--select"></select>
+--------------------------------------------------------------------------------------------------------------------- */
+.o-input {border:0;border-radius:0;background-color:transparent;box-sizing:border-box;vertical-align:middle;color:#222;-webkit-appearance:none;appearance:none;-webkit-transition:border 200ms ease-in-out;transition:border 200ms ease-in-out;}
+.o-input::-webkit-input-placeholder {color:#999;}
+.o-input:-ms-input-placeholder {color:#999;}
+.o-input::-moz-placeholder {color:#999;}
+
+.o-input--radio {display:inline-block;overflow:hidden;position:absolute;width:1px;height:1px;opacity:0;}
+.o-input--radio + label {display:inline-block;position:relative;padding-left:33px;font-size:15px;line-height:23px;cursor:pointer;}
+.o-input--radio + label:before {display:block;position:absolute;top:0;left:0;width:23px;height:23px;background-color:#fff;border:1px solid #bbb;border-radius:50%;content:"";}
+.o-input--radio:checked + label:before {border-color:#009cff;}
+
+.o-input--radio:checked + label:after {display:block;position:absolute;top:50%;left:7px;width:10px;height:10px;margin-top:-5px;border-radius:50%;background-color:#009cff;content:"";}
+.o-input--radio:disabled + label:before {border-color:#bbb;background-color:#f4f4f4;}
+.o-input--radio:disabled + label:after {background-color:#bbb;}
+
+.c-radio-box {display:block;width:50%;}
+.c-radio-box + .c-radio-box {margin-left:-1px;}
+.c-radio-box__input {overflow:hidden;position:absolute;width:1px;height:1px;opacity:0;}
+.c-radio-box__input + label {display:inline-block;width:100%;height:45px;border:1px solid #ccc;font-size:15px;color:#888;line-height:43px;text-align:center;cursor:pointer;}
+.c-radio-box__input:checked + label {position:relative;z-index:1;border:1px solid #009cff;color:#009cff;}
+.c-radio-box__input:checked:disabled + label {border-color:#000;background-color:#f4f4f4;color:#222;}
+
+.o-input--check {display:inline-block;overflow:hidden;position:absolute;width:1px;height:1px;opacity:0;}
+.o-input--check + label {display:inline-block;position:relative;padding-left:33px;font-size:15px;line-height:23px;cursor:pointer;}
+.o-input--check + label:before {display:block;position:absolute;top:0;left:0;width:23px;height:23px;background-color:#fff;border:1px solid #ccc;content:"";}
+.o-input--check + label:after {display:block;position:absolute;top:7px;left:5px;width:14px;height:10px;background:url("../images/common/bg_check.png") no-repeat;background-size:14px auto;opacity:0;content:"";}
+.o-input--check:checked + label:before {border-color:#009cff;}
+.o-input--check:checked + label:after {opacity:1;}
+.o-input--check:disabled + label:before {border-color:#ccc;background-color:#f4f4f4;}
+.o-input--check:checked:disabled + label:after {background-image:url("../images/common/bg_check_disabled.png");}
+.o-input--check.o-input--all + label {font-size:17px;font-family:SECGCWM,sans-serif;}
+
+.o-input--toggle + label {display:inline-block;position:relative;width:50px;height:30px;border-radius:14px;background-color:#ccc;vertical-align:middle;cursor:pointer;}
+.o-input--toggle + label:after {content:"";display:block;position:absolute;top:1px;left:0;width:28px;height:28px;border-radius:50%;background-color:#fff;-webkit-transition:all 300ms;transition:all 300ms;-webkit-transform:translateX(1px);transform:translateX(1px);}
+.o-input--toggle:checked + label {background-color:#009cff;}
+.o-input--toggle:checked + label:after {-webkit-transform:translateX(21px);transform:translateX(21px);}
+
+.o-input--text {display:block;width:100%;height:45px;padding:0 14px;border:1px solid #ccc;font-size:15px;background-color:#fff;line-height:43px;text-align:left;}
+.o-input--text::-webkit-search-cancel-button {display:none;}
+.o-input--text[aria-placeholder] {color:#bbb;}
+.o-input--text[readonly], .o-input--text:disabled {background-color:#f4f4f4;cursor:default;}
+.o-input--text[readonly]:focus {border-color:#ccc;}
+.o-input--text:focus {border-color:#000;}
+.o-input--text.is-error {border-color:#e11b22;}
+
+.o-input--date {display:block;width:100%;height:45px;padding:0 14px;border:1px solid #ccc;font-size:15px;background:#fff url('../images/common/bg_date.png') no-repeat right 14px top 50%;background-size:14px auto;line-height:43px;}
+.o-input--date::-webkit-search-cancel-button {display:none;}
+.o-input--date[aria-placeholder] {color:#bbb;}
+.o-input--date[readonly], .o-input--date:disabled {background-color:#f4f4f4;cursor:default;}
+.o-input--date[readonly]:focus {border-color:#ccc;}
+.o-input--date:focus {border-color:#000;}
+.o-input--date.is-error {border-color:#e11b22;}
+
+.o-input--select {display:block;position:relative;overflow:hidden;width:100%;height:45px;padding:0 35px 0 14px;border:1px solid #ccc;background:#fff url("../images/common/bg_select.png") no-repeat right 14px top 50%;background-size:8px auto;font-family:inherit;font-size:15px;line-height:43px;text-align:left;text-overflow:ellipsis;white-space:nowrap;box-sizing:border-box;}
+.o-input--select:disabled, .o-input--select.is-disabled {background-color:#f4f4f4;cursor:default;}
+.o-input--select.is-disabled:focus {border-color:#ccc;}
+.o-input--select:focus {border-color:#000;}
+
+.o-input--textarea {display:block;width:100%;height:100%;padding:13px 14px;border:1px solid #ccc;font-size:15px;background-color:#fff;resize:none;}
+.o-input--textarea:focus {border-color:#000;}
+</textarea>
+<!-- //css -->
+
+</body>

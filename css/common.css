@@ -77,27 +77,34 @@ table th {font-weight:normal;}
 ;}
 
 /* common */
-.browserupgrade {position:fixed;top:0;left:0;z-index:999;width:100%;height:100%;padding-top:200px;background-color:#333;color:#fff;text-align:center;}
+.browserupgrade {position:fixed;top:0;left:0;z-index:999;width:100%;height:100%;padding-top:200px;color:#fff;text-align:center;background-color:#333;}
 .browserupgrade a {color:#ffff00;}
 
 .skip {width:100%;height:0;top:0;left:0;}
 .skip a {display:block;overflow:hidden;position:absolute;top:0;text-indent:-9999px;}
 .skip a:focus,
-.skip a:active {display:block;position:absolute;top:0;width:100%;z-index:9999;padding:10px 0;font-size:14px;background-color:#666;line-height:14px;text-indent:0;text-align:center;color:#fff;}
+.skip a:active {display:block;position:absolute;top:0;z-index:9999;width:100%;padding:10px 0;font-size:14px;line-height:14px;text-indent:0;text-align:center;color:#fff;background-color:#666;}
 
-.sr-only {overflow:hidden;position:absolute;top:-9999px;left:-9999px;width:1px;height:1px;font-size:1px;}
+/* 기존 a태그 text-indent 날리는걸 변경, 테스트 해봐야함
+.skip {width:100%;height:0;top:0;left:0;}
+.skip a {display:block;overflow:hidden;position:absolute;top:0;z-index:-1;width:1px;height:1px;font-size:1px;line-height:2;opacity:0;}
+.skip a:focus,
+.skip a:active {display:block;position:absolute;top:0;z-index:9999;width:100%;height:auto;padding:10px 0;font-size:14px;line-height:14px;text-indent:0;text-align:center;color:#fff;opacity:1;background-color:#666;}
+*/
+
+.sr-only {overflow:hidden;position:absolute;z-index:-1;width:1px;height:1px;font-size:1px;line-height:2;opacity:0;}
 .fa {margin-right:5px;}
 .o-button--top {display:none;}
 
 /* layout */
 .l-wrap {min-width:320px;}
-.l-head {position:fixed;top:0;z-index:10;width:100%;height:120px;padding-top:25px;text-align:center;background:#47a3da;}
-.l-head .logo {font-size:24px;font-family:'nanumE';color:#ffff00;}
+.l-head {position:fixed;top:0;z-index:10;width:100%;height:120px;padding-top:25px;border-bottom:1px solid #ddd;text-align:center;background-color:#eee;}
+.l-head .logo {font-size:24px;font-family:'nanumE';color:#555;}
 .l-gnb {margin-top:20px;}
 .l-gnb__item {display:inline-block;margin:0 15px;}
-.l-gnb__anchor{position:relative;display:inline-block;padding:0 5px;color:#fff;}
+.l-gnb__anchor {position:relative;display:inline-block;padding:0 5px;color:#333;}
 .l-gnb__anchor:before,
-.l-gnb__anchor:after {position:absolute;left:0;width:100%;height:1px;background:#fff;opacity:0;transition:all 0.3s;content:"";}
+.l-gnb__anchor:after {position:absolute;left:0;width:100%;height:1px;background-color:#333;opacity:0;transition:all 0.3s;content:"";}
 .l-gnb__anchor:before {top:0;transform:translateY(10px);}
 .l-gnb__anchor:after {bottom:0;transform:translateY(-10px);}
 .l-gnb__anchor:hover:before,
@@ -121,7 +128,7 @@ table th {font-weight:normal;}
 .c-tab {position:absolute;top:50px;right:20px;}
 .c-tab__anchor {font-size:12px;color:#767676;}
 .c-tab__anchor:first-child {margin-right:15px;}
-.c-tab .is-active {color:#47a3da;}
+.c-tab .is-active {color:#333;}
 .c-tab .fa {font-size:14px;vertical-align:middle;}
 
 /* table */
@@ -136,12 +143,12 @@ table th {font-weight:normal;}
 .portfolio__list td {text-align:center;}
 .portfolio__list .portfolio__link {display:inline-block;position:relative;top:-2px;margin-left:10px;padding:1px 5px;font-size:12px;color:#767676;vertical-align:middle;}
 .portfolio__list .portfolio__link:hover,
-.portfolio__list .portfolio__link:focus {color:#47a3da;}
+.portfolio__list .portfolio__link:focus {color:#333;}
 .portfolio__list .portfolio__link .fa {vertical-align:middle;}
 .portfolio__view {margin-top:-30px;}
 .portfolio__view .portfolio__link {display:block;margin-top:5px;font-size:12px;text-align:right;color:#767676;vertical-align:middle;}
 .portfolio__view .portfolio__link:hover,
-.portfolio__view .portfolio__link:focus {color:#47a3da;}
+.portfolio__view .portfolio__link:focus {color:#333;}
 .portfolio__view .portfolio__link .fa {vertical-align:middle;}
 
 .grid {
@@ -187,7 +194,7 @@ table th {font-weight:normal;}
 .o-button--mail {color:#767676;}
 .o-button--mail .fa {vertical-align:middle;}
 .o-button--mail:hover,
-.o-button--mail:focus {color:#47a3da;}
+.o-button--mail:focus {color:#333;}
 
 /* self-introduction */
 .self__info {font-size:13px;line-height:23px;}
@@ -196,7 +203,7 @@ table th {font-weight:normal;}
 .ly-view {position:fixed;top:0;left:0;width:100%;height:100%;opacity:0;z-index:-9999;animation-duration:300ms;}
 .ly-view.is-active {opacity:1;z-index:9999;}
 
-.dim {position:fixed;top:0;left:0;z-index:998;width:100%;height:100%;background-color:#47a3da;}
+.dim {position:fixed;top:0;left:0;z-index:998;width:100%;height:100%;background-color:#333;}
 .ly {position:fixed;top:0;left:0;width:100%;height:100%;z-index:999;}
 .ly__wrap {position:absolute;z-index:999;top:50%;left:50%;transform:translate(-50%,-50%);max-width:80%;max-height:80%;opacity:0;transition:opacity 500ms;}
 .ly__title {display:block;position:absolute;top:-2em;width:100%;font-size:16px;font-weight:400;text-align:center;color:#fff;}
