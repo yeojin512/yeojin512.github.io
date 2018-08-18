@@ -1,0 +1,74 @@
+<!doctype html>
+<html xml:lang="ko" lang="ko">
+<head>
+<meta charset="euc-kr">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>리스트</title>
+<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="js/modernizr.min.js"></script>
+<script type="text/javascript" src="js/jquery_ui.js"></script>
+<link type="text/css" rel="stylesheet" href="css/common.css" />
+</head>
+
+<body>
+
+<!-- markup -->
+<h1>html</h1>
+<textarea style="height:95px">
+<div id="l-skipNavigation" class="skip"><a href="#content">본문 바로가기</a></div>
+.
+<div id="content">내용</div>
+</textarea>
+<!-- //markup -->
+
+<!-- css -->
+<h1>css</h1>
+<textarea style="height:110px">
+/* skip */
+.skip {position:fixed; top:0; left:0; z-index:500; width:100%}
+.skip a {display:block; width:0; height:0; font-size:0}
+.skip a:hover, .skip a:focus,.skip a:active {display:block; width:100%; height:40px; background-color:#282a37; line-height:40px; text-align:center; font-size:14px; color:#fff}
+</textarea>
+<!-- //css -->
+
+<!-- script -->
+<h1>script</h1>
+<textarea style="height:550px">
+/**
+ * 본문바로가기, 본문 상단 이동
+ * skipNavigation();
+ */
+var skipNavigation = (function($,window,document){
+    $(function(){
+        //스크롤 없이 포커스 이동
+        var focusWithoutScrolling = function(target, callback){
+            var $hasScrollElem, _posY;
+            var _htmlY = $('html').scrollTop(),
+                _bodyY = $('body').scrollTop();
+            if( _htmlY != 0 ){
+                $hasScrollElem = $('html');
+                _posY = _htmlY;
+            } else {
+                $hasScrollElem = $('body');
+                _posY = _bodyY;
+            }
+            target.focus();
+            $hasScrollElem.scrollTop(_posY);
+            callback && callback();
+        };
+
+        //상단에서 본문
+        $('#l-skipNavigation').off('click').on('click', 'a', function (e) {
+            $(this.hash).attr('tabindex', -1).on('focusout', function () {
+                $(this).removeAttr('tabindex').off('focusout');
+            }).focus();
+            e.preventDefault();
+        });
+    });
+})(jQuery,window,document);
+</textarea>
+<!-- //script -->
+
+</body>

@@ -1,0 +1,107 @@
+<!doctype html>
+<html xml:lang="ko" lang="ko">
+<head>
+<meta charset="euc-kr">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>리스트</title>
+<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="js/modernizr.min.js"></script>
+<script type="text/javascript" src="js/jquery_ui.js"></script>
+<link type="text/css" rel="stylesheet" href="css/common.css" />
+</head>
+
+<body>
+
+<!-- view -->
+<style>
+.file-attach {position:relative}
+.file-attach input[type="file"] {position:absolute; top:0; left:0; opacity:0; width:64px; height:27px}
+.file-attach span {display:inline-block; width:64px; height:27px; border:1px solid #bfbfbf; background-color:#ececec; font-size:12px; text-align:center; line-height:25px}
+.file-attach div {display:inline-block; margin-left:10px; font-size:13px; font-weight:200; line-height:27px}
+</style>
+<div class="file-attach" data-js="attachFile">
+    <input type="file" name="" data-js="attachFile__handler" title="파일첨부"><span>파일선택</span><div data-js="attachFile__render">선택된 파일 없음</div>
+</div>
+<script>
+/**
+ *   첨부파일
+ */
+;(function( $, win, doc, undefined ){
+
+    var attachFile = function(){
+        var $wrap = $(this),
+            $handler = $wrap.find('[data-js="attachFile__handler"]'),
+            $render = $wrap.find('[data-js="attachFile__render"]'),
+            defaultText = $.trim( $render.text() ) || '선택된 파일 없음';
+
+        $handler.on('change',function(){
+            var _value = this.value;
+            if( _value ){
+                _value = _value.split('\\');
+                $render.text( _value[_value.length-1] );
+            } else {
+                $render.text( defaultText );
+            }
+        });
+    };
+
+    $('[data-js="attachFile"]').each(attachFile)
+
+})(jQuery, window, document);
+
+</script>
+<!-- //view -->
+
+<!-- markup -->
+<h1>html</h1>
+<textarea style="height:120px">
+<div class="file-attach" data-js="attachFile">
+    <input type="file" name="" data-js="attachFile__handler" title="파일첨부"><span>파일선택</span><div data-js="attachFile__render">선택된 파일 없음</div>
+</div>
+</textarea>
+<!-- //markup -->
+
+<!-- css -->
+<h1>css</h1>
+<textarea style="height:140px">
+.file-attach {position:relative}
+.file-attach input[type="file"] {position:absolute; top:0; left:0; opacity:0; width:64px; height:27px}
+.file-attach span {display:inline-block; width:64px; height:27px; border:1px solid #bfbfbf; background-color:#ececec; font-size:12px; text-align:center; line-height:25px}
+.file-attach div {display:inline-block; margin-left:10px; font-size:13px; font-weight:200; line-height:27px}
+</textarea>
+<!-- //css -->
+
+<!-- script -->
+<h1>script</h1>
+<textarea style="height:430px">
+/**
+ *   첨부파일
+ */
+;(function( $, win, doc, undefined ){
+
+    var attachFile = function(){
+        var $wrap = $(this),
+            $handler = $wrap.find('[data-js="attachFile__handler"]'),
+            $render = $wrap.find('[data-js="attachFile__render"]'),
+            defaultText = $.trim( $render.text() ) || '선택된 파일 없음';
+
+        $handler.on('change',function(){
+            var _value = this.value;
+            if( _value ){
+                _value = _value.split('\\');
+                $render.text( _value[_value.length-1] );
+            } else {
+                $render.text( defaultText );
+            }
+        });
+    };
+
+    $('[data-js="attachFile"]').each(attachFile)
+
+})(jQuery, window, document);
+</textarea>
+<!-- //script -->
+
+</body>

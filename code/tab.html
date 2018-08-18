@@ -1,0 +1,56 @@
+<!doctype html>
+<html xml:lang="ko" lang="ko">
+<head>
+<meta charset="euc-kr">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>리스트</title>
+<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="js/modernizr.min.js"></script>
+<script type="text/javascript" src="js/jquery_ui.js"></script>
+<link type="text/css" rel="stylesheet" href="css/common.css" />
+</head>
+
+<body>
+
+<!-- view -->
+
+<!-- //view -->
+
+<!-- markup -->
+<h1>html</h1>
+<textarea style="height:400px">
+<div data-js="tab" class="c-tab">
+    <div role="tablist" class="c-tab__list" aria-label="정렬">
+        <div class="c-tab__item"><button type="button" role="tab" aria-selected="true" id="tab-1" aria-controls="tab-panel-1" tabindex="0" data-js="tab__anchor" class="c-tab__anchor">탭1</button></div>
+        <div class="c-tab__item"><button type="button" role="tab" aria-selected="false" id="tab-2" aria-controls="tab-panel-2" tabindex="-1" data-js="tab__anchor" class="c-tab__anchor">탭2</button></div>
+    </div>
+
+    <section role="tabpanel" id="tab-panel-1" aria-controls="tab-1" data-js="tab__panel" tabindex="0" class="c-tab__panel">
+        <h1>탭1</h1>
+        탭내용
+    </section>
+
+    <section role="tabpanel" id="tab-panel-2" aria-controls="tab-2" tabindex="0" data-js="tab__panel" class="c-tab__panel">
+        <h1>탭2</h1>
+        탭내용
+    </section>
+</div>
+</textarea>
+
+<textarea>
+http://nuli.navercorp.com/sharing/blog/post/1132879
+
+- aria-selected : 현재 선택된 값이면 true, 아니면 false
+- 각 탭과 패널에 id 및 aria-controls 매칭, 하위요소로 바로 이동해주는 역할
+- 세로형 탭일 경우 : tablist 요소에 aria-orientation="vertical"
+</textarea>
+<!-- //markup -->
+
+<!-- script -->
+<h1>script</h1>
+<p>탭 버튼이랑 내용이랑 id 값 서로 매칭, 탭버튼 활성화시 true값, tabindex 제거</p>
+<!-- //script -->
+
+</body>

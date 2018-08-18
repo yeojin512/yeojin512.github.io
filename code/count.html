@@ -1,0 +1,353 @@
+<!doctype html>
+<html xml:lang="ko" lang="ko">
+<head>
+<meta charset="euc-kr">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>리스트</title>
+<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="js/modernizr.min.js"></script>
+<script type="text/javascript" src="js/jquery_ui.js"></script>
+<link type="text/css" rel="stylesheet" href="css/common.css" />
+</head>
+
+<body>
+
+<!-- view -->
+<style>
+.c-counter {display:inline-block;overflow:hidden;height:30px;background-color:#fff;font-size:0;vertical-align:top;}
+.c-counter * {box-sizing:border-box;vertical-align:top;}
+.c-counter__decrease, .c-counter__increase {position:relative;width:30px;height:100%;border:1px solid #ccc;background-color:#fff;cursor:pointer;}
+.c-counter__decrease:after, .c-counter__increase:before, .c-counter__increase:after {content:"";display:block;position:absolute;top:50%;left:50%;width:10px;height:2px;margin:-1px 0 0 -5px;background-color:#222;}
+.c-counter__increase:before {-webkit-transform:rotate(-90deg);transform:rotate(-90deg);}
+.c-counter__number {width:40px;height:100%;margin:0 -1px;border:1px solid #ccc;font-size:15px;line-height:28px;text-align:center;color:#222;}
+.c-counter__number::-webkit-outer-spin-button, .c-counter__number::-webkit-inner-spin-button {display:none;margin:0;-webkit-appearance:none;appearance:none;}
+.c-counter__decrease[disabled], .c-counter__increase[disabled] {background-color:#f4f4f4;}
+.c-counter__decrease[disabled]:after, .c-counter__decrease[disabled]:before, .c-counter__increase[disabled]:after, .c-counter__increase[disabled]:before {background-color:#ccc;}
+</style>
+<span class="c-counter" data-js="counter">
+    <button type="button" class="o-button c-counter__decrease" data-js="counter__decrease" title="수량 감소"></button>
+    <input name="" type="number" class="o-input c-counter__number" data-js="counter__number" title="현재 수량" value="1" min="1" max="10" maxlength="3" pattern="\d*" readonly> <!--[D] max값 변경 -->
+    <button type="button" class="o-button c-counter__increase" data-js="counter__increase" title="수량 증가"></button>
+</span>
+<br>
+<span class="c-counter" data-js="counter">
+    <button type="button" class="o-button c-counter__decrease" data-js="counter__decrease" title="수량 감소" disabled></button>
+    <input name="" type="number" class="o-input c-counter__number" data-js="counter__number" title="현재 수량" value="1" min="3" max="3" maxlength="3" pattern="\d*" readonly> <!--[D] max값 변경 -->
+    <button type="button" class="o-button c-counter__increase" data-js="counter__increase" title="수량 증가" disabled></button>
+</span>
+<script>
+/**
+ *  jQuery smcCounter
+ *  NumberCounter
+ *  $( wrapper ).counter();
+ */
+;(function($, window, document, undefined) {
+    var pluginName = 'counter';
+
+    $.fn[pluginName] = function ( options ) {
+        this.each(function() {
+            if ( !$.data( this, "plugin_" + pluginName ) ) {
+                $.data( this, "plugin_" + pluginName, new Plugin( this, options ) );
+                Design.log( '[bind] '+pluginName );
+            } else {
+                $(this).find('[data-js="counter__number"]').trigger('update');
+            }
+        });
+
+        return this;
+    };
+
+    $.fn[pluginName].defaults = {
+        numberSelector : '[data-js="counter__number"]',
+        decreaseSelector : '[data-js="counter__decrease"]',
+        increaseSelector : '[data-js="counter__increase"]'
+    };
+
+    function Plugin ( element, options ) {
+        this.element = element;
+        this._name = pluginName;
+        this._defaults = $.fn[pluginName].defaults;
+        this.options = $.extend( {}, this._defaults, options, $(element).data('option') );
+
+        this.init();
+    }
+
+    $.extend( Plugin.prototype, {
+
+        init : function () {
+            var plugin = this;
+
+            plugin.buildCache();
+            plugin.bindEvents();
+
+            plugin.numberHandler( true );
+        },
+
+        buildCache : function(){
+            var plugin = this;
+
+            plugin.$wrap = $( plugin.element );
+            plugin.$number = plugin.$wrap.find( plugin.options.numberSelector );
+            plugin.$increase = plugin.$wrap.find( plugin.options.increaseSelector );
+            plugin.$decrease = plugin.$wrap.find( plugin.options.decreaseSelector );
+
+            plugin.min = typeof plugin.$number.attr('min') === 'undefined' ? 0 : Number( plugin.$number.attr('min') );
+            plugin.max = typeof plugin.$number.attr('max') === 'undefined' ? 0 : Number( plugin.$number.attr('max') );
+            plugin.length = Number( plugin.$number.attr('maxlength') ) || 3;
+
+            if( plugin.min === plugin.max ){
+                plugin.$increase.attr('disabled',true);
+                plugin.$decrease.attr('disabled',true);
+            }
+        },
+
+        correctNumber : function( val, silent ){
+            var plugin = this;
+            if( plugin.max < val ){
+                val = plugin.max;
+            } else if ( plugin.min > val ){
+                val = plugin.min;
+            }
+            plugin.buttonState( val );
+            plugin.$number.val( val ).trigger('change');
+        },
+
+        buttonState : function( val ){
+            var plugin = this;
+
+            plugin.$increase.attr('disabled', (plugin.max === val) );
+            plugin.$decrease.attr('disabled', (plugin.min === val) );
+        },
+
+        buttonHanlder : function( modify ){
+            var plugin = this;
+
+            var count = parseInt( plugin.$number.val(), 10);
+
+            count = count + modify;
+
+            plugin.correctNumber( count );
+        },
+
+        numberHandler : function( silent ){
+            var plugin = this;
+            var count = parseInt( plugin.$number.val() ,10 );
+
+            plugin.correctNumber( count, silent );
+        },
+
+        update : function(){
+            var plugin = this;
+            plugin.buildCache();
+            plugin.numberHandler( true );
+        },
+
+        bindEvents : function(){
+            var plugin = this;
+
+            plugin.$increase.on('click'+'.'+plugin._name, function(e){
+                e.preventDefault();
+                plugin.buttonHanlder( 1 );
+            });
+
+            plugin.$decrease.on('click'+'.'+plugin._name, function(e){
+                e.preventDefault();
+                plugin.buttonHanlder( -1 );
+            });
+
+            plugin.$number.on('update'+'.'+plugin._name, function(){
+                plugin.update();
+            });
+        },
+
+        unbindEvents : function(){
+            var plugin = this;
+
+            plugin.$increase.off('.'+plugin._name);
+            plugin.$decrease.off('.'+plugin._name);
+            plugin.$number.off('.'+plugin._name);
+        }
+    });
+
+    $('[data-js="counter"]').counter();
+
+})(jQuery, window, document);
+</script>
+<!-- //view -->
+
+<!-- markup -->
+<h1>html</h1>
+<textarea style="height:300px">
+    <span class="c-counter" data-js="counter">
+    <button type="button" class="o-button c-counter__decrease" data-js="counter__decrease" title="수량 감소"></button>
+    <input name="" type="number" class="o-input c-counter__number" data-js="counter__number" title="현재 수량" value="1" min="1" max="10" maxlength="3" pattern="\d*" readonly> <!--[D] max값 변경 -->
+    <button type="button" class="o-button c-counter__increase" data-js="counter__increase" title="수량 증가"></button>
+</span>
+<span class="c-counter" data-js="counter">
+    <button type="button" class="o-button c-counter__decrease" data-js="counter__decrease" title="수량 감소" disabled></button>
+    <input name="" type="number" class="o-input c-counter__number" data-js="counter__number" title="현재 수량" value="1" min="3" max="3" maxlength="3" pattern="\d*" readonly> <!--[D] max값 변경 -->
+    <button type="button" class="o-button c-counter__increase" data-js="counter__increase" title="수량 증가" disabled></button>
+</span>
+</textarea>
+<!-- //markup -->
+
+<!-- css -->
+<h1>css</h1>
+<textarea style="height:140px">
+.c-counter {display:inline-block;overflow:hidden;height:30px;background-color:#fff;font-size:0;vertical-align:top;}
+.c-counter * {box-sizing:border-box;vertical-align:top;}
+.c-counter__decrease, .c-counter__increase {position:relative;width:30px;height:100%;border:1px solid #ccc;background-color:#fff;cursor:pointer;}
+.c-counter__decrease:after, .c-counter__increase:before, .c-counter__increase:after {content:"";display:block;position:absolute;top:50%;left:50%;width:10px;height:2px;margin:-1px 0 0 -5px;background-color:#222;}
+.c-counter__increase:before {-webkit-transform:rotate(-90deg);transform:rotate(-90deg);}
+.c-counter__number {width:40px;height:100%;margin:0 -1px;border:1px solid #ccc;font-size:15px;line-height:28px;text-align:center;color:#222;}
+.c-counter__number::-webkit-outer-spin-button, .c-counter__number::-webkit-inner-spin-button {display:none;margin:0;-webkit-appearance:none;appearance:none;}
+.c-counter__decrease[disabled], .c-counter__increase[disabled] {background-color:#f4f4f4;}
+.c-counter__decrease[disabled]:after, .c-counter__decrease[disabled]:before, .c-counter__increase[disabled]:after, .c-counter__increase[disabled]:before {background-color:#ccc;}
+</textarea>
+<!-- //css -->
+
+<!-- script -->
+<h1>script</h1>
+<textarea style="height:430px">
+/**
+ *  jQuery smcCounter
+ *  NumberCounter
+ *  $( wrapper ).counter();
+ */
+;(function($, window, document, undefined) {
+    var pluginName = 'counter';
+
+    $.fn[pluginName] = function ( options ) {
+        this.each(function() {
+            if ( !$.data( this, "plugin_" + pluginName ) ) {
+                $.data( this, "plugin_" + pluginName, new Plugin( this, options ) );
+                Design.log( '[bind] '+pluginName );
+            } else {
+                $(this).find('[data-js="counter__number"]').trigger('update');
+            }
+        });
+
+        return this;
+    };
+
+    $.fn[pluginName].defaults = {
+        numberSelector : '[data-js="counter__number"]',
+        decreaseSelector : '[data-js="counter__decrease"]',
+        increaseSelector : '[data-js="counter__increase"]'
+    };
+
+    function Plugin ( element, options ) {
+        this.element = element;
+        this._name = pluginName;
+        this._defaults = $.fn[pluginName].defaults;
+        this.options = $.extend( {}, this._defaults, options, $(element).data('option') );
+
+        this.init();
+    }
+
+    $.extend( Plugin.prototype, {
+
+        init : function () {
+            var plugin = this;
+
+            plugin.buildCache();
+            plugin.bindEvents();
+
+            plugin.numberHandler( true );
+        },
+
+        buildCache : function(){
+            var plugin = this;
+
+            plugin.$wrap = $( plugin.element );
+            plugin.$number = plugin.$wrap.find( plugin.options.numberSelector );
+            plugin.$increase = plugin.$wrap.find( plugin.options.increaseSelector );
+            plugin.$decrease = plugin.$wrap.find( plugin.options.decreaseSelector );
+
+            plugin.min = typeof plugin.$number.attr('min') === 'undefined' ? 0 : Number( plugin.$number.attr('min') );
+            plugin.max = typeof plugin.$number.attr('max') === 'undefined' ? 0 : Number( plugin.$number.attr('max') );
+            plugin.length = Number( plugin.$number.attr('maxlength') ) || 3;
+
+            if( plugin.min === plugin.max ){
+                plugin.$increase.attr('disabled',true);
+                plugin.$decrease.attr('disabled',true);
+            }
+        },
+
+        correctNumber : function( val, silent ){
+            var plugin = this;
+            if( plugin.max < val ){
+                val = plugin.max;
+            } else if ( plugin.min > val ){
+                val = plugin.min;
+            }
+            plugin.buttonState( val );
+            plugin.$number.val( val ).trigger('change');
+        },
+
+        buttonState : function( val ){
+            var plugin = this;
+
+            plugin.$increase.attr('disabled', (plugin.max === val) );
+            plugin.$decrease.attr('disabled', (plugin.min === val) );
+        },
+
+        buttonHanlder : function( modify ){
+            var plugin = this;
+
+            var count = parseInt( plugin.$number.val(), 10);
+
+            count = count + modify;
+
+            plugin.correctNumber( count );
+        },
+
+        numberHandler : function( silent ){
+            var plugin = this;
+            var count = parseInt( plugin.$number.val() ,10 );
+
+            plugin.correctNumber( count, silent );
+        },
+
+        update : function(){
+            var plugin = this;
+            plugin.buildCache();
+            plugin.numberHandler( true );
+        },
+
+        bindEvents : function(){
+            var plugin = this;
+
+            plugin.$increase.on('click'+'.'+plugin._name, function(e){
+                e.preventDefault();
+                plugin.buttonHanlder( 1 );
+            });
+
+            plugin.$decrease.on('click'+'.'+plugin._name, function(e){
+                e.preventDefault();
+                plugin.buttonHanlder( -1 );
+            });
+
+            plugin.$number.on('update'+'.'+plugin._name, function(){
+                plugin.update();
+            });
+        },
+
+        unbindEvents : function(){
+            var plugin = this;
+
+            plugin.$increase.off('.'+plugin._name);
+            plugin.$decrease.off('.'+plugin._name);
+            plugin.$number.off('.'+plugin._name);
+        }
+    });
+
+    $('[data-js="counter"]').counter();
+
+})(jQuery, window, document);
+</textarea>
+<!-- //script -->
+
+</body>
