@@ -209,14 +209,14 @@ table th {font-weight:normal;}
 .ly__title {display:block;position:absolute;top:-2em;width:100%;font-size:16px;font-weight:400;text-align:center;color:#fff;}
 .ly__close {position:fixed;top:auto;bottom:20px;left:50%;z-index:1000;width:50px;height:50px;margin-left:-25px;font-size:2em;color:#fff;}
 .ly__content {position:relative;padding:0 30px;text-align:center;}
-.ly__content img {max-width:100%;height:auto;}
+.ly__content img {max-width:640px;height:auto;}
 .ly__button {display:block;position:absolute;z-index:2;margin-right:0;}
 .ly__button--prev {top:50%;left:40px;width:60px;height:60px;font-size:3.5em;-ms-transform:translate(0,-75%);transform:translate3d(0,-75%,0);opacity:0.5;}
 .ly__button--next {top:50%;right:40px;width:60px;height:60px;font-size:3.5em;-ms-transform:translate(0,-75%);transform:translate3d(0,-75%,0);opacity:0.5;}
 .ly__button--stop {bottom:0;right:60px;width:20px;height:20px;font-size:1.5em;opacity:0.5;}
 .ly__button--play {bottom:0;right:30px;width:20px;height:20px;font-size:1.5em;opacity:0.5;}
 
-.swiper-pagination {left:0;width:100%;}
+.swiper-pagination {left:0;width:100%;margin-top:10px;}
 .swiper-pagination-bullet {margin:0 4px;}
 .swiper-pagination-bullet-active {background:#fff;}
 
