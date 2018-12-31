@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,requiresActiveX=true">
+    <title>code</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="msapplication-tap-highlight" content="no" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="css/common.css" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+</head>
+
+<body>
+
+<!-- view -->
+<div class="combobox">
+    <span class="combobox__text" aria-hidden="true"></span>
+    <select class="o-input o-input--select combobox__select" title="상품 순서 정렬">
+        <option value="">전체</option>
+        <option value="">인기순</option>
+        <option value="">상품평순</option>
+        <option value="">신상품순</option>
+        <option value="">낮은가격순</option>
+        <option value="">높은가격순</option>
+    </select>
+</div>
+
+<div class="combobox">
+    <span class="combobox__text" aria-hidden="true"></span>
+    <select class="o-input o-input--select combobox__select" title="상품 순서 정렬" disabled> <!-- disabled -->
+        <option value="">전체</option>
+        <option value="" selected>인기순</option> <!-- selected -->
+        <option value="">상품평순</option>
+        <option value="">신상품순</option>
+        <option value="">낮은가격순</option>
+        <option value="">높은가격순</option>
+    </select>
+</div>
+
+<style>
+    .combobox {display:inline-block;position:relative;vertical-align:top;}
+    .combobox__select {display:block;position:absolute;top:0;left:0;width:100%;height:100%;opacity:0;}
+    .combobox__text {display:block;width:100px;height:50px;border:1px solid #000;}
+    .combobox.is-disabled .combobox__text {border-color:red;}
+    .combobox.is-active .combobox__text {outline:1px solid blue;}
+</style>
+
+<script>
+/**
+ *   ComboBox
+ */
+function Combobox( comboboxEl ){
+    this.combo = comboboxEl;
+    this.buildCache();
+    this.init();
+    this.bindEvent();
+    /*this.comboSelect.dispatchEvent( new Event('change') );*/
+
+
+    var event = document.createEvent("Event");
+    event.initEvent("change", false, true);
+    this.comboSelect.dispatchEvent(event);
+
+};
+Combobox.prototype.init = function(){
+    if (this.comboSelect.disabled){
+        this.combo.classList.add('is-disabled');
+    } else {
+        this.combo.classList.remove('is-disabled');
+    };
+};
+Combobox.prototype.buildCache = function(){
+    this.comboSelect = this.combo.querySelector('.combobox__select');
+    this.comboText = this.combo.querySelector('.combobox__text');
+};
+Combobox.prototype.bindEvent = function(){
+    var that = this;
+
+    this.comboSelect.addEventListener('change', function () {
+        that.comboText.innerText = this.options[this.selectedIndex].innerHTML;
+    });
+
+    this.comboSelect.addEventListener('focus', function () {
+        that.combo.classList.add('is-active');
+    });
+
+    this.comboSelect.addEventListener('blur', function () {
+        that.combo.classList.remove('is-active');
+    });
+};
+var comboboxList = document.querySelectorAll('.combobox');
+for( var i=0 ; i < comboboxList.length; i++ ){
+    console.log( new Combobox( comboboxList[i] ) );
+}
+</script>
+
+<!-- markup -->
+<h1>html</h1>
+<textarea style="height:100px">
+<div class="combobox">
+    <span class="combobox__text" aria-hidden="true"></span>
+    <select class="o-input o-input--select combobox__select" title="상품 순서 정렬">
+        <option value="">전체</option>
+        <option value="">인기순</option>
+        <option value="">상품평순</option>
+        <option value="">신상품순</option>
+        <option value="">낮은가격순</option>
+        <option value="">높은가격순</option>
+    </select>
+</div>
+
+<div class="combobox">
+    <span class="combobox__text" aria-hidden="true"></span>
+    <select class="o-input o-input--select combobox__select" title="상품 순서 정렬" disabled> <!-- disabled -->
+        <option value="">전체</option>
+        <option value="" selected>인기순</option> <!-- selected -->
+        <option value="">상품평순</option>
+        <option value="">신상품순</option>
+        <option value="">낮은가격순</option>
+        <option value="">높은가격순</option>
+    </select>
+</div>
+</textarea>
+<!-- //markup -->
+
+<!-- css -->
+<h1>css</h1>
+<textarea style="height:100px">
+.combobox {display:inline-block;position:relative;vertical-align:top;}
+.combobox__select {display:block;position:absolute;top:0;left:0;width:100%;height:100%;opacity:0;}
+.combobox__text {display:block;width:100px;height:50px;border:1px solid #000;}
+.combobox.is-disabled .combobox__text {border-color:red;}
+.combobox.is-active .combobox__text {outline:1px solid blue;}
+</textarea>
+<!-- //css -->
+
+<!-- script -->
+<h1>script</h1>
+<textarea style="height:500px">
+/**
+ *   combobox
+ */
+function Combobox( comboboxEl ){
+    this.combo = comboboxEl;
+    this.buildCache();
+    this.init();
+    this.bindEvent();
+    this.comboSelect.dispatchEvent( new Event('change') );
+};
+Combobox.prototype.init = function(){
+    if (this.comboSelect.disabled){
+        this.combo.classList.add('is-disabled');
+    } else {
+        this.combo.classList.remove('is-disabled');
+    };
+};
+Combobox.prototype.buildCache = function(){
+    this.comboSelect = this.combo.querySelector('.combobox__select');
+    this.comboText = this.combo.querySelector('.combobox__text');
+};
+Combobox.prototype.bindEvent = function(){
+    var that = this;
+
+    this.comboSelect.addEventListener('change', function () {
+        that.comboText.innerText = this.options[this.selectedIndex].innerHTML;
+    });
+
+    this.comboSelect.addEventListener('focus', function () {
+        that.combo.classList.add('is-active');
+    });
+
+    this.comboSelect.addEventListener('blur', function () {
+        that.combo.classList.remove('is-active');
+    });
+};
+var comboboxList = document.querySelectorAll('.combobox');
+for( var i=0 ; i < comboboxList.length; i++ ){
+    console.log( new Combobox( comboboxList[i] ) );
+}
+</textarea>
+<!-- //script -->
+
+</body>

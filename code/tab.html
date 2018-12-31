@@ -1,15 +1,18 @@
 <!doctype html>
-<html xml:lang="ko" lang="ko">
+<html lang="ko">
 <head>
-<meta charset="euc-kr">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>¸®½ºÆ®</title>
-<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
-<script type="text/javascript" src="js/modernizr.min.js"></script>
-<script type="text/javascript" src="js/jquery_ui.js"></script>
-<link type="text/css" rel="stylesheet" href="css/common.css" />
+    <meta charset="utf-8">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,requiresActiveX=true">
+    <title>code</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="msapplication-tap-highlight" content="no" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="css/common.css" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 </head>
 
 <body>
@@ -22,19 +25,19 @@
 <h1>html</h1>
 <textarea style="height:400px">
 <div data-js="tab" class="c-tab">
-    <div role="tablist" class="c-tab__list" aria-label="Á¤·Ä">
-        <div class="c-tab__item"><button type="button" role="tab" aria-selected="true" id="tab-1" aria-controls="tab-panel-1" tabindex="0" data-js="tab__anchor" class="c-tab__anchor">ÅÇ1</button></div>
-        <div class="c-tab__item"><button type="button" role="tab" aria-selected="false" id="tab-2" aria-controls="tab-panel-2" tabindex="-1" data-js="tab__anchor" class="c-tab__anchor">ÅÇ2</button></div>
+    <div role="tablist" class="c-tab__list" aria-label="ì •ë ¬">
+        <div class="c-tab__item"><button type="button" role="tab" aria-selected="true" id="tab-1" aria-controls="tab-panel-1" tabindex="0" data-js="tab__anchor" class="c-tab__anchor">íƒ­1</button></div>
+        <div class="c-tab__item"><button type="button" role="tab" aria-selected="false" id="tab-2" aria-controls="tab-panel-2" tabindex="-1" data-js="tab__anchor" class="c-tab__anchor">íƒ­2</button></div>
     </div>
 
     <section role="tabpanel" id="tab-panel-1" aria-controls="tab-1" data-js="tab__panel" tabindex="0" class="c-tab__panel">
-        <h1>ÅÇ1</h1>
-        ÅÇ³»¿ë
+        <h1>íƒ­1</h1>
+        íƒ­ë‚´ìš©
     </section>
 
     <section role="tabpanel" id="tab-panel-2" aria-controls="tab-2" tabindex="0" data-js="tab__panel" class="c-tab__panel">
-        <h1>ÅÇ2</h1>
-        ÅÇ³»¿ë
+        <h1>íƒ­2</h1>
+        íƒ­ë‚´ìš©
     </section>
 </div>
 </textarea>
@@ -42,15 +45,15 @@
 <textarea>
 http://nuli.navercorp.com/sharing/blog/post/1132879
 
-- aria-selected : ÇöÀç ¼±ÅÃµÈ °ªÀÌ¸é true, ¾Æ´Ï¸é false
-- °¢ ÅÇ°ú ÆĞ³Î¿¡ id ¹× aria-controls ¸ÅÄª, ÇÏÀ§¿ä¼Ò·Î ¹Ù·Î ÀÌµ¿ÇØÁÖ´Â ¿ªÇÒ
-- ¼¼·ÎÇü ÅÇÀÏ °æ¿ì : tablist ¿ä¼Ò¿¡ aria-orientation="vertical"
+- aria-selected : í˜„ì¬ ì„ íƒëœ ê°’ì´ë©´ true, ì•„ë‹ˆë©´ false
+- ê° íƒ­ê³¼ íŒ¨ë„ì— id ë° aria-controls ë§¤ì¹­, í•˜ìœ„ìš”ì†Œë¡œ ë°”ë¡œ ì´ë™í•´ì£¼ëŠ” ì—­í• 
+- ì„¸ë¡œí˜• íƒ­ì¼ ê²½ìš° : tablist ìš”ì†Œì— aria-orientation="vertical"
 </textarea>
 <!-- //markup -->
 
 <!-- script -->
 <h1>script</h1>
-<p>ÅÇ ¹öÆ°ÀÌ¶û ³»¿ëÀÌ¶û id °ª ¼­·Î ¸ÅÄª, ÅÇ¹öÆ° È°¼ºÈ­½Ã true°ª, tabindex Á¦°Å</p>
+<p>íƒ­ ë²„íŠ¼ì´ë‘ ë‚´ìš©ì´ë‘ id ê°’ ì„œë¡œ ë§¤ì¹­, íƒ­ë²„íŠ¼ í™œì„±í™”ì‹œ trueê°’, tabindex ì œê±°</p>
 <!-- //script -->
 
 </body>

@@ -1,15 +1,18 @@
 <!doctype html>
-<html xml:lang="ko" lang="ko">
+<html lang="ko">
 <head>
-<meta charset="euc-kr">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>¸®½ºÆ®</title>
-<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
-<script type="text/javascript" src="js/modernizr.min.js"></script>
-<script type="text/javascript" src="js/jquery_ui.js"></script>
-<link type="text/css" rel="stylesheet" href="css/common.css" />
+    <meta charset="utf-8">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,requiresActiveX=true">
+    <title>code</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="msapplication-tap-highlight" content="no" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="css/common.css" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 </head>
 
 <body>
@@ -22,7 +25,7 @@
 .o-input--select:focus {border-color:#000;}
 
 /* ---------------------------------------------------------------------------------------------------------------------
-Ä¿½ºÅÒ ¼¿·ºÆ® ·¹ÀÌ¾îÅ¸ÀÔ
+ì»¤ìŠ¤í…€ ì…€ë ‰íŠ¸ ë ˆì´ì–´íƒ€ì…
 --------------------------------------------------------------------------------------------------------------------- */
 .combobox {display: block;width: 100%;}
 .combobox > select {display: none;}
@@ -39,18 +42,18 @@
 
 </style>
 
-<span data-js="combobox"> <!--  data-js="combobox" ·Î ÀÌº¥Æ® ¹ÙÀÎµù -->
+<span data-js="combobox"> <!--  data-js="combobox" ë¡œ ì´ë²¤íŠ¸ ë°”ì¸ë”© -->
     <!--
-        data-title °ªÀ¸·Î ·¹ÀÌ¾î Å¸ÀÌÆ² ÁöÁ¤
-        title °ªÀ¸·Î »ı¼ºµÇ´Â ButtonÀÇ title°ª ÁöÁ¤
-        class °ªÀ¸·Î »ı¼ºµÇ´Â ButtonÀÇ class°ª Ãß°¡
+        data-title ê°’ìœ¼ë¡œ ë ˆì´ì–´ íƒ€ì´í‹€ ì§€ì •
+        title ê°’ìœ¼ë¡œ ìƒì„±ë˜ëŠ” Buttonì˜ titleê°’ ì§€ì •
+        class ê°’ìœ¼ë¡œ ìƒì„±ë˜ëŠ” Buttonì˜ classê°’ ì¶”ê°€
     -->
-    <select name="" data-title="SORT" title="»óÇ° ¼ø¼­ Á¤·Ä" class="o-input o-input--select">
-        <option value="">ÀÎ±â¼ø</option>
-        <option value="" hidden>»óÇ°Æò¼ø</option> <!-- hidden ¼Ó¼º Ãß°¡ ½Ã, ³ëÃâµÇÁö ¾Ê½À´Ï´Ù.-->
-        <option value="">½Å»óÇ°¼ø</option>
-        <option value="">³·Àº°¡°İ¼ø</option>
-        <option value="">³ôÀº°¡°İ¼ø</option>
+    <select name="" data-title="SORT" title="ìƒí’ˆ ìˆœì„œ ì •ë ¬" class="o-input o-input--select">
+        <option value="">ì¸ê¸°ìˆœ</option>
+        <option value="" hidden>ìƒí’ˆí‰ìˆœ</option> <!-- hidden ì†ì„± ì¶”ê°€ ì‹œ, ë…¸ì¶œë˜ì§€ ì•ŠìŠµë‹ˆë‹¤.-->
+        <option value="">ì‹ ìƒí’ˆìˆœ</option>
+        <option value="">ë‚®ì€ê°€ê²©ìˆœ</option>
+        <option value="">ë†’ì€ê°€ê²©ìˆœ</option>
     </select>
 </span>
 <div id="combobox-dialog" class="c-dialog c-dialog--select combobox-dialog" tabindex="-1"></div>
@@ -173,7 +176,7 @@
                 html+=  '<div id="'+plugin._name+'-dialog" class="c-dialog c-dialog--select '+plugin._name+'-dialog" tabindex="-1">';
 
                 // html+=      '<div class="c-dialog__foot">';
-                // html+=           '<button class="c-dialog__close o-button" data-dismiss="cancel" aria-label="·¹ÀÌ¾îÆË¾÷ ´İ±â"><i class="o-icon o-icon--close"></i></button>';
+                // html+=           '<button class="c-dialog__close o-button" data-dismiss="cancel" aria-label="ë ˆì´ì–´íŒì—… ë‹«ê¸°"><i class="o-icon o-icon--close"></i></button>';
                 // html+=      '</div>';
                 html+=  '</div>';
 
@@ -451,10 +454,10 @@
             console.log(' init ')
         },
         onBeforeChange : function(){
-            console.log(' ¼¿·ºÆ® °ª ¹İ¿µÀü ')
+            console.log(' ì…€ë ‰íŠ¸ ê°’ ë°˜ì˜ì „ ')
         },
         onAfterChange : function(){
-            console.log(' ¼¿·ºÆ® °ª ¹İ¿µÈÄ ')
+            console.log(' ì…€ë ‰íŠ¸ ê°’ ë°˜ì˜í›„ ')
         }
     });
 </script>
@@ -464,7 +467,7 @@
 <h1>html</h1>
 <textarea style="height:120px">
 <span data-js="combobox">
-    <select class="o-input o-input--select" title="Å¸ÀÌÆ²">
+    <select class="o-input o-input--select" title="íƒ€ì´í‹€">
         <option>select</option>
         <option>select</option>
     </select>
@@ -610,7 +613,7 @@
                 html+=  '<div id="'+plugin._name+'-dialog" class="c-dialog c-dialog--select '+plugin._name+'-dialog" tabindex="-1">';
 
                 // html+=      '<div class="c-dialog__foot">';
-                // html+=           '<button class="c-dialog__close o-button" data-dismiss="cancel" aria-label="·¹ÀÌ¾îÆË¾÷ ´İ±â"><i class="o-icon o-icon--close"></i></button>';
+                // html+=           '<button class="c-dialog__close o-button" data-dismiss="cancel" aria-label="ë ˆì´ì–´íŒì—… ë‹«ê¸°"><i class="o-icon o-icon--close"></i></button>';
                 // html+=      '</div>';
                 html+=  '</div>';
 

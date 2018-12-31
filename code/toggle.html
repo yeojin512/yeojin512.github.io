@@ -1,15 +1,18 @@
 <!doctype html>
-<html xml:lang="ko" lang="ko">
+<html lang="ko">
 <head>
-<meta charset="euc-kr">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>¸®½ºÆ®</title>
-<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
-<script type="text/javascript" src="js/modernizr.min.js"></script>
-<script type="text/javascript" src="js/jquery_ui.js"></script>
-<link type="text/css" rel="stylesheet" href="css/common.css" />
+    <meta charset="utf-8">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,requiresActiveX=true">
+    <title>code</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="msapplication-tap-highlight" content="no" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="css/common.css" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 </head>
 
 <body>
@@ -20,8 +23,8 @@
     .toggle__panel {display:none;}
 </style>
 <div class="toggle">
-    <button type="button" data-js="toggle" data-option='{"mode" : "slide", "el_panel": "#toggle__panel", "initOpen":true }'  class="toggle__anchor">¹öÆ° ¿­¸²</button>
-    <p id="toggle__panel" class="toggle__panel">³»¿ë</p>
+    <button type="button" data-js="toggle" data-option='{"mode" : "slide", "el_panel": "#toggle__panel", "initOpen":true }'  class="toggle__anchor">ë²„íŠ¼ ì—´ë¦¼</button>
+    <p id="toggle__panel" class="toggle__panel">ë‚´ìš©</p>
 </div>
 <script>
 /**
@@ -53,7 +56,7 @@
 
         el_panel : null,
         el_close : null,
-        replaceText : ['¿­¸²','´İÈû'],
+        replaceText : ['ì—´ë¦¼','ë‹«í˜'],
         activeClass : 'is-active',
 
         onBeforeOpen : null,
@@ -356,28 +359,28 @@
 <h1>html</h1>
 <textarea style="height:110px">
 <div class="toggle">
-    <button type="button" data-js="toggle" data-option='{"mode" : "slide", "el_panel": "#toggle__panel", "initOpen":true }'  class="toggle__anchor">¹öÆ° ¿­¸²</button>
-    <p id="toggle__panel" class="toggle__panel">³»¿ë</p>
+    <button type="button" data-js="toggle" data-option='{"mode" : "slide", "el_panel": "#toggle__panel", "initOpen":true }'  class="toggle__anchor">ë²„íŠ¼ ì—´ë¦¼</button>
+    <p id="toggle__panel" class="toggle__panel">ë‚´ìš©</p>
 </div>
 </textarea>
 
 <textarea style="height:200px">
 data-option='{
-    "mode" : "slide",  //(¿É¼Ç) static(¹ÌÁöÁ¤ ½Ã), slide, fade
-    "el_panel" : "# ID " //(ÇÊ¼ö) ÆĞ³Î ¾ÆÀÌµğ
-    "el_close" : "# ID " //(¿É¼Ç) ÆĞ³Î¾È¿¡ ´İ±â¹öÆ°ÀÌ ÀÖÀ» °æ¿ì
-    "initOpen" : false   //(¿É¼Ç) ÃÖÃÊ ¿­·ÁÀÖ¾î¾ßÇÏ´Â °æ¿ì true,
-    "forceClose" : false //(¿É¼Ç) trueÀÏ °æ¿ì, ·¹ÀÌ¾î ¿Ü ¿µ¿ª Å¬¸¯½Ã ´İÈû
+    "mode" : "slide",  //(ì˜µì…˜) static(ë¯¸ì§€ì • ì‹œ), slide, fade
+    "el_panel" : "# ID " //(í•„ìˆ˜) íŒ¨ë„ ì•„ì´ë””
+    "el_close" : "# ID " //(ì˜µì…˜) íŒ¨ë„ì•ˆì— ë‹«ê¸°ë²„íŠ¼ì´ ìˆì„ ê²½ìš°
+    "initOpen" : false   //(ì˜µì…˜) ìµœì´ˆ ì—´ë ¤ìˆì–´ì•¼í•˜ëŠ” ê²½ìš° true,
+    "forceClose" : false //(ì˜µì…˜) trueì¼ ê²½ìš°, ë ˆì´ì–´ ì™¸ ì˜ì—­ í´ë¦­ì‹œ ë‹«í˜
 }'
 
-¿É¼Ç ±âº»°ª : {
+ì˜µì…˜ ê¸°ë³¸ê°’ : {
     mode : 'static',            // slide, fade, static
     speed : 300,
     initOpen : false,
     easing : 'easeInOutQuart',
     el_panel : null,
     el_close : null,
-    replaceText : ['¿­±â','´İ±â'],
+    replaceText : ['ì—´ê¸°','ë‹«ê¸°'],
     activeClass : 'is-active',
     forceClose : true,
     lockScroll : true,
@@ -427,7 +430,7 @@ data-option='{
 
         el_panel : null,
         el_close : null,
-        replaceText : ['¿­¸²','´İÈû'],
+        replaceText : ['ì—´ë¦¼','ë‹«í˜'],
         activeClass : 'is-active',
 
         onBeforeOpen : null,

@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,requiresActiveX=true">
+    <title>code</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="msapplication-tap-highlight" content="no" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="css/common.css" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+</head>
+
+<body>
+
+<!-- view -->
+<a href="#" class="o-button skip-to-top js-skip-to-top" data-js="js-skip-to-top">
+    <i aria-hidden="true" class="fa fa-arrow-up"></i>
+    <span class="sr-only">본문 상단 이동</span>
+</a>
+
+<style>
+    .skip-to-top {position:fixed;bottom:60px;right:10px;z-index:990;width:35px;height:35px;background-color:rgba(255,255,255,.9);box-shadow:0 1px 4px rgba(0,0,0,.2);text-align:center;box-sizing:border-box;opacity:0;
+        -webkit-transform:scale(0, 0);
+        transform:scale(0, 0);
+        -webkit-transition-property:transform;
+        -webkit-transition-duration:0.2s;
+        transition-property:transform;
+        transition-duration:0.2s;
+    }
+
+    body.js-top-visible .skip-to-top {
+        opacity:1;
+        -webkit-transform:scale(1, 1);
+        transform:scale(1, 1);
+    }
+
+    .fa {font-size:20px;line-height:35px;}
+</style>
+
+<script>
+/**
+ *   Skip To Top
+ */
+(function(){
+    var scrollClass = "js-top-visible";
+    var el_body = document.querySelector('body');
+    var skipButton = document.querySelector('[data-js="js-skip-to-top"]');
+
+    window.addEventListener('scroll',function(){
+        var scrollY = window.pageYOffset;
+
+        if (scrollY > 0) {
+            el_body.classList.add(scrollClass);
+        } else {
+            el_body.classList.remove(scrollClass);
+        }
+    });
+
+    skipButton.addEventListener('click',function (e) {
+        window.scrollTo(window.scrollX, 0);
+        // $('html,body').stop().animate({scrollTop:0}, 200); // jquery 스르륵 올라가는 모션
+        e.preventDefault();
+    })
+})();
+</script>
+<!-- //view -->
+
+<!-- html -->
+<h1>html</h1>
+<textarea style="height:100px">
+<a href="#" class="o-button skip-to-top" data-js="js-skip-to-top">
+    <i aria-hidden="true" class="fa fa-arrow-up"></i>
+    <span class="sr-only">본문 상단 이동</span>
+</a>
+</textarea>
+<!-- //html -->
+
+<!-- css -->
+<h1>css</h1>
+<textarea style="height:100px">
+.skip-to-top {position:fixed;bottom:60px;right:10px;z-index:990;width:35px;height:35px;background-color:rgba(255,255,255,.9);box-shadow:0 1px 4px rgba(0,0,0,.2);text-align:center;box-sizing:border-box;opacity:0;
+    -webkit-transform:scale(0, 0);
+    transform:scale(0, 0);
+    -webkit-transition-property:transform;
+    -webkit-transition-duration:0.2s;
+    transition-property:transform;
+    transition-duration:0.2s;
+}
+
+body.js-top-visible .skip-to-top {
+    opacity:1;
+    -webkit-transform:scale(1, 1);
+    transform:scale(1, 1);
+}
+
+.fa {font-size:20px;line-height:35px;}
+</textarea>
+<!-- //css -->
+
+<!-- script -->
+<h1>script</h1>
+<textarea style="height:500px">
+/**
+ *   Skip To Top
+ */
+(function(){
+    var scrollClass = "js-top-visible";
+    var el_body = document.querySelector('body');
+    var skipButton = document.querySelector('[data-js="js-skip-to-top"]');
+
+    window.addEventListener('scroll',function(){
+        var scrollY = window.pageYOffset;
+
+        if (scrollY > 0) {
+            el_body.classList.add(scrollClass);
+        } else {
+            el_body.classList.remove(scrollClass);
+        }
+    });
+
+    skipButton.addEventListener('click',function (e) {
+        window.scrollTo(window.scrollX, 0);
+        // $('html,body').stop().animate({scrollTop:0}, 200); // jquery 스르륵 올라가는 모션
+        e.preventDefault();
+    })
+})();
+</textarea>
+<!-- //script -->
+
+</body>

@@ -18,7 +18,11 @@
 <body>
 
 <!-- view -->
-<div id="skipNavigation" class="skip"><a href="#content">본문 바로가기</a></div>
+<div id="skipNavigation" class="skip">
+    <a href="#content">본문 바로가기</a>
+    <a href="#gnb">주메뉴 바로가기</a>
+</div>
+<div id="gnb">주메뉴</div>
 <div id="content">내용</div>
 
 <style>
@@ -36,9 +40,10 @@
  */
 (function () {
     var skip = document.querySelector('#skipNavigation');
-    var content = document.querySelector('#content');
 
     skip.addEventListener('click', function (e) {
+        var hash = e.target.hash;
+        var content = document.querySelector(hash);
         content.setAttribute('tabIndex','-1');
         content.focus();
         e.preventDefault();
@@ -50,7 +55,11 @@
 <!-- markup -->
 <h1>html</h1>
 <textarea style="height:100px">
-<div id="skipNavigation" class="skip"><a href="#content">본문 바로가기</a></div>
+<div id="skipNavigation" class="skip">
+    <a href="#content">본문 바로가기</a>
+    <a href="#gnb">주메뉴 바로가기</a>
+</div>
+<div id="gnb">주메뉴</div>
 <div id="content">내용</div>
 </textarea>
 <!-- //markup -->
@@ -75,16 +84,13 @@
  */
 (function () {
     var skip = document.querySelector('#skipNavigation');
-    var content = document.querySelector('#content');
 
     skip.addEventListener('click', function (e) {
+        var hash = e.target.hash;
+        var content = document.querySelector(hash);
         content.setAttribute('tabIndex','-1');
         content.focus();
         e.preventDefault();
-    });
-
-    content.addEventListener('blur', function () {
-        content.removeAttribute('tabIndex');
     });
 })();
 </textarea>
