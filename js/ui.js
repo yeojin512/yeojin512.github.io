@@ -143,7 +143,7 @@ var animationEndName = (function(){
                 plugin.onAfterOpen();
             });
 
-			plugin.$modal.addClass('is-active zoomIn').find('.ly__content').scrollTop(0);
+			plugin.$modal.addClass('is-active zoomIn').find('.modal__content').scrollTop(0);
 
         },
         hide : function(){
@@ -441,24 +441,24 @@ var animationEndName = (function(){
 	var modal = function(){
 		$('#grid').modal({
 			type : 'group',
-			groupAnchorSelector : '.grid__anchor',
+			groupAnchorSelector : '.portfolio__anchor',
 			onBeforeOpen : function( plugin ){
 				addSlideItem( plugin.$trigger );
 			},
 			onAfterOpen : function(){
 				slider.updateAutoHeight();
-				$('.ly__wrap').css('opacity',1);
+				$('.modal__wrap').css('opacity',1);
 			},
 			onAfterClose : function(){
 				slider.removeAllSlides();
-				$('.ly__wrap').css('opacity',0);
+				$('.modal__wrap').css('opacity',0);
 			}
 		})
 	};
 
 	var addSlideItem = function( $anchor ){
 		var imgList = $anchor.data('imgs');
-		var title = $anchor.closest('.grid__item').find('.grid__name').text();
+		var title = $anchor.closest('.grid__item').find('.portfolio__name').text();
 		var html = [];
 		imgList = imgList.slice(1,imgList.length-1).replace(/\'/gi,'').split(',')
 
@@ -487,29 +487,39 @@ var animationEndName = (function(){
 						prevEl: '.swiper-button-prev',
 					}
 				});
-	}
+	};
 
 
 //portfolio tab
 	var tabNav = $('.c-tab');
+	var $portfolioList = $('.portfolio', '#portfolio');
+	var $grid = $('#grid');
 
-	tabNav.find('a').click(function(e){
-
+	tabNav.find('button').on('click', function(e){
 		e.preventDefault();
-		tabNav.find('a').removeClass('is-active');
-		tabNav.siblings('div').hide();
+        var $this = $(this);
+        var type = $this.data('type');
 
-		var target = $(this).closest('a');
-		target.addClass('is-active');
-		var index = target.index();
-		tabNav.siblings('div').eq(index).show();
+        $this
+            .addClass('is-active')
+            .siblings('button')
+            .removeClass('is-active');
 
-	}).eq(0).click();
+        $portfolioList
+            .attr('class', 'portfolio portfolio--'+type);
+
+        $portfolioList
+            .find('h3.sr-only')
+            .text('포트폴리오 '+ (type === 'view' ? '앨범' : '목록') + '형');
+
+        $grid.masonry();
+
+	});
 
 //grid
 
 	$(function(){
-		var $grid = $('#grid').imagesLoaded( function() {
+		$grid.imagesLoaded( function() {
 			$grid.masonry({
 				itemSelector: '.grid__item'
 			});
