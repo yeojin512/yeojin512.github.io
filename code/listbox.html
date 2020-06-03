@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+- 버튼 활성화시 aria-expanded="true" 생성
+
+<!-- 단일 사용 -->
+<div class="listbox">
+    <select class="hidden" title="은행">
+        <option selected>option1</option>
+        <option>option2</option>
+        <option>option3</option>
+        <option>option4</option>
+    </select>
+
+    <button type="button" class="listbox__button" aria-haspopup="listbox" aria-label="은행 - option1">option1<span class="sr-only"> 목록 열기</span></button>
+    <ul class="listbox__panel" role="listbox" aria-label="은행" aria-activedescendant="id-option-1" tabindex="-1">
+        <li class="listbox__item" id="id-option-1" role="option" aria-selected="true" tabindex="0">option1</li>
+        <li class="listbox__item" id="id-option-2" role="option" tabindex="0">option2</li>
+        <li class="listbox__item" id="id-option-3" role="option" tabindex="0">option3</li>
+        <li class="listbox__item" id="id-option-4" role="option" tabindex="0">option4</li>
+    </ul>
+</div>
+
+<!-- c-form 에 사용 -->
+<div class="c-form">
+    <div class="c-form__field">
+        <div class="c-form__label">은행</div>
+        <div class="c-form__row">
+            <div class="listbox">
+                <select class="hidden" title="은행">
+                    <option selected>option1</option>
+                    <option>option2</option>
+                    <option>option3</option>
+                    <option>option4</option>
+                </select>
+
+                <button type="button" class="listbox__button" aria-haspopup="listbox" aria-label="은행 - option5">option5 <span class="sr-only"> 목록 열기</span></button>
+                <ul class="listbox__panel" role="listbox" aria-label="은행" aria-activedescendant="id-option-5" tabindex="-1">
+                    <li class="listbox__item" id="id-option-5" role="option" aria-selected="true" tabindex="0">option5</li>
+                    <li class="listbox__item" id="id-option-6" role="option" tabindex="0">option6</li>
+                    <li class="listbox__item" id="id-option-7" role="option" tabindex="0">option7</li>
+                    <li class="listbox__item" id="id-option-8" role="option" tabindex="0">option8</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
