@@ -77,5 +77,6 @@ textarea.code {min-height:300px;}
 .c-table th,
 .c-table td {padding:10px 15px;border-bottom:1px solid #eee;font-size:13px;text-align:center;}
 .c-table th {background-color:#fafafa;vertical-align:middle;}
+.c-table thead th {background-color:#666;color:#fff;}
 .c-table th[rowspan] {border-right: 1px solid #eee;}
 .c-table td {border-left:1px solid #eee;}

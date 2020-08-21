@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,requiresActiveX=true">
+    <title>code</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="msapplication-tap-highlight" content="no" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="css/common.css" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+</head>
+
+<body>
+
+<!-- view -->
+<input type="checkbox" class="o-input o-input--toggle" id="★toggle-check" checked>
+<label for="★toggle-check"><span class="sr-only">★토글</span></label>
+
+<style>
+.o-input {
+    border: 0;
+    border-radius: 0;
+    background-color: transparent;
+    box-sizing: border-box;
+    vertical-align: middle;
+    color: #222;
+    -webkit-appearance: none;
+    appearance: none;
+    -webkit-transition: border 200ms ease-in-out;
+    transition: border 200ms ease-in-out;
+}
+
+.o-input::-webkit-input-placeholder {
+    color: #999;
+}
+
+.o-input:-ms-input-placeholder {
+    color: #999;
+}
+
+.o-input::-moz-placeholder {
+    color: #999;
+}
+
+/* checkbox toggle */
+.o-input--toggle {
+    display: inline-block;
+    overflow: hidden;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+}
+
+.o-input--toggle + label {
+    display: inline-block;
+    position: relative;
+    width: 50px;
+    height: 30px;
+    border-radius: 14px;
+    background-color: #ccc;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.o-input--toggle + label:after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 1px;
+    left: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: #fff;
+    -webkit-transition: all 300ms;
+    transition: all 300ms;
+    -webkit-transform: translateX(1px);
+    transform: translateX(1px);
+}
+
+.o-input--toggle:checked + label {
+    background-color: #009cff;
+}
+
+.o-input--toggle:checked + label:after {
+    -webkit-transform: translateX(21px);
+    transform: translateX(21px);
+}
+</style>
+<!-- //view -->
+
+<h1>html</h1>
+<textarea class="code">
+<input type="checkbox" class="o-input o-input--toggle" id="★toggle-check" checked>
+<label for="★toggle-check"><span class="sr-only">★토글</span></label>
+</textarea>
+
+<h1>css</h1>
+<textarea class="code">
+/* ---------------------------------------------------------------------------------------------------------------------
+Form
+--------------------------------------------------------------------------------------------------------------------- */
+/* checkbox toggle */
+.o-input--toggle {
+    display: inline-block;
+    overflow: hidden;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+}
+
+.o-input--toggle + label {
+    display: inline-block;
+    position: relative;
+    width: 50px;
+    height: 30px;
+    border-radius: 14px;
+    background-color: #ccc;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.o-input--toggle + label:after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 1px;
+    left: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: #fff;
+    -webkit-transition: all 300ms;
+    transition: all 300ms;
+    -webkit-transform: translateX(1px);
+    transform: translateX(1px);
+}
+
+.o-input--toggle:checked + label {
+    background-color: #009cff;
+}
+
+.o-input--toggle:checked + label:after {
+    -webkit-transform: translateX(21px);
+    transform: translateX(21px);
+}
+</textarea>
+
+</body>

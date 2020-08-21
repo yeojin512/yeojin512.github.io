@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,requiresActiveX=true">
+    <title>code</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="msapplication-tap-highlight" content="no" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="css/common.css" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+</head>
+
+<body>
+
+<!-- view -->
+<!-- label 이 있는 경우 -->
+<div id="★radio-title">radio <span aria-hidden="true">*</span></div>
+
+<div role="group" aria-labelledby="★radio-title">
+    <input type="radio" class="o-input o-input--radio" name="★radio1" id="★radio1-1" checked required><label for="★radio1-1">★켜짐</label>
+    <input type="radio" class="o-input o-input--radio" name="★radio1" id="★radio1-2" required><label for="★radio1-2">★꺼짐</label>
+    <input type="radio" class="o-input o-input--radio" name="★radio2" id="★radio2-1" checked disabled><label for="★radio2-1">★켜짐 선택불가</label>
+    <input type="radio" class="o-input o-input--radio" name="★radio2" id="★radio2-2" disabled><label for="★radio2-2">★꺼짐 선택불가</label>
+</div>
+
+<br>
+
+<!-- label 이 없는 경우 -->
+<div role="group" aria-label="★radio-title">
+    <input type="radio" class="o-input o-input--radio" name="★radio1" id="★radio3-1" checked required><label for="★radio3-1">★켜짐</label>
+    <input type="radio" class="o-input o-input--radio" name="★radio1" id="★radio3-2" required><label for="★radio3-2">★꺼짐</label>
+    <input type="radio" class="o-input o-input--radio" name="★radio2" id="★radio4-1" checked disabled><label for="★radio4-1">★켜짐 선택불가</label>
+    <input type="radio" class="o-input o-input--radio" name="★radio2" id="★radio4-2" disabled><label for="★radio4-2">★꺼짐 선택불가</label>
+</div>
+
+<style>
+.o-input {
+    border: 0;
+    border-radius: 0;
+    background-color: transparent;
+    box-sizing: border-box;
+    vertical-align: middle;
+    color: #222;
+    -webkit-appearance: none;
+    appearance: none;
+    -webkit-transition: border 200ms ease-in-out;
+    transition: border 200ms ease-in-out;
+}
+
+.o-input::-webkit-input-placeholder {
+    color: #999;
+}
+
+.o-input:-ms-input-placeholder {
+    color: #999;
+}
+
+.o-input::-moz-placeholder {
+    color: #999;
+}
+
+/* radio */
+.o-input--radio {
+    display: inline-block;
+    overflow: hidden;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+}
+
+.o-input--radio:first-child + label {
+    margin-left: 0;
+}
+
+.o-input--radio + label {
+    display: inline-block;
+    position: relative;
+    margin-left: 20px;
+    padding-left: 28px;
+    font-size: 15px;
+    line-height: 23px;
+    cursor: pointer;
+}
+
+.o-input--radio + label:before {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 23px;
+    height: 23px;
+    background-color: #fff;
+    border: 1px solid #bbb;
+    border-radius: 50%;
+    content: "";
+}
+
+.o-input--radio:checked + label:before {
+    border-color: #009cff;
+}
+
+.o-input--radio:checked + label:after {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 7px;
+    width: 10px;
+    height: 10px;
+    margin-top: -5px;
+    border-radius: 50%;
+    background-color: #009cff;
+    content: "";
+}
+
+.o-input--radio:disabled + label:before {
+    border-color: #bbb;
+    background-color: #f4f4f4;
+}
+
+.o-input--radio:disabled + label:after {
+    background-color: #bbb;
+}
+</style>
+<!-- //view -->
+
+<h1>html</h1>
+<textarea class="code">
+<!-- label 이 있는 경우 -->
+<div id="★radio-title">radio <span aria-hidden="true">*</span></div>
+
+<div role="group" aria-labelledby="★radio-title">
+    <input type="radio" class="o-input o-input--radio" name="★radio1" id="★radio1-1" checked required><label for="★radio1-1">★켜짐</label>
+    <input type="radio" class="o-input o-input--radio" name="★radio1" id="★radio1-2" required><label for="★radio1-2">★꺼짐</label>
+    <input type="radio" class="o-input o-input--radio" name="★radio2" id="★radio2-1" checked disabled><label for="★radio2-1">★켜짐 선택불가</label>
+    <input type="radio" class="o-input o-input--radio" name="★radio2" id="★radio2-2" disabled><label for="★radio2-2">★꺼짐 선택불가</label>
+</div>
+
+<br>
+
+<!-- label 이 없는 경우 -->
+<div role="group" aria-label="★radio-title">
+    <input type="radio" class="o-input o-input--radio" name="★radio1" id="★radio3-1" checked required><label for="★radio3-1">★켜짐</label>
+    <input type="radio" class="o-input o-input--radio" name="★radio1" id="★radio3-2" required><label for="★radio3-2">★꺼짐</label>
+    <input type="radio" class="o-input o-input--radio" name="★radio2" id="★radio4-1" checked disabled><label for="★radio4-1">★켜짐 선택불가</label>
+    <input type="radio" class="o-input o-input--radio" name="★radio2" id="★radio4-2" disabled><label for="★radio4-2">★꺼짐 선택불가</label>
+</div>
+</textarea>
+
+<h1>css</h1>
+<textarea class="code">
+/* ---------------------------------------------------------------------------------------------------------------------
+Form
+--------------------------------------------------------------------------------------------------------------------- */
+/* radio */
+.o-input--radio {
+    display: inline-block;
+    overflow: hidden;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+}
+
+.o-input--radio:first-child + label {
+    margin-left: 0;
+}
+
+.o-input--radio + label {
+    display: inline-block;
+    position: relative;
+    margin-left: 20px;
+    padding-left: 28px;
+    font-size: 15px;
+    line-height: 23px;
+    cursor: pointer;
+}
+
+.o-input--radio + label:before {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 23px;
+    height: 23px;
+    background-color: #fff;
+    border: 1px solid #bbb;
+    border-radius: 50%;
+    content: "";
+}
+
+.o-input--radio:checked + label:before {
+    border-color: #009cff;
+}
+
+.o-input--radio:checked + label:after {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 7px;
+    width: 10px;
+    height: 10px;
+    margin-top: -5px;
+    border-radius: 50%;
+    background-color: #009cff;
+    content: "";
+}
+
+.o-input--radio:disabled + label:before {
+    border-color: #bbb;
+    background-color: #f4f4f4;
+}
+
+.o-input--radio:disabled + label:after {
+    background-color: #bbb;
+}
+</textarea>
+
+</body>
