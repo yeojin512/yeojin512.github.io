@@ -21,17 +21,20 @@
 <textarea class="code">
 <div class="c-tab">
     <div class="c-tab__list" role="tablist" aria-label="★탭 title">
-        <button type="button" class="c-tab__anchor" id="★tab-list-1" role="tab" aria-selected="★true" aria-controls="★tab-panel-1">★tab button 1</button> <!-- 활성화시 is-active 클래스 생성 -->
-        <button type="button" class="c-tab__anchor" id="★tab-list-2" role="tab" aria-selected="★false" aria-controls="★tab-panel-2" tabindex="-1">★tab button 2</button>
-        <button type="button" class="c-tab__anchor" id="★tab-list-3" role="tab" aria-selected="★false" aria-controls="★tab-panel-3" tabindex="-1">★tab button 3</button>
+        <button type="button" class="c-tab__anchor is-active" role="tab" aria-selected="★true">★tab button 1</button> <!-- 활성화시 is-active 클래스 생성 -->
+        <button type="button" class="c-tab__anchor" role="tab" aria-selected="★false">★tab button 2</button>
+        <button type="button" class="c-tab__anchor" role="tab" aria-selected="★false">★tab button 3</button>
     </div>
-    <div class="c-tab__panel" id="★tab-panel-1" role="tabpanel" aria-labelledby="★tab-list-1" aria-hidden="★false" tabindex="0"> <!-- 활성화시 is-active 클래스 생성 -->
+    <div class="c-tab__panel is-active" role="tabpanel" aria-hidden="★false" tabindex="0"> <!-- 활성화시 is-active 클래스 생성 -->
+        <h2 class="sr-only">★tab button 1</h2>
         ★tab panel 1
     </div>
-    <div class="c-tab__panel" id="★tab-panel-2" role="tabpanel" aria-labelledby="★tab-list-2" aria-hidden="★true" tabindex="0">
+    <div class="c-tab__panel" role="tabpanel" aria-hidden="★true" tabindex="0">
+        <h2 class="sr-only">★tab button 2</h2>
         ★tab panel 2
     </div>
-    <div class="c-tab__panel" id="★tab-panel-3" role="tabpanel" aria-labelledby="★tab-list-3" aria-hidden="★true" tabindex="0">
+    <div class="c-tab__panel" role="tabpanel" aria-hidden="★true" tabindex="0">
+        <h2 class="sr-only">tab button 3</h2>
         ★tab panel 3
     </div>
 </div>
@@ -76,20 +79,9 @@ Tab
 
 <h1>사용</h1>
 <pre class="code">
-[전체]
-    세로형 탭일 경우 : tablist 요소에 aria-orientation="vertical"
-    http://nuli.navercorp.com/sharing/blog/post/1132879
-
-[키보드] : c-tab__anchor
-    space, enter: 탭패널 활성화
-    방향키 : 탭 버튼 요소 간 이동 (처음인 경우 마지막으로, 마지막인 경우 처음으로 이동 가능)
-    home : 첫번째 버튼으로 이동
-    end : 마지막 버튼으로 이동
-
 [활성화]
     button : c-tab__anchor
         aria-selected : 활성화 true, 비활성화 false
-        tabindex : 활성화 없음, 비활성화 -1
     panel : c-tab__panel
         aria-hidden : 활성화 false, 비활성화 true
 </pre>

@@ -20,7 +20,7 @@
 <h1>html</h1>
 <textarea class="code">
 <div class="toggle">
-    <button type="button" class="toggle__anchor" id="★toggle-anchor" aria-controls="★toggle-panel" aria-expanded="★false">★토글 버튼</button>
+    <button type="button" class="toggle__anchor" id="★toggle-anchor" aria-controls="★toggle-panel">★토글 버튼 <span class="sr-only">상세 열기</span></button>
 
     <div class="toggle__panel" id="★toggle-panel" aria-labelledby="★toggle-anchor" aria-hidden="★false" tabindex="0"> <!-- 활성화시 is-active 클래스 생성 -->
         <p>
@@ -32,11 +32,11 @@
 
 <h1>사용</h1>
 <pre class="code">
-[키보드] : toggle__anchor
-    enter, space : 해당 버튼의 패널 활성화
+[기타]
+    panel에 tabindex="0" 는 디자인, 기획서 확인 후 제거, 스크롤이 아닌 경우 제거
 [활성화]
     button : toggle__anchor
-        aria-expanded : 활성화 true, 비활성화 false
+        활성/비활성화에 따라 열기/닫기 텍스트 변경
     panel : toggle__panel
         aria-hidden : 활성화 false, 비활성화 true
 </pre>

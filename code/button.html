@@ -17,18 +17,18 @@
 
 <body>
 
-<!-- view -->
+<h1>html</h1>
+<textarea class="code">
 <a href="#" class="o-button o-button--1x o-button--gray">a태그</a>
 <button type="button" class="o-button o-button--1x o-button--gray">button 태그</button>
-<!-- //view -->
+</textarea>
 
-<!-- css -->
 <h1>css</h1>
-<textarea style="height:700px">
+<textarea class="code">
 /* ---------------------------------------------------------------------------------------------------------------------
 Button
 --------------------------------------------------------------------------------------------------------------------- */
-.o-button {display: inline-block;border: 0;border-radius: 0;background: transparent;font-family: SECGCWR, sans-serif;font-size: 15px;color: #222;-webkit-appearance: none;appearance: none;-webkit-transition: background 200ms;transition: background 200ms; }
+.o-button {display: inline-block;border: 0;border-radius: 0;background: transparent;color: #222;-webkit-appearance: none;appearance: none;-webkit-transition: background 200ms;transition: background 200ms; }
 
 .o-button--1x {height: 45px;padding: 0 25px;line-height: 45px; }
 .o-button--2x {height: 50px;font-family: SECGCWM,sans-serif;line-height: 50px; }
@@ -41,17 +41,21 @@ Button
 .o-button--blue {border-color: #009cff;background-color: #009cff;color: #fff; }
 .o-button--white {border: 1px solid #ccc;background-color: #fff;color: #222; }
 
-.o-button:disabled, .o-button.is-disabled {background-color: #bbb;cursor: default; }
+.o-button:disabled,
+.o-button.is-disabled {background-color: #bbb;cursor: default; }
 
 .t-button-wrap {padding: 30px 18px; }
 
 .t-flex-wrap {display: -webkit-box;display: flex; }
 .t-flex-wrap .o-button {-webkit-box-flex: 1;flex: 1; }
-.t-button-wrap.t-flex-wrap .o-button:nth-child(n+2) {margin-left: 5px; }
 
 .t-sticky-button {display: -webkit-box;display: flex;position: fixed;bottom: 0;left: 0;z-index: 5;width: 100%;-webkit-transition: -webkit-transform 90ms;transition: -webkit-transform 90ms;transition: transform 90ms;transition: transform 90ms, -webkit-transform 90ms;-webkit-transform: translateY(0);transform: translateY(0); }
 .t-sticky-button .o-button {-webkit-box-flex: 1;flex: 1; }
 </textarea>
-<!-- //css -->
+
+<h1>사용</h1>
+<pre class="code">
+익스에서 버튼이 움직이는게 싫다면 안에 span, position:relative 방법 있음
+</pre>
 
 </body>

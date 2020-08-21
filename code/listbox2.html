@@ -30,7 +30,7 @@
             <option id="★option-4">★option 4</option>
         </select>
     -->
-    <button type="button" class="listbox__anchor" id="★list-button" aria-haspopup="listbox" aria-labelledby="★list-label ★list-button" aria-expanded="★false">★option 1</button>
+    <button type="button" class="listbox__anchor" id="★list-button" aria-haspopup="listbox" aria-labelledby="★list-label ★list-button">★option 1 <span class="sr-only">목록 닫기</span></button>
     <ul class="listbox__panel" role="listbox" aria-labelledby="★list-label" aria-activedescendant="★option-1" tabindex="-1"> <!-- 활성화시 is-active 클래스 생성 -->
         <li class="listbox__item" id="★option-1" role="option" aria-selected="true">★option 1</li> <!-- 활성화시 is-active 클래스 생성 -->
         <li class="listbox__item" id="★option-2" role="option">★option 2</li>
@@ -42,15 +42,15 @@
 <!-- label 요소가 없는 경우 -->
 <div class="listbox">
    <!-- select의 id, title 값과 option의 id, selected 값이 listbox에 적용되어야함
-   <select class="hidden" id="★list-button2" title="★옵션을 선택하세요" aria-hidden="true">
-        <option id="★option-5" selected>★option 5</option>
-        <option id="★option-6">★option 6</option>
-        <option id="★option-7">★option 7</option>
-        <option id="★option-8">★option 8</option>
-    </select>
+       <select class="hidden" id="★list-button2" title="★옵션을 선택하세요" aria-hidden="true">
+            <option id="★option-5" selected>★option 5</option>
+            <option id="★option-6">★option 6</option>
+            <option id="★option-7">★option 7</option>
+            <option id="★option-8">★option 8</option>
+        </select>
     -->
 
-    <button type="button" class="listbox__anchor" id="★list-button2" aria-haspopup="listbox" aria-labelledby="★list-button2" aria-expanded="★false">★option 5</button>
+    <button type="button" class="listbox__anchor" id="★list-button2" aria-haspopup="listbox" aria-labelledby="★list-button2">★option 5 <span class="sr-only">목록 열기</span></button>
     <ul class="listbox__panel" role="listbox" aria-label="★옵션을 선택하세요" aria-activedescendant="★option-5" tabindex="-1"> <!-- 활성화시 is-active 클래스 생성 -->
         <li class="listbox__item" id="★option-5" role="option" aria-selected="true">★option 5</li> <!-- 활성화시 is-active 클래스 생성 -->
         <li class="listbox__item" id="★option-6" role="option">★option 6</li>
@@ -72,7 +72,7 @@
     리스트 열렸을때 현재 활성화된 option에 포커스
 [활성화]
     button : listbox__anchor
-        aria-expanded : 활성화 true, 비활성화 false
+        활성/비활성화에 따라 열기/닫기 텍스트 변경
     list : listbox__panel
         버튼 클릭시 list로 포커스 이동 및 방향키 포커스 갇힘
         li의 선택된 옵션 id값이 ul의 aria-activedescendant에 반영

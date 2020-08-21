@@ -16,35 +16,198 @@
 
 <body>
 
-<style>
-	.ok {background-color:yellow;}
-</style>
-
-<h1>markup &amp; css</h1>
-<ul class="list">
-	<li class="ok"><a href="smc-css.html" target="_blank">삼성SMC css.html</a></li>
-	<li><a href="font.html" target="_blank">font.html</a></li>
-	<li class="ok"><a href="button.html" target="_blank">button</a></li>
-	<li class="ok"><a href="input.html" target="_blank">input</a></li>
-	<li class="ok"><a href="page-navigation.html" target="_blank">page navigation</a></li>
-</ul>
-
-<h1>javascript</h1>
-<ul class="list">
-	<li><a href="skip-to-top_ie9.html" target="_blank">skip to top - ie9</a></li>
-	<li class="ok"><a href="skip-to-top_ie10.html" target="_blank">skip to top - ie10</a></li>
-	<li><a href="skip.html" target="_blank">skip - 1개</a></li>
-	<li><a href="skip-list.html" target="_blank">skip - n개</a></li>
-	<li><a href="select-default.html" target="_blank">select - default</a></li>
-
-	<li><a href="count.html" target="_blank">count</a></li>
-	<li><a href="select.html" target="_blank">select</a></li>
-	<li><a href="tab.html" target="_blank">tab</a></li>
-	<li><a href="toggle.html" target="_blank">toggle</a></li>
-	<li><a href="accordion.html" target="_blank">accordion</a></li>
-	<li><a href="file-attach.html" target="_blank">첨부파일</a></li>
-	<li><a href="photo-attach.html" target="_blank">사진첨부</a></li>
-</ul>
+<div class="c-table">
+	<table>
+		<caption>code 목록</caption>
+		<colgroup>
+			<col>
+			<col>
+			<col>
+			<col>
+			<col>
+		</colgroup>
+		<thead>
+		<tr>
+			<th scope="colgroup" colspan="2">컴포넌트</th>
+			<th scope="col">링크</th>
+			<th scope="col">aria</th>
+			<th scope="col">센스리더기</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr>
+			<th scope="row" colspan="2">layout</th>
+			<td><a href="layout.html" target="_blank">link</a></td>
+			<td>-</td>
+			<td>-</td>
+		</tr>
+		<tr>
+			<th scope="row" colspan="2">font</th>
+			<td><a href="font.html" target="_blank">link</a></td>
+			<td>-</td>
+			<td>-</td>
+		</tr>
+		<tr>
+			<th scope="rowgroup" rowspan="2">skip navigation</th>
+			<th scope="row">1개</th>
+			<td><a href="skip.html" target="_blank">link</a></td>
+			<td>-</td>
+			<td>-</td>
+		</tr>
+		<tr>
+			<th scope="row">n개</th>
+			<td><a href="skip2.html" target="_blank">link</a></td>
+			<td>-</td>
+			<td>-</td>
+		</tr>
+		<tr>
+			<th scope="row" colspan="2">skip to top</th>
+			<td><a href="skip-to-top.html" target="_blank">link</a></td>
+			<td>-</td>
+			<td>-</td>
+		</tr>
+		<tr>
+			<th scope="row" colspan="2">loading</th>
+			<td><a href="loading.html" target="_blank">link</a></td>
+			<td>O</td>
+			<td>X</td>
+		</tr>
+		<tr>
+			<th scope="rowgroup" rowspan="2">breadcrumb</th>
+			<th scope="row">1</th>
+			<td><a href="breadcrumb.html" target="_blank">link</a></td>
+			<td>O</td>
+			<td>X</td>
+		</tr>
+		<tr>
+			<th scope="row">2</th>
+			<td><a href="breadcrumb2.html" target="_blank">link</a></td>
+			<td>O</td>
+			<td>O</td>
+		</tr>
+		<tr>
+			<th scope="row" colspan="2">dimmed</th>
+			<td><a href="dimmed.html" target="_blank">link</a></td>
+			<td>-</td>
+			<td>-</td>
+		</tr>
+		<tr>
+			<th scope="row" colspan="2">gnb</th>
+			<td><a href="gnb.html" target="_blank">link</a></td>
+			<td>O</td>
+			<td>X</td>
+		</tr>
+		<tr>
+			<th scope="row" colspan="2">alert</th>
+			<td><a href="alert.html" target="_blank">link</a></td>
+			<td>O</td>
+			<td>X</td>
+		</tr>
+		<tr>
+			<th scope="row" colspan="2">modal</th>
+			<td><a href="modal.html" target="_blank">link</a></td>
+			<td>O</td>
+			<td>O</td>
+		</tr>
+		<tr>
+			<th scope="rowgroup" rowspan="2">listbox</th>
+			<th scope="row">1</th>
+			<td><a href="listbox.html" target="_blank">link</a></td>
+			<td>O</td>
+			<td>X</td>
+		</tr>
+		<tr>
+			<th scope="row">2</th>
+			<td><a href="listbox2.html" target="_blank">link</a></td>
+			<td>O</td>
+			<td>O</td>
+		</tr>
+		<tr>
+			<th scope="rowgroup" rowspan="2">form</th>
+			<th scope="row">default</th>
+			<td><a href="form.html" target="_blank">link</a></td>
+			<td>O</td>
+			<td>X</td>
+		</tr>
+		<tr>
+			<th scope="row">fubon</th>
+			<td><a href="form-fubon.html" target="_blank">link</a></td>
+			<td>O</td>
+			<td>X</td>
+		</tr>
+		<tr>
+			<th scope="rowgroup" rowspan="2">page navigation</th>
+			<th scope="row">1</th>
+			<td><a href="page-navigation.html" target="_blank">link</a></td>
+			<td>O</td>
+			<td>X</td>
+		</tr>
+		<tr>
+			<th scope="row">2</th>
+			<td><a href="page-navigation2.html" target="_blank">link</a></td>
+			<td>O</td>
+			<td>O</td>
+		</tr>
+		<tr>
+			<th scope="row" colspan="2">button</th>
+			<td><a href="button.html" target="_blank">link</a></td>
+			<td>-</td>
+			<td>-</td>
+		</tr>
+		<tr>
+			<th scope="row" colspan="2">table</th>
+			<td><a href="table.html" target="_blank">link</a></td>
+			<td>-</td>
+			<td>-</td>
+		</tr>
+		<tr>
+			<th scope="rowgroup" rowspan="2">accordion</th>
+			<th scope="row">1</th>
+			<td><a href="accordion.html" target="_blank">link</a></td>
+			<td>O</td>
+			<td>X</td>
+		</tr>
+		<tr>
+			<th scope="row">2</th>
+			<td><a href="accordion2.html" target="_blank">link</a></td>
+			<td>O</td>
+			<td>O</td>
+		</tr>
+		<tr>
+			<th scope="rowgroup" rowspan="2">toggle</th>
+			<th scope="row">1</th>
+			<td><a href="toggle.html" target="_blank">link</a></td>
+			<td>O</td>
+			<td>X</td>
+		</tr>
+		<tr>
+			<th scope="row">2</th>
+			<td><a href="toggle2.html" target="_blank">link</a></td>
+			<td>O</td>
+			<td>O</td>
+		</tr>
+		<tr>
+			<th scope="row" colspan="2">carousel</th>
+			<td><a href="carousel.html" target="_blank">link</a></td>
+			<td>O</td>
+			<td>X</td>
+		</tr>
+		<tr>
+			<th scope="rowgroup" rowspan="2">tab</th>
+			<th scope="row">1</th>
+			<td><a href="tab.html" target="_blank">link</a></td>
+			<td>O</td>
+			<td>X</td>
+		</tr>
+		<tr>
+			<th scope="row">2</th>
+			<td><a href="tab2.html" target="_blank">link</a></td>
+			<td>O</td>
+			<td>O</td>
+		</tr>
+		</tbody>
+	</table>
+</div>
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.0/underscore-min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

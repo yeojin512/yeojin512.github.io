@@ -28,7 +28,7 @@ textarea {overflow:auto;vertical-align:top;}
 html, button, input, select, textarea {color:#767676;}
 html {font-size:1em;line-height:1.4;font-family:'nanum', '나눔고딕', nanum, '돋움',dotum,Helvetica,sans-serif;direction:ltr;}
 audio, canvas, img, svg, video {vertical-align:middle;}
-table {width:100%;}
+table {table-layout: fixed;width:100%;}
 table th {font-weight:normal;}
 ::-moz-selection {background:#b3d4fc;text-shadow:none;}
 ::selection {background:#b3d4fc;text-shadow:none;}
@@ -62,7 +62,6 @@ table th {font-weight:normal;}
 ;}
 
 /* common */
-
 .sr-only {overflow:hidden;position:absolute;z-index:-1;width:1px;height:1px;font-size:1px;line-height:2;opacity:0;}
 
 body {padding:50px 100px;}
@@ -70,11 +69,13 @@ body {padding:50px 100px;}
 h1 {display:block;position:relative;margin:30px 0 15px;padding-left:20px;font-weight:bold;font-size:19px;}
 h1:after {display:block;position:absolute;top:0;left:0;color:#767676;content:"※"}
 a {text-decoration:none; font-size:13px; color:#666}
-textarea {width:100%;height:150px;margin-top:10px;padding:10px;border:1px solid #767676;font-size:14px;line-height:1.5;resize:none;}
-strong {display:block;padding:5px 0;color:#666;}
 
-.list li {margin-top:10px;}
-.list a {position:relative;padding-left:15px;color:#333;font-size:16px;}
-.list a:after {display:block;position:absolute;top:10px;left:0;width:6px;height:2px;background-color:#767676;content:""}
-.list + .list {margin-top:50px;}
+.code {width:100%;margin-top:10px;padding:20px;border:1px solid #767676;font-size:14px;line-height:1.5;resize:none;}
+textarea.code {min-height:300px;}
 
+.c-table {border-top:1px solid #eee;}
+.c-table th,
+.c-table td {padding:10px 15px;border-bottom:1px solid #eee;font-size:13px;text-align:center;}
+.c-table th {background-color:#fafafa;vertical-align:middle;}
+.c-table th[rowspan] {border-right: 1px solid #eee;}
+.c-table td {border-left:1px solid #eee;}

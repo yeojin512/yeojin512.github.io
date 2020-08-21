@@ -19,40 +19,37 @@
 
 <h1>html</h1>
 <textarea class="code">
-<div class="toggle">
-    <button type="button" class="toggle__anchor" id="★toggle-anchor" aria-controls="★toggle-panel" aria-expanded="★false">★토글 버튼</button>
-
-    <div class="toggle__panel" id="★toggle-panel" aria-labelledby="★toggle-anchor" aria-hidden="★false" tabindex="0"> <!-- 활성화시 is-active 클래스 생성 -->
-        <p>
-            content
-        </p>
-    </div>
-</div>
+<nav class="c-breadcrumb" aria-label="breadcrumb">
+    <ol class="c-breadcrumb__list">
+        <li class="c-breadcrumb__item">
+            <a class="c-breadcrumb__anchor" href="#">Home</a>
+        </li>
+        <li class="c-breadcrumb__item">
+            <a class="c-breadcrumb__anchor" href="#">Depth1</a>
+        </li>
+        <li class="c-breadcrumb__item">
+            <a class="c-breadcrumb__anchor" href="#">Depth2</a>
+        </li>
+        <li class="c-breadcrumb__item">
+            <a class="c-breadcrumb__anchor" href="#" aria-current="page">Depth3</a>
+        </li>
+    </ol>
+</nav>
 </textarea>
 
 <h1>사용</h1>
 <pre class="code">
-[키보드] : toggle__anchor
-    enter, space : 해당 버튼의 패널 활성화
-[활성화]
-    button : toggle__anchor
-        aria-expanded : 활성화 true, 비활성화 false
-    panel : toggle__panel
-        aria-hidden : 활성화 false, 비활성화 true
+현재 페이지를 나타내는 요소가 링크가 아닌 경우 aria-current는 선택 사항
 </pre>
 
 <h1>비교</h1>
 <pre class="code">
 [센스리더기]
-    aria-controls : X
-    aria-expanded : X
-    aria-labelledby : X
-    aria-hidden : O
+    aria-label : X
+    aria-current : X
 [NVDA]
-    aria-controls : X (연결되어있는지 panel에서 안읽어줌)
-    aria-expanded : O
-    aria-labelledby : X (연결되어있는지 panel에서 안읽어줌)
-    aria-hidden : O
+    aria-label : O
+    aria-current : O
 </pre>
 
 </body>

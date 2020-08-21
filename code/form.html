@@ -1,0 +1,742 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,requiresActiveX=true">
+    <title>code</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="msapplication-tap-highlight" content="no" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="css/common.css" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+</head>
+
+<body>
+
+<h1>html</h1>
+<textarea class="code">
+<!--
+    에러메시지가 발생한 경우에 해당 input에
+    aria-invalid="true" aria-describedby="★error-message"를 생성,
+    하단에 에러메시지 출력, 추후 삭제
+ -->
+<input type="text" class="input input--text" aria-invalid="true" aria-describedby="★error-message">
+<p class="message-error" id="★error-message">★에러메세지</p>
+
+<!--
+     필수 입력인 경우에 <span class="sr-only">필수입력</span><span class="form__require" aria-hidden="true">*</span>
+-->
+
+<!-- text, password, number -->
+<input type="text" class="input input--text" placeholder="★한글"> 한글키패드
+<input type="tel" class="input input--text" placeholder="★숫자" maxlength="★4" pattern="[0-9]*"> 숫자키패드
+<input type="password" class="input input--text" maxlength="★15"> 패스워드
+<input type="text" class="input input--text" disabled value="★홍길동"> disabled
+<input type="text" class="input input--text" value="★홍길동" readonly> readonly
+
+<!-- textarea -->
+<input type="date" class="input input--date">
+
+<!-- textarea -->
+&lt;textarea class="input input--textarea" placeholder="댓글을 입력하세요." title="댓글" cols="5" rows="10" maxlength="300">&lt;/textarea>
+
+<!-- radio -->
+<div id="★radio-title">radio <span aria-hidden="true">*</span></div>
+<div class="input-group" role="group" aria-labelledby="★radio-title">
+    <input type="radio" class="input input--radio" name="★radio1" id="★radio1-1" checked required><label for="★radio1-1">★켜짐</label>
+    <input type="radio" class="input input--radio" name="★radio1" id="★radio1-2" required><label for="★radio1-2">★꺼짐</label>
+    <input type="radio" class="input input--radio" name="★radio2" id="★radio2-1" checked disabled><label for="★radio2-1">★켜짐 선택불가</label>
+    <input type="radio" class="input input--radio" name="★radio2" id="★radio2-2" disabled><label for="★radio2-2">★꺼짐 선택불가</label>
+</div>
+
+<div class="form">
+    <div class="form__row">
+        <div class="radio-box"><input type="radio" class="input radio-box__input" name="★radio3" id="★radio3-1" checked><label for="★radio3-1">남자</label></div>
+        <div class="radio-box"><input type="radio" class="input radio-box__input" name="★radio3" id="★radio3-2"><label for="★radio3-2">여자</label></div>
+    </div>
+</div>
+
+<!-- checkbox -->
+<div id="★check-title">checkbox</div>
+<div class="input-group" role="group" aria-labelledby="★check-title">
+    <input type="checkbox" class="input input--check input--all" id="★check1-all" checked><label for="★check1-all">★전체선택</label>
+    <input type="checkbox" class="input input--check" id="★check1-1" checked><label for="★check1-1">★켜짐</label>
+    <input type="checkbox" class="input input--check" id="★check1-2"><label for="★check1-2">★꺼짐</label>
+    <input type="checkbox" class="input input--check" id="★check1-3" checked disabled><label for="★check1-3">★켜짐 선택불가</label>
+    <input type="checkbox" class="input input--check" id="★check1-4" disabled><label for="★check1-4">★꺼짐 선택불가</label>
+</div>
+
+<!-- toggle -->
+<input type="checkbox" class="input input--toggle" id="★toggle-check" checked><label for="★toggle-check"><span class="sr-only">★토글</span></label>
+
+<!-- select -->
+<select class="input input--select" title="★타이틀">
+    <option>select</option>
+    <option>select</option>
+</select>
+
+<!-- 숫자카운터 -->
+<span class="counter">
+    <button type="button" class="button counter__decrease" disabled><span class="sr-only">수량 감소</span></button>
+    <input type="number" class="input counter__number" title="현재 수량" value="1" min="1" max="10" maxlength="3" pattern="\d*" readonly>
+    <button type="button" class="button counter__increase"><span class="sr-only">수량 증가</span></button>
+</span>
+
+<span class="counter">
+    <button type="button" class="button counter__decrease"><span class="sr-only">수량 감소</span></button>
+    <input type="number" class="input counter__number" title="현재 수량" value="1" min="3" max="3" maxlength="3" pattern="\d*" readonly>
+    <button type="button" class="button counter__increase"><span class="sr-only">수량 증가</span></button>
+</span>
+
+<!-- 파일첨부 -->
+<!-- 기본 -->
+<div class="attachment"> <!-- 파일 첨부되면 is-loaded 클래스 추가 -->
+    <span class="attachment__placeholder">사진첨부</span>
+    <div class="attachment__preview">
+        <canvas class="attachment__canvas"></canvas>
+    </div>
+    <input class="input attachment__handler" type="file" accept="image/*" capture="camera" title="사진첨부">
+    <button type="button" class="button attachment__delete"><span class="sr-only">첨부파일 삭제</span></button>
+</div>
+
+<!-- 사진 첨부 불가능 -->
+<div class="attachment is-disabled"> <!-- is-disabled 클래스 추가 -->
+    <span class="attachment__placeholder">사진첨부</span>
+    <div class="attachment__preview">
+        <canvas class="attachment__canvas"></canvas>
+    </div>
+    <input class="input attachment__handler" type="file" accept="image/*" capture="camera" title="사진첨부">
+    <button type="button" class="button attachment__delete"><span class="sr-only">첨부파일 삭제</span></button>
+</div>
+
+<!-- 이미 등록된 사진 -->
+<div class="attachment is-disabled"> <!-- is-disabled 클래스 추가 -->
+    <span class="attachment__placeholder">사진첨부</span>
+    <div class="attachment__preview">
+        <img class="attachment__image" src="../../images/temp/temp_event_view1.jpg" alt=""> <!-- 이미지 추가 -->
+        <canvas class="attachment__canvas"></canvas>
+    </div>
+    <input class="input attachment__handler" type="file" accept="image/*" capture="camera" title="사진첨부">
+    <button type="button" class="button attachment__delete"><span class="sr-only">첨부파일 삭제</span></button>
+</div>
+
+<!-- 첨부 기능 없이 사진을 보여주기만 할때 -->
+<div class="attachment is-disabled">
+    <div class="attachment__preview">
+        <img class="attachment__image" src="../../images/temp/temp_event_view1.jpg" alt=""> <!-- 이미지 추가 -->
+    </div>
+</div>
+</textarea>
+
+<h1>css</h1>
+<textarea class="code">
+/* ---------------------------------------------------------------------------------------------------------------------
+Form
+--------------------------------------------------------------------------------------------------------------------- */
+
+/* ---------------------------------------------------------------------------------------------------------------------
+<input type="radio" class="input input--radio" />
+<input type="checkbox" class="input input--checkbox" />
+<input type="text" class="input input--text"/>
+<select class="input input--select"></select>
+--------------------------------------------------------------------------------------------------------------------- */
+.input {
+    border: 0;
+    border-radius: 0;
+    background-color: transparent;
+    box-sizing: border-box;
+    vertical-align: middle;
+    color: #222;
+    -webkit-appearance: none;
+    appearance: none;
+    -webkit-transition: border 200ms ease-in-out;
+    transition: border 200ms ease-in-out;
+}
+
+.input::-webkit-input-placeholder {
+    color: #999;
+}
+
+.input:-ms-input-placeholder {
+    color: #999;
+}
+
+.input::-moz-placeholder {
+    color: #999;
+}
+
+.input--radio {
+    display: inline-block;
+    overflow: hidden;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+}
+
+.input--radio:first-child + label {
+    margin-left: 0;
+}
+
+
+.input--radio + label {
+    display: inline-block;
+    position: relative;
+    margin-left: 20px;
+    padding-left: 28px;
+    font-size: 15px;
+    line-height: 23px;
+    cursor: pointer;
+}
+
+.input--radio + label:before {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 23px;
+    height: 23px;
+    background-color: #fff;
+    border: 1px solid #bbb;
+    border-radius: 50%;
+    content: "";
+}
+
+.input--radio:checked + label:before {
+    border-color: #009cff;
+}
+
+.input--radio:checked + label:after {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 7px;
+    width: 10px;
+    height: 10px;
+    margin-top: -5px;
+    border-radius: 50%;
+    background-color: #009cff;
+    content: "";
+}
+
+.input--radio:disabled + label:before {
+    border-color: #bbb;
+    background-color: #f4f4f4;
+}
+
+.input--radio:disabled + label:after {
+    background-color: #bbb;
+}
+
+.input-group {
+    width:100%;
+}
+
+.radio-box {
+    display: inline-block;
+    width: 50%;
+}
+
+.radio-box:first-child {
+    width: calc(50% + 1px);
+}
+
+.radio-box + .radio-box {
+    margin-left: -1px;
+}
+
+.radio-box__input {
+    overflow: hidden;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+}
+
+.radio-box__input + label {
+    display: inline-block;
+    width: 100%;
+    height: 45px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    color: #888;
+    line-height: 43px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.radio-box__input:checked + label {
+    position: relative;
+    z-index: 1;
+    border: 1px solid #009cff;
+    color: #009cff;
+}
+
+.radio-box__input:checked:disabled + label {
+    border-color: #000;
+    background-color: #f4f4f4;
+    color: #222;
+}
+
+.input--check {
+    display: inline-block;
+    overflow: hidden;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+}
+
+.input--check:first-child + label {
+    margin-left: 0;
+}
+
+.input--check + label {
+    display: inline-block;
+    position: relative;
+    margin-left: 20px;
+    padding-left: 28px;
+    font-size: 15px;
+    line-height: 23px;
+    cursor: pointer;
+}
+
+.input--check + label:before {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 23px;
+    height: 23px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    content: "";
+}
+
+.input--check + label:after {
+    display: block;
+    position: absolute;
+    top: 7px;
+    left: 5px;
+    width: 14px;
+    height: 10px;
+    background: url("../images/common/bg_check.png") no-repeat;
+    background-size: 14px auto;
+    opacity: 0;
+    content: "";
+}
+
+.input--check:checked + label:before {
+    border-color: #009cff;
+}
+
+.input--check:checked + label:after {
+    opacity: 1;
+}
+
+.input--check:disabled + label:before {
+    border-color: #ccc;
+    background-color: #f4f4f4;
+}
+
+.input--check:checked:disabled + label:after {
+    background-image: url("../images/common/bg_check_disabled.png");
+}
+
+.input--check.input--all + label {
+    font-size: 17px;
+    font-family: SECGCWM,sans-serif;
+}
+
+.input--toggle + label {
+    display: inline-block;
+    position: relative;
+    width: 50px;
+    height: 30px;
+    border-radius: 14px;
+    background-color: #ccc;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.input--toggle + label:after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 1px;
+    left: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: #fff;
+    -webkit-transition: all 300ms;
+    transition: all 300ms;
+    -webkit-transform: translateX(1px);
+    transform: translateX(1px);
+}
+
+.input--toggle:checked + label {
+    background-color: #009cff;
+}
+
+.input--toggle:checked + label:after {
+    -webkit-transform: translateX(21px);
+    transform: translateX(21px);
+}
+
+.input--text {
+    display: block;
+    width: 100%;
+    height: 45px;
+    padding: 0 14px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    background-color: #fff;
+    line-height: 43px;
+    text-align: left;
+}
+
+.input--text::-webkit-search-cancel-button {
+    display: none;
+}
+
+.input--text[aria-placeholder] {
+    color: #bbb;
+}
+
+.input--text[readonly],
+.input--text:disabled {
+    background-color: #f4f4f4;
+    cursor: default;
+}
+
+.input--text[readonly]:focus {
+    border-color: #ccc;
+}
+
+.input--text:focus {
+    border-color: #000;
+}
+
+.input--text.is-error {
+    border-color: #e11b22;
+}
+
+.input--date {
+    display: block;
+    width: 100%;
+    height: 45px;
+    padding: 0 14px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    background: #fff url('../images/common/bg_date.png') no-repeat right 14px top 50%;
+    background-size: 14px auto;
+    line-height: 43px;
+}
+
+.input--date::-webkit-search-cancel-button {
+    display: none;
+}
+
+.input--date[aria-placeholder] {
+    color: #bbb;
+}
+
+.input--date[readonly],
+.input--date:disabled {
+    background-color: #f4f4f4;
+    cursor: default;
+}
+
+.input--date[readonly]:focus {
+    border-color: #ccc;
+}
+
+.input--date:focus {
+    border-color: #000;
+}
+
+.input--date.is-error {
+    border-color: #e11b22;
+}
+
+.input--select {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 45px;
+    padding: 0 35px 0 14px;
+    border: 1px solid #ccc;
+    background: #fff url("../images/common/bg_select.png") no-repeat right 14px top 50%;
+    background-size: 8px auto;
+    font-family: inherit;
+    font-size: 15px;
+    line-height: 43px;
+    text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    box-sizing: border-box;
+}
+
+.input--select:disabled,
+.input--select.is-disabled {
+    background-color: #f4f4f4;
+    cursor: default;
+}
+
+.input--select.is-disabled:focus {
+    border-color: #ccc;
+}
+
+.input--select:focus {
+    border-color: #000;
+}
+
+select.input--select.is-error + button.input--select {
+    border-color: #e11b22
+}
+
+.input--textarea {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 13px 14px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    background-color: #fff;
+    resize: none;
+}
+
+.input--textarea:focus {
+    border-color: #000;
+}
+
+.message-error {
+    display: block;
+    width: 100%;
+    margin-top: 12px;
+    font-size: 11px;
+    color: #e11b22;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------
+숫자카운터
+--------------------------------------------------------------------------------------------------------------------- */
+.counter {
+    display: inline-block;
+    overflow: hidden;
+    height: 30px;
+    background-color: #fff;
+    font-size: 0;
+    vertical-align: top;
+}
+
+.counter * {
+    box-sizing: border-box;
+    vertical-align: top;
+}
+
+.counter__decrease,
+.counter__increase {
+    position: relative;
+    width: 30px;
+    height: 100%;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.counter__decrease:after,
+.counter__increase:before,
+.counter__increase:after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 10px;
+    height: 2px;
+    margin: -1px 0 0 -5px;
+    background-color: #222;
+}
+
+.counter__increase:before {
+    -webkit-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+}
+
+.counter__number {
+    width: 40px;
+    height: 100%;
+    margin: 0 -1px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    line-height: 28px;
+    text-align: center;
+    color: #222;
+}
+
+.counter__number::-webkit-outer-spin-button,
+.counter__number::-webkit-inner-spin-button {
+    display: none;
+    margin: 0;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.counter__decrease[disabled],
+.counter__increase[disabled] {
+    background-color: #f4f4f4;
+}
+
+.counter__decrease[disabled]:after,
+.counter__decrease[disabled]:before,
+.counter__increase[disabled]:after,
+.counter__increase[disabled]:before {
+    background-color: #ccc;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------
+File Attachment
+--------------------------------------------------------------------------------------------------------------------- */
+.attachment {
+    -webkit-box-flex: 0;
+    flex: none;
+    max-width: 32.3%;
+    position: relative;
+    width: 100%;
+    border: 1px solid #ccc;
+    background-color: #fff;
+}
+
+.attachment:after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+}
+
+.attachment__placeholder {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    margin-top: 13px;
+    font-size: 14px;
+    color: #bbb;
+    text-align: center;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.attachment__placeholder:before {
+    display: block;
+    position: absolute;
+    top: -22px;
+    left: 50%;
+    width: 1px;
+    height: 15px;
+    background-color: #ccc;
+    content: "";
+}
+
+.attachment__placeholder:after {
+    display: block;
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    width: 15px;
+    height: 1px;
+    margin-left: -7px;
+    background-color: #ccc;
+    content: "";
+}
+
+.attachment__handler {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.attachment__preview {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+}
+
+.attachment__image,
+.attachment__canvas {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.attachment__delete {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 4;
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    background-color: rgba(0,0,0,.7);
+}
+
+.attachment.is-loaded .attachment__handler {
+    display: none;
+}
+
+.attachment.is-loaded .attachment__delete {
+    display: block;
+}
+
+.attachment.is-disabled {
+    background: #f4f4f4 url("../images/common/img_attach_logo.png") no-repeat 50% 50%;
+    background-size: auto 17px;
+}
+
+.attachment.is-disabled .attachment__canvas,
+.attachment.is-disabled .attachment__placeholder,
+.attachment.is-disabled .attachment__handler {
+    display: none;
+}
+
+</textarea>
+
+<h1>비교</h1>
+<pre class="code">
+[센스리더기]
+    aria-invalid : X
+    aria-describedby : X
+    required : X
+    role="group" : X
+    aria-labelledby : X
+    aria-hidden : O
+[NVDA]
+    aria-invalid : O
+    aria-describedby : O
+    required : O
+    role="group" : O
+    aria-labelledby : O
+    aria-hidden : O
+</pre>
+
+</body>

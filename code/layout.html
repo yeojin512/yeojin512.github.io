@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,requiresActiveX=true">
+    <title>code</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="msapplication-tap-highlight" content="no" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="css/common.css" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+</head>
+
+<body>
+
+<h1>html</h1>
+<textarea class="code">
+<body>
+
+<div id="skipNavigation" class="skip"><a href="#content">본문 바로가기</a></div>
+
+<div class="l-wrap">
+    <header class="l-head">
+        header
+    </header>
+
+    <aside class="l-side">
+        side
+    </aside>
+
+    <main class="l-content">
+        <section id="content" class="page">
+            content
+        </section>
+    </main>
+
+    <footer class="l-foot">
+		<small class="copyright">copyright</small>
+	</footer>
+</div>
+
+</body>
+</textarea>
+
+<h1>css</h1>
+<textarea class="code">
+
+/*
+권장 CSS 속성 선언 순서
+1. display: 표시
+2. overflow: 넘침
+3. float: 흐름
+4. position: 위치
+5. z-index: 개체간 순위
+6. width & height: 크기
+7. margin & padding: 간격
+8. border: 보더
+9. font: 폰트 (font-family;font-style;font-size;font-weight;...)
+10. background: 배경
+11. etc: 기타 (color, text-decoration, text-indent;..)
+12. animation: 동작
+*/
+
+/* -------------------------------------------------------------------------------------------------
+Reset
+------------------------------------------------------------------------------------------------- */
+*, *:after, *:before {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+}
+
+html, body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, form, fieldset, legend, input, textarea, select, p, button, article, aside, details, figcaption, figure, footer, header, main, nav, section, summary {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  overflow-x: hidden;
+  width: 100%;
+  min-width: 320px;
+  height: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: SECGCWR, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #222;
+}
+
+article, aside, header, footer, nav, section, main, figcaption, figure, details, menu {
+  display: block;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: 100%;
+  font-weight: normal;
+  line-height: 1.5;
+}
+
+a {
+  background-color: transparent;
+  text-decoration: none;
+  color: #222;
+  -webkit-tap-highlight-color: transparent;
+}
+
+a:hover, a:visited {
+  text-decoration: none;
+}
+
+strong {
+  font-weight: normal;
+}
+
+em {
+  font-style: normal;
+}
+
+img {
+  border-style: none;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+table {
+  table-layout: fixed;
+  border-spacing: 0;
+}
+
+button, input, select, textarea {
+  margin: 0;
+  font-family: inherit;
+  font-size: 100%;
+  line-height: 1.5;
+  -webkit-appearance: none;
+}
+
+button, input {
+  overflow: visible;
+}
+
+button, select {
+  text-transform: none;
+}
+
+select {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+select::-ms-expand {
+  display: none;
+}
+
+button, input[type="button"], input[type="reset"], input[type="submit"] {
+  border-style: none;
+  background: none;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+input[type="checkbox"], input[type="radio"] {
+  padding: 0;
+}
+
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+input[type="search"] {
+  -webkit-appearance: textfield;
+}
+
+input[type="search"]::-webkit-search-cancel-button, input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+textarea {
+  overflow: auto;
+  vertical-align: top;
+}
+
+/* Regular */
+@font-face {
+  font-family:'SECGCWR';
+  src:url("../font/secgcwr.eot");
+  src:url("../font/secgcwr.eot?#iefix") format("embedded-opentype"),
+  url("../font/secgcwr.woff") format("woff");
+  font-weight:normal;
+  font-style:normal;
+}
+
+/* Medium */
+@font-face {
+  font-family:'SECGCWM';
+  src:url("../font/secgcwm.eot");
+  src:url("../font/secgcwm.eot?#iefix") format("embedded-opentype"),
+  url("../font/secgcwm.woff") format("woff");
+  font-weight:normal;
+  font-style:normal;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------
+Helper
+--------------------------------------------------------------------------------------------------------------------- */
+.sr-only {
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+  width: 1px;
+  height: 1px;
+  font-size: 1px;
+  line-height: 2;
+  opacity: 0;
+}
+
+.js-hidden {
+  visibility: hidden;
+}
+
+.js-lazy,
+.js-lazy--ing {
+  opacity: 0;
+}
+
+.js-lazy--end {
+  opacity: 1;
+  -webkit-transition: opacity 0.2s ease-in-out;
+  transition: opacity 0.2s ease-in-out;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------
+JS Class
+--------------------------------------------------------------------------------------------------------------------- */
+html.has-modal {
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------
+Layout
+- z-index
+  .dimmed 100
+  .modal 999
+--------------------------------------------------------------------------------------------------------------------- */
+.l-wrap {
+  position: relative;
+}
+
+/* header */
+.l-head {
+  position: relative;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  width: 100%;
+  height: 49px;
+  background-color: #fff;
+}
+
+/* content */
+.l-content {
+  border-top: 1px solid #e3e3e3;
+}
+
+/* side */
+.l-side {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 101;
+  width: 315px;
+  height: 100%;
+  background-color: #222428;
+  box-sizing: border-box;
+  -webkit-transform: translate3d(100%, 0, 0);
+  transform: translate3d(100%, 0, 0);
+  -webkit-transition-property: -webkit-transform;
+  transition-property: -webkit-transform;
+  transition-property: transform;
+  transition-property: transform, -webkit-transform;
+  -webkit-transition-duration: 200ms;
+  transition-duration: 200ms;
+}
+
+</textarea>
+
+</body>

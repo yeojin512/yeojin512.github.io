@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,requiresActiveX=true">
+    <title>code</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="msapplication-tap-highlight" content="no" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="css/common.css" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+</head>
+
+<body>
+
+<h1>html</h1>
+<textarea class="code">
+<!-- 공통 dimmed, 활성화시 is-active 클래스 생성 -->
+<div class="o-dimmed o-dimmed--transition is-active" aria-hidden="true"></div>
+
+<button type="button" class="o-button" data-src="#★modal-id" title="레이어팝업 열기">modal</button>
+
+<section class="c-modal is-active" id="★modal-id" role="dialog" aria-modal="true" aria-labelledby="★modal-title" tabindex="0"> <!-- 활성화시 is-active 클래스 생성 -->
+    <h1 class="c-modal__title" id="★modal-title">타이틀</h1>
+
+    <div class="c-modal__body" tabindex="0"> <!-- 스크롤 생기려면 height 값이 생성 되어야함 -->
+        <!-- 컨텐츠 -->
+        컨텐츠영역<br>
+        컨텐츠영역<br>
+        컨텐츠영역
+        <!-- //컨텐츠 -->
+    </div>
+
+    <div class="c-modal__foot">
+        <button type="button" class="o-button c-modal__button">확인</button>
+        <button type="button" class="o-button c-modal__button">취소</button>
+        <button type="button" class="o-button c-modal__close"><span class="sr-only">레이어팝업 닫기</span></button>
+    </div>
+</section>
+</textarea>
+
+<h1>css</h1>
+<textarea class="code">
+/* ---------------------------------------------------------------------------------------------------------------------
+ Modal ( half )
+--------------------------------------------------------------------------------------------------------------------- */
+.c-modal {
+  display: none;
+  overflow: hidden;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 999;
+  width: 280px;
+  max-height: 80%;
+  background-color: #fff;
+  opacity: 0;
+  transform: translate3d(-50%, -50%, 0);
+  transition: opacity 200ms;
+}
+    
+.c-modal.is-active {
+  display: block;
+  opacity: 1;
+}
+
+.c-modal__title {
+  padding: 33px 20px 20px;
+}
+
+.c-modal__body {
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 0 20px 35px;
+  font-size: 13px;
+}
+
+.c-modal__close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 15px;
+  line-height: 1;
+  background-color: #333;
+}
+
+.c-modal__foot {
+  display: flex;
+}
+
+.c-modal__button {
+  flex: 1;
+  display: block;
+  width: 100%;
+}
+</textarea>
+
+<h1>사용</h1>
+<pre class="code">
+[키보드]
+    esc : 모달 닫힘
+    모달에 첫 진입시에만 class="modal"에 포커스 생성
+    모달안에 포커스 가둬야함
+[활성화]
+    html 태그에 class="has-modal" 클래스 생성
+</pre>
+
+<h1>비교</h1>
+<pre class="code">
+[센스리더기]
+    role="dialog" : O
+    aria-labelledby : O
+[NVDA]
+    role="dialog" : O
+    aria-labelledby : O
+</pre>
+
+</body>

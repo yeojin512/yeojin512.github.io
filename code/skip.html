@@ -19,7 +19,7 @@
 
 <!-- view -->
 <div id="skipNavigation" class="skip"><a href="#content">본문 바로가기</a></div>
-<div id="content">내용</div>
+<section id="content">내용</section>
 
 <style>
     /* skip */
@@ -31,6 +31,7 @@
 </style>
 
 <script>
+
 /**
  *   Skip Navigation
  */
@@ -47,17 +48,14 @@
 </script>
 <!-- //view -->
 
-<!-- markup -->
 <h1>html</h1>
-<textarea style="height:100px">
+<textarea class="code">
 <div id="skipNavigation" class="skip"><a href="#content">본문 바로가기</a></div>
-<div id="content">내용</div>
+<section id="content">내용</section>
 </textarea>
-<!-- //markup -->
 
-<!-- css -->
 <h1>css</h1>
-<textarea style="height:100px">
+<textarea class="code">
 /* skip */
 .skip {position:fixed;top:0;left:0;z-index:500;width:100%;}
 .skip a {display:block;width:0;height:0;font-size:1px;opacity:0;}
@@ -65,11 +63,9 @@
 .skip a:focus,
 .skip a:active {display:block;width:100%;height:40px;background-color:#282a37;font-size:14px;text-align:center;color:#fff;line-height:40px;opacity:1;}
 </textarea>
-<!-- //css -->
 
-<!-- script -->
 <h1>script</h1>
-<textarea style="height:500px">
+<textarea class="code">
 /**
  *   Skip Navigation
  */
@@ -88,6 +84,5 @@
     });
 })();
 </textarea>
-<!-- //script -->
 
 </body>

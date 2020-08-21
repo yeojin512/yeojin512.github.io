@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,requiresActiveX=true">
+    <title>code</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="msapplication-tap-highlight" content="no" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="css/common.css" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+</head>
+
+<body>
+
+<h1>html</h1>
+<textarea class="code">
+<nav class="gnb" role="navigation" aria-label="★전체 메뉴">
+    <ul class="gnb__list gnb__list--parent">
+        <li class="gnb__item gnb__item--parent">
+            <button type="button" class="gnb__title" aria-controls="★gnb-panel-1" aria-expanded="★true">보험상품</button>
+            <div class="gnb__panel" id="★gnb-panel-1" aria-hidden="★false"> <!-- 활성화시 is-active 클래스 생성 -->
+                <ul class="gnb__list gnb__list--child">
+                    <li class="gnb__item gnb__item--child">
+                        <a href="#" class="gnb__anchor">ZERO</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <li class="gnb__item gnb__item--parent">
+            <button type="button" class="gnb__title" aria-controls="★gnb-panel-2" aria-expanded="★false">금융상품</button>
+            <div class="gnb__panel" id="★gnb-panel-2" aria-hidden="★true">
+                <ul class="gnb__list gnb__list--child">
+                    <li class="gnb__item gnb__item--child">
+                        <a href="#" class="gnb__anchor">ZERO</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+    </ul>
+</nav>
+</textarea>
+
+<h1>사용</h1>
+<pre class="code">
+[활성화]
+    button : gnb__title
+        - aria-expanded : 활성화 true, 비활성화 false
+    panel : gnb__panel
+        - aria-hidden : 활성화 false, 비활성화 true
+</pre>
+
+<h1>비교</h1>
+<pre class="code">
+[센스리더기]
+    role="navigation" : X
+    aria-controls : X
+    aria-expanded : X
+    aria-hidden : X
+[NVDA]
+    role="navigation" : O
+    aria-controls : O
+    aria-expanded : O
+    aria-hidden : O
+</pre>
+
+</body>

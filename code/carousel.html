@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,requiresActiveX=true">
+    <title>code</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="msapplication-tap-highlight" content="no" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="css/common.css" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+</head>
+
+<body>
+
+<h1>html</h1>
+<textarea class="code">
+<section class="carousel" aria-roledescription="carousel" aria-label="★슬라이드 타이틀">
+    <div class="carousel__controls">
+        <button type="button" class="carousel__control"><span class="sr-only">자동 슬라이드 쇼 시작</span></button> <!-- 활성화시 is-active 클래스 생성 -->
+        <button type="button" class="carousel__control"><span class="sr-only">자동 슬라이드 쇼 정지</span></button>
+        <button type="button" class="carousel__control"><span class="sr-only">★1 of 3</span></button>
+        <button type="button" class="carousel__control"><span class="sr-only">★2 of 3</span></button>
+        <button type="button" class="carousel__control"><span class="sr-only">★3 of 3</span></button>
+    </div>
+
+    <button type="button" class="carousel__anchor carousel__anchor--prev" aria-controls="★carousel-list"><span class="sr-only">이전</span></button>
+    <button type="button" class="carousel__anchor carousel__anchor--next" aria-controls="★carousel-list"><span class="sr-only">다음</span></button>
+
+    <div class="carousel__list" id="★carousel-list" aria-live="★off">
+        <div class="carousel__item" role="group" aria-roledescription="slide" aria-label="★1 of 3"> <!-- 활성화시 is-active 클래스 생성 -->
+            carousel 1
+        </div>
+        <div class="carousel__item" role="group" aria-roledescription="slide" aria-label="★2 of 3">
+            carousel 2
+        </div>
+        <div class="carousel__item" role="group" aria-roledescription="slide" aria-label="★3 of 3">
+            carousel 3
+        </div>
+    </div>
+</section>
+</textarea>
+
+<h1>사용</h1>
+<pre class="code">
+[키보드]
+    캐러셀 요소에 접근했을때 재생 정지
+[aria-live] : carousel__list
+    자동 재생 정지 인 경우 : aria-live="polite"
+    자동 재생 인 경우 : aria-live="off"
+    캐러셀에 포커스가 들어왔을 경우, 마우스를 올렸을 경우 : aria-live="polite"
+</pre>
+
+<h1>비교</h1>
+<pre class="code">
+[센스리더기]
+    aria-live="★off" : ?
+    aria-roledescription : X
+    aria-controls : X
+    aria-label : X
+[NVDA]
+    aria-live="★off" : ?
+    aria-roledescription : O
+    aria-controls : X
+    aria-label : O
+</pre>
+
+</body>

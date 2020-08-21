@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,requiresActiveX=true">
+    <title>code</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="msapplication-tap-highlight" content="no" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="css/common.css" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+</head>
+
+<body>
+
+<h1>html</h1>
+<textarea class="code">
+<!-- 공통 dimmed, 활성화시 is-active 클래스 생성 -->
+<div class="o-dimmed o-dimmed--transition is-active" aria-hidden="true"></div>
+
+<button type="button" class="o-button" data-src="#★alert-id" title="레이어팝업 열기"alert</button>
+
+<section class="c-modal c-modal--alert is-active" id="★alert-id" role="alertdialog" aria-modal="true" aria-labelledby="★alert-title" aria-describedby="★alert-description" tabindex="-1"> <!-- 활성화시 is-active 클래스 생성 -->
+    <h1 class="c-modal__title" id="★alert-title">타이틀</h1>
+
+    <div class="c-modal__body" tabindex="0">
+        <p class="c-modal__description" id="★alert-description">유료로 구매 가능합니다. 결제하시겠습니까?</p>
+    </div>
+
+    <div class="c-modal__foot">
+        <button type="button" class="o-button c-modal__button">확인</button>
+        <button type="button" class="o-button c-modal__button">취소</button>
+    </div>
+</section>
+</textarea>
+
+<h1>css</h1>
+<p>modal이랑 디자인이 다를 경우 c-dialog 로 사용, 마크업에서 클래스 변경</p>
+<textarea class="code">
+/* ---------------------------------------------------------------------------------------------------------------------
+ dialog ( alert, confirm, select )
+--------------------------------------------------------------------------------------------------------------------- */
+
+.c-dialog {
+  display: none;
+  overflow: hidden;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 101;
+  max-height: 100%;
+  background-color: #fff;
+  color: #222;
+  box-sizing: border-box;
+  opacity: 0;
+  -webkit-transform: translate3d(-50%, -50%, 0);
+  transform: translate3d(-50%, -50%, 0);
+  -webkit-transition: opacity 200ms;
+  transition: opacity 200ms;
+}
+
+.c-dialog.is-active {
+  opacity: 1;
+}
+
+.c-dialog__body {
+  position: relative;
+  display: table;
+  width: 100%;
+  min-height: 105px;
+  padding: 32px 20px;
+  line-height: 1.433333;
+  text-align: center;
+}
+
+.c-dialog__message {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.c-dialog__foot {
+  display: -webkit-box;
+  display: flex;
+  height: 50px;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+  flex-direction: row-reverse;
+}
+
+.c-dialog__button {
+  -webkit-box-flex: 1;
+  flex: 1;
+  display: block;
+  width: 100%;
+  line-height: 50px;
+}
+
+.c-dialog--alert,
+.c-dialog--confirm {
+  width: 260px;
+  font-size: 15px;
+  text-align: center;
+}
+
+.c-dialog--select {
+  width: 280px;
+}
+
+.c-dialog--select .c-dialog__body {
+  min-height: 0;
+  padding: 0;
+}
+</textarea>
+
+<h1>사용</h1>
+<pre class="code">
+[키보드]
+    esc : 모달 닫힘
+    모달에 첫 진입시에만 class="modal"에 포커스 생성
+    모달안에 포커스 가둬야함
+[활성화]
+    html 태그에 class="has-modal" 클래스 생성
+</pre>
+
+<h1>비교</h1>
+<pre class="code">
+[센스리더기]
+    role="alertdialog" : X
+    aria-labelledby : O (role를 dialog로 변경할 경우)
+    aria-describedby : X
+[NVDA]
+    role="alertdialog" : X
+    aria-labelledby : O (role를 dialog로 변경할 경우)
+    aria-describedby : O (role를 dialog로 변경할 경우)
+</pre>
+
+</body>
